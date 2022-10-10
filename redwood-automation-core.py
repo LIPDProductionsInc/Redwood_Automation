@@ -25,6 +25,7 @@ tree = bot.tree
 
 initial_extensions = ['cogs.redwood-automation-admin',
                       'cogs.redwood-automation-commands',
+                      'cogs.redwood-automation-council',
                       'cogs.redwood-automation-errors',
                       'cogs.redwood-automation-help',
                       'cogs.redwood-automation-owner'
