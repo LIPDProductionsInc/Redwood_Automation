@@ -143,7 +143,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
             pass
         pass
     
-    @commands.command(name='rules')
+    @commands.command(name='rules', hidden=True)
     @commands.is_owner()
     async def _rules(self, ctx):
         channel = self.bot.get_channel(646541638763544586)
@@ -166,7 +166,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         await channel.send(embed=embed)
         pass
 
-    @commands.command(name='info')
+    @commands.command(name='info', hidden=True)
     @commands.is_owner()
     async def _info(self, ctx):
         channel = self.bot.get_channel(646541638763544586)
