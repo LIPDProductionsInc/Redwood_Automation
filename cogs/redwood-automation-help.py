@@ -19,7 +19,7 @@ class HelpCog(commands.Cog, name="Help Cog"):
             )
         embed.add_field(name="Commands", value="`help` `ping` `serverinfo` `userinfo` `avatar`", inline=False)
         embed.add_field(name="Moderation", value="`ban` `kick` `unban` `role`", inline=False)
-        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=self.bot.avatar_url)
+        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.avatar_url))
         await ctx.send(embed=embed)
         #if command is None:
         #    embed = discord.Embed(title="Help", description="Here's a list of all my commands:", color=0x00ff00)
