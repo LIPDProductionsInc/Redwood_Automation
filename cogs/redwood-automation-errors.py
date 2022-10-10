@@ -151,7 +151,7 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
 #            await channel.send(f':x: | ERROR IN r!{ctx.command}: {f"{new_line}".join(traceback.format_exception(exc_type, exc_value, exc_tb))}')
 
     @commands.Cog.listener()
-    async def on_error(self, error):
+    async def on_error(self, error, event_method):
         exc_type, exc_value, exc_tb = sys.exc_info()
         new_line = '\n'
         print('Ignoring exception in {}:'.format(event_method), file=sys.stderr)
