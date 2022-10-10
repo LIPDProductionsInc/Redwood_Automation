@@ -12,7 +12,11 @@ class HelpCog(commands.Cog, name="Help Cog"):
     @commands.hybrid_command(name="help")
     async def help(self, ctx, *, command: str = None):
         """Shows help about a command or the bot"""
-        embed = discord.Embed(title="Help", description="Here is a list of commands you can use with Redwood Automation.", color=discord.Color.dark_blue)
+        embed = discord.Embed(
+            title="Help",
+            description="Here is a list of commands you can use with Redwood Automation.",
+            color=discord.Color.dark_blue
+            )
         embed.add_field(name="Commands", value="`help` `ping` `serverinfo` `userinfo` `avatar`", inline=False)
         embed.add_field(name="Moderation", value="`ban` `kick` `unban` `role`", inline=False)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=self.bot.avatar_url)

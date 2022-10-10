@@ -11,7 +11,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
     @commands.hybrid_command(name="ping", description="Ping the bot.")
     @commands.guild_only()
     async def ping_command(self, ctx: commands.Context):
-        embed=discord.Embed(
+        embed = discord.Embed(
             colour=discord.Color.green(),
             description=f''':ping_pong: ***Pong!***
 **Latency:** {round(self.bot.latency * 1000)}ms'''
@@ -28,4 +28,3 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
     pass
 
 async def setup(bot: commands.Bot) -> None:
-    await bot.add_cog(CommandsCog(bot))

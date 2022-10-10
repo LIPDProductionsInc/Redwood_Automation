@@ -150,7 +150,7 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 #            await channel.send(f':x: | ERROR IN r!{ctx.command}: {f"{new_line}".join(traceback.format_exception(exc_type, exc_value, exc_tb))}')
 
-    @commands.command(name='repeat', aliases=['mimic', 'copy'])
+    @commands.command(name='repeat', aliases=['mimic', 'copy'], hidden=True)
     async def do_repeat(self, ctx, *, inp: str):
         """A simple command which repeats your input!
         Parameters
