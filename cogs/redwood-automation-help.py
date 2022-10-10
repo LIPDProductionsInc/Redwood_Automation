@@ -6,7 +6,7 @@ from discord.ext import commands
 from datetime import timedelta
 
 class HelpCog(commands.Cog, name="Help Cog"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     @commands.hybrid_command(name="help")

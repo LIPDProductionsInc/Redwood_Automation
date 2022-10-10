@@ -11,11 +11,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="council", description="Shows the current city council members.")
     @commands.guild_only()
     async def council(self, ctx):
-        """Lists the current mayor based on who has the Mayor role."""
         embed = discord.Embed(
             title="Redwood City Council",
             description="Here is a list of the current city council members.",
-            color=discord.Color.dark_blue
+            color=discord.Color.dark_blue()
             )
         embed.add_field(name="Mayor", value={member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549322682466305)}, inline=True)
         embed.add_field(name="Deputy Mayor", value={member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646551227626160139)}, inline=True)
