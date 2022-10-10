@@ -31,9 +31,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
-    
-    async def docket(self, ctx, first: Literal[True, False], docket_item, docket_link):
-        """If the item is the first item of the session, the bot will announce as such. Otherwise, it will announce the next item on the docket."""
+    async def docket(self, ctx, first: Literal["True", "False"], docket_item, docket_link):
         #if ctx.category_id == 646552329654370345:
         if first == True:
             await ctx.send(f"The first item on the docket is {docket_item}. \n\n{docket_link} \n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
