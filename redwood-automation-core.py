@@ -2,7 +2,8 @@ import discord
 import asyncio
 import os
 
-from discord.ext import Guild, app_commands, commands
+from discord import Guild, app_commands
+from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
 
