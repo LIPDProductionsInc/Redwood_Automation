@@ -22,7 +22,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
     @commands.hybrid_command(name="source", description="Get the source code of the bot.")
     @commands.guild_only()
     async def source_command(self, ctx: commands.Context):
-        await ctx.send("Check out the source code for Redwood Deli and help add to the bot here: https://github.com/LIPDProductionsInc/Redwood-Automation")
+        await ctx.send("Check out the source code for Redwood Deli and help add to the bot here: https://github.com/LIPDProductionsInc/Redwood_Automation")
         pass
 
     pass
