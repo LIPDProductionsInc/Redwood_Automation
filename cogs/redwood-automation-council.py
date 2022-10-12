@@ -70,6 +70,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 await ctx.channel.category.edit(id=761730715024097311, reason="Session Ended", sync_permissions=True, position=0)
                 await ctx.send("The session has been ended.")
             else:
+                if ctx.interaction == None:
+                    await ctx.message.delete()
                 await ctx.send("This command can only be used in a council session channel.", ephemeral=True)
         elif session_type == "In-Game":
             channel = ctx.bot.get_channel(646541531523710996)
@@ -90,6 +92,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             await ctx.channel.edit(overwrites=overwrite)
             await ctx.send(f"{member.mention}: you have the floor.")
         else:
+            if ctx.interaction == None:
+                await ctx.message.delete()
             await ctx.send("The floor can only be given in a city council session channel.")
             pass
         pass
@@ -106,6 +110,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             await ctx.channel.edit(overwrites=overwrite)
             await ctx.send(f"{member.mention} has been dismissed from the floor.", ephemeral=True)
         else:
+            if ctx.interaction == None:
+                await ctx.message.delete()
             await ctx.send("This command can only be used in a council session channel.")
             pass
         pass
@@ -114,6 +120,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
     async def propose(self, ctx, *, bill_name, bill_link):
+        if ctx.interaction == None:
+            await ctx.message.delete()
         if ctx.category_id == 646552329654370345:
             channel = ctx.bot.get_channel(941499579029913611)
             await channel.send(f"**{ctx.author.name}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
@@ -121,39 +129,16 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             await ctx.send("This command can only be used in <#941499579029913611>.", ephemeral=True)
             pass
     
-    @commands.hybrid_command(name="legal review", description="Send a bill to the City Attorney's Office for review.")
+    @commands.hybrid_command(name="legal-review", description="Send a bill to the City Attorney's Office for review.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     async def legal_review(self, ctx, trello_link):
-        """If the command was not sent as a slash command, do ctx.message.delete()"""
-        if discord.Interaction == False:
+        if ctx.interaction == None:
             await ctx.message.delete()
         if ctx.category_id == 646552329654370345:
             if trello_link.startswith("https://trello.com/c/"):
                 channel = ctx.bot.get_channel(646541531523710996)
                 await channel.send(f"{trello_link} \n\n<@&646549330479546379>")
-        else:
-            await ctx.send("This command can only be used in a council session channel.")
-            pass
-
-    @commands.hybrid_command(name="vote", description="Starts a vote on a bill.")
-    @commands.guild_only()
-    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
-    async def vote(self, ctx, *, bill_name, bill_link):
-        if ctx.category_id == 646552329654370345:
-            channel = ctx.bot.get_channel(646541531523710996)
-            await channel.send(f"**{ctx.author.name}** has started a vote on a bill. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\n@here")
-        else:
-            await ctx.send("This command can only be used in a council session channel.")
-            pass
-
-    @commands.hybrid_command(name="pass", description="Passes a bill.")
-    @commands.guild_only()
-    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
-    async def pass_(self, ctx, *, bill_name, bill_link):
-        if ctx.category_id == 646552329654370345:
-            channel = ctx.bot.get_channel(646541531523710996)
-            await channel.send(f"**{ctx.author.name}** has passed a bill. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\n@here")
         else:
             await ctx.send("This command can only be used in a council session channel.")
             pass
