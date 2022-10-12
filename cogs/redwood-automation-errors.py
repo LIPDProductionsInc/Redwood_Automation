@@ -143,19 +143,17 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
+        elif isinstance(error, commands.UserInputError):
+            await ctx.send(':x: | UserInputError: {}'.format(error))
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+
         else:
             exc_type, exc_value, exc_tb = sys.exc_info()
             new_line = '\n'
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 #            await channel.send(f':x: | ERROR IN r!{ctx.command}: {f"{new_line}".join(traceback.format_exception(exc_type, exc_value, exc_tb))}')
-
-    @commands.Cog.listener()
-    async def on_error(self, error, event_method):
-        exc_type, exc_value, exc_tb = sys.exc_info()
-        new_line = '\n'
-        print('Ignoring exception in {}:'.format(event_method), file=sys.stderr)
-        traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
     @commands.command(name='repeat', aliases=['mimic', 'copy'], hidden=True)
     async def do_repeat(self, ctx, *, inp: str):

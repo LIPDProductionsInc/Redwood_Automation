@@ -94,7 +94,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         else:
             if ctx.interaction == None:
                 await ctx.message.delete()
-            await ctx.send("The floor can only be given in a city council session channel.")
+            await ctx.send("The floor can only be given in a city council session channel.", ephemeral=True)
             pass
         pass
 
@@ -139,6 +139,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             if trello_link.startswith("https://trello.com/c/"):
                 channel = ctx.bot.get_channel(646541531523710996)
                 await channel.send(f"{trello_link} \n\n<@&646549330479546379>")
+            else:
+                raise commands.BadArgument
         else:
             await ctx.send("This command can only be used in a council session channel.")
             pass
