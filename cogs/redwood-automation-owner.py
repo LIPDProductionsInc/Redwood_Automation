@@ -185,14 +185,14 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         await channel.send(embed=embed)
         pass
     
-    @commands.command(name='edit')
+    @commands.command(name='edit', hidden=True)
     @commands.is_owner()
     async def _edit(self, ctx, id, content):
         message = await channel.fetch_message(id)
         await message.edit(content=content)
         pass
     
-    @commands.command(name='stats')
+    @commands.command(name='stats', hidden=True)
     @commands.is_owner()
     async def _stats(self, ctx):
         embed = discord.Embed(
@@ -253,4 +253,3 @@ If you need new roles, first run `/update` from <@426537812993638400> to get you
     pass
 
 async def setup(bot):
-    await bot.add_cog(OwnerCog(bot))
