@@ -218,6 +218,20 @@ Latency: **{round(self.bot.latency * 1000)}**ms
         await ctx.send(embed=embed)
         pass
 
+    @commands.command(name='restart', hidden=True)
+    @commands.is_owner()
+    async def _restart(self, ctx):
+        await ctx.send('Restarting...')
+        await self.bot.logout()
+        pass
+
+    @commands.hybrid_command(name='test', hidden=True)
+    @commands.is_owner()
+    async def _test(self, ctx):
+        print(discord.InteractionType.application_command)
+        await ctx.send('Sent')
+        pass
+
     @commands.command(name='role-request', hidden=True)
     @commands.is_owner()
     async def _rolerequest(self, ctx):
@@ -253,3 +267,4 @@ If you need new roles, first run `/update` from <@426537812993638400> to get you
     pass
 
 async def setup(bot):
+    await bot.add_cog(OwnerCog(bot))

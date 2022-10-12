@@ -147,6 +147,17 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             await ctx.send("This command can only be used in a council session channel.")
             pass
 
+    @commands.hybrid_command(name="pass", description="Passes a bill.")
+    @commands.guild_only()
+    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    async def pass_(self, ctx, *, bill_name, bill_link):
+        if ctx.category_id == 646552329654370345:
+            channel = ctx.bot.get_channel(646541531523710996)
+            await channel.send(f"**{ctx.author.name}** has passed a bill. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\n@here")
+        else:
+            await ctx.send("This command can only be used in a council session channel.")
+            pass
+
     pass
 
 async def setup(bot):
