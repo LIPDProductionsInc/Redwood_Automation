@@ -46,7 +46,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     async def session(self, ctx, session_type:Literal["In-Game", "Discord"]):
         if session_type == "In-Game":
-            await ctx.send(f"**An in-game City Council Session is starting.**\n\nPlease join at the following link: <Link Here> \n\n@here")
+            channel = ctx.bot.get_channel(646541531523710996)
+            await channel.send(f"**An in-game City Council Session is starting.**\n\nPlease join at the following link: <Link Here> \n\n@here")
         elif session_type == "Discord":
             overwrite = {
                 ctx.guild.get_role(646549322682466305): discord.PermissionOverwrite(send_messages=True),
@@ -55,13 +56,28 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 ctx.guild.get_role(646549329493884929): discord.PermissionOverwrite(send_messages=True)
             }
             await ctx.guild.create_text_channel(f"council-session-new", category=ctx.guild.get_channel(646552329654370345), overwrites=overwrite)
-            await ctx.send(f"**{ctx.author} has started a Discord city council session.**\n\nPlease join the session channel.")
+            await ctx.send(f"**A Discord City Council Session is starting.**\n\nPlease join at the following link: <Link Here> \n\n@here")
+        else:
+            raise commands.BadArgument
         pass
 
-    #@commands.hybrid_command(name="end-session", description="Ends a city council session, either in-game or on Discord.")
-    #@commands.guild_only()
-    #@commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
-    #Coming soon...
+    @commands.hybrid_command(name="end-session", description="Ends a city council session, either in-game or on Discord.")
+    @commands.guild_only()
+    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    async def end_session(self, ctx, session_type:Literal["In-Game", "Discord"]):
+        if session_type == "Discord":
+            if ctx.channel.name.startswith("council-session"):
+                await ctx.channel.category.edit(id=761730715024097311, reason="Session Ended", sync_permissions=True, position=0)
+                await ctx.send("The session has been ended.")
+            else:
+                await ctx.send("This command can only be used in a council session channel.", ephemeral=True)
+        elif session_type == "In-Game":
+            channel = ctx.bot.get_channel(646541531523710996)
+            await channel.send("The session has been ended.")
+            pass
+        else:
+            raise commands.BadArgument
+        pass
 
     @commands.hybrid_command(name="floor", description="Gives a non-council member the floor to speak.")
     @commands.guild_only()
@@ -93,6 +109,17 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             await ctx.send("This command can only be used in a council session channel.")
             pass
         pass
+
+    @commands.hybrid_command(name="propose", description="Proposes a bill to the rest of city council.")
+    @commands.guild_only()
+    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
+    async def propose(self, ctx, *, bill_name, bill_link):
+        if ctx.category_id == 646552329654370345:
+            channel = ctx.bot.get_channel(941499579029913611)
+            await channel.send(f"**{ctx.author.name}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
+        else:
+            await ctx.send("This command can only be used in <#941499579029913611>.", ephemeral=True)
+            pass
 
     pass
 
