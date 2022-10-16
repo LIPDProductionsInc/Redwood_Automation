@@ -18,11 +18,11 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             description="Here is a list of the current city council members:",
             color=discord.Color.dark_blue()
             )
-        embed.add_field(name="Mayor", value={member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549322682466305)}, inline=True)
-        embed.add_field(name="Deputy Mayor", value={member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646551227626160139)}, inline=True)
-        embed.add_field(name="City Council Chairperson", value={member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=673008336010084378)}, inline=False)
+        embed.add_field(name="Mayor", value=ctx.guild.get_role(646549322682466305).members[0].mention if len(ctx.guild.get_role(646549322682466305).members) > 0 else "VACANT", inline=False)
+        embed.add_field(name="Deputy Mayor", value=ctx.guild.get_role(646551227626160139).members[0].mention if len(ctx.guild.get_role(646551227626160139).members) > 0 else "VACANT", inline=True)
+        embed.add_field(name="Council Chairperson", value=ctx.guild.get_role(673008336010084378).members[0].mention if len(ctx.guild.get_role(673008336010084378).members) > 0 else "VACANT", inline=False)
         embed.add_field(name="City Council Members", value="\n".join([member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549329493884929)]), inline=True)
-        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.avatar_url))
+        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
         embed.timestamp = datetime.datetime.now()
         await ctx.send(embed=embed)
         pass
