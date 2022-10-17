@@ -148,7 +148,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     async def charter(self, ctx):
         """If the member is part of the City Council, send them to the Google Docs link, otherwise send them to the Google PDF link"""
         if ctx.author.id in [646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929]:
-            await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access) \n <https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>")
+            await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n <https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>", ephemeral=True)
         else:
             await ctx.send("Current City Charter: \n <https://drive.google.com/file/d/1Q6QzU6fZM6vZ8W8m9X9F1pOJl0v1hWkK/view?usp=sharing>")
             pass
