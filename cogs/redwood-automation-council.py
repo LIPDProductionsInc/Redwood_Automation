@@ -122,7 +122,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         if ctx.channel.id == 941499579029913611:
             if ctx.interaction == None:
                 await ctx.message.delete()
-            await ctx.send(f"**{ctx.author.name}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
+            await ctx.send(f"**{ctx.author.mention}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
         else:
             await ctx.send("This command can only be used in <#941499579029913611>.", ephemeral=True)
             pass
