@@ -103,7 +103,6 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     async def dismiss(self, ctx, member:discord.Member):
         if ctx.channel.name.startswith("council-session"):
-            """Change overwrite to the default permissions for member"""
             overwrite = {
                 member: discord.PermissionOverwrite(send_messages=False, embed_links=False)
             }
@@ -120,11 +119,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
     async def propose(self, ctx, *, bill_name, bill_link):
-        if ctx.interaction == None:
-            await ctx.message.delete()
-        if ctx.category_id == 646552329654370345:
-            channel = ctx.bot.get_channel(941499579029913611)
-            await channel.send(f"**{ctx.author.name}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
+        if ctx.channel.id == 941499579029913611:
+            if ctx.interaction == None:
+                await ctx.message.delete()
+            await ctx.send(f"**{ctx.author.name}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
         else:
             await ctx.send("This command can only be used in <#941499579029913611>.", ephemeral=True)
             pass
@@ -135,10 +133,9 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     async def legal_review(self, ctx, trello_link):
         if ctx.interaction == None:
             await ctx.message.delete()
-        if ctx.category_id == 646552329654370345:
+        if ctx.channel.id == 941499579029913611:
             if trello_link.startswith("https://trello.com/c/"):
-                channel = ctx.bot.get_channel(646541531523710996)
-                await channel.send(f"{trello_link} \n\n<@&646549330479546379>")
+                await ctx.send(f"{trello_link} \n\n<@&646549330479546379>")
             else:
                 raise commands.BadArgument
         else:
