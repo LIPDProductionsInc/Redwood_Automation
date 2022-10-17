@@ -185,7 +185,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         embed.set_author(name='Redwood Information')
         embed.add_field(name='Council Boards', value='[City Council](https://trello.com/b/gVPTVd0r) \n [City Records](https://trello.com/b/g06YwcHJ)', inline=False)
         embed.add_field(name='Administration Boards', value='[Office of the Mayor](https://trello.com/b/pK66sdV7) \n [Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
-        embed.add_field(name='Other Links', value='[City Charter](https://trello.com/c/T3jW7f8m) \n [Floor Rules](https://trello.com/c/XpLJXTTI) \n [Twitter](http://twitter.com/CityofRedwood)', inline=False)
+        embed.add_field(name='Other Links', value='[City Charter](https://trello.com/c/Pm1y1ZzD) \n [Floor Rules](https://trello.com/c/XpLJXTTI) \n [Twitter](http://twitter.com/CityofRedwood)', inline=False)
         embed.set_footer(text='Information last updated on:')
         embed.timestamp = datetime.datetime.now()
         await channel.send(embed=embed)
