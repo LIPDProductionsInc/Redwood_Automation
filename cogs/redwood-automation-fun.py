@@ -30,7 +30,7 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
 
     @commands.hybrid_command(name="choose", description="Chooses between multiple options.")
     @commands.guild_only()
-    async def choose(self, ctx, *choices):
+    async def choose(self, ctx, *, choices):
         if ctx.category_id == 646540220539338775:
             await ctx.send(f' Chose {random.choice(choices)}')
         else:
@@ -96,5 +96,5 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
 
     pass
 
-def setup(bot):
-    bot.add_cog(RedwoodAutomationFun(bot))
+async def setup(bot):
+    await bot.add_cog(RedwoodAutomationFun(bot))
