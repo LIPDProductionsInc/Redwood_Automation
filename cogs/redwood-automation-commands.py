@@ -52,13 +52,16 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
             title=member.name,
             colour=member.colour
             )
-        embed.add_field(name="ID", value=member.id, inline=True).add_field(name="Nickname", value=member.nick, inline=True).add_field(name="Status", value=member.status, inline=True)
+        roles = [role for role in member.roles]
+        embed.add_field(name="Name", value=member.mention, inline=True).add_field(name="Nickname", value=member.nick, inline=True).add_field(name="Status", value=member.status.title(), inline=True)
         embed.add_field(name="Joined At", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=True)
         embed.add_field(name="Created At", value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=True)
         embed.add_field(name="Bot?", value=member.bot, inline=True)
-        embed.add_field(name="Roles", value=", ".join([role.mention for role in member.roles]), inline=False)
-        embed.add_field(name="Key Permissions", value=", ".join([perm[0] for perm in member.guild_permissions if perm[1]]), inline=False)
-        embed.set_footer(text=f"Developed by {self.bot.owner}")
+        embed.add_field(name=f"Roles ({len(roles) - 1})", value=", ".join(role.mention for role in roles[1:]), inline=False)
+        embed.add_field(name="Key Permissions", value=", ".join([permission.replace("_", " ").title() for permission in member.guild_permissions if permission[1]]))
+        embed.set_thumbnail(url=member.guild_avatar)
+        embed.set_footer(text=f"ID: {member.id}")
+        embed.timestamp = datetime.datetime.now()
         await ctx.send(embed=embed)
         pass
 
