@@ -32,6 +32,8 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
             await self.bot.load_extension(f'cogs.redwood-automation-{cog}')
         except Exception as e:
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+            print('Ignoring exception in loading cog {}:'.format(cog), file=sys.stderr)
+            traceback.print_exception(type(e), e, e.__traceback__, file=sys.stderr)
         else:
             await ctx.send(f'**`Cog: {cog} has loaded successfully`**')
 
@@ -52,6 +54,8 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
             await self.bot.unload_extension(f'cogs.redwood-automation-{cog}')
         except Exception as e:
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+            print('Ignoring exception in unloading cog {}:'.format(cog), file=sys.stderr)
+            traceback.print_exception(type(e), e, e.__traceback__, file=sys.stderr)
         else:
             print(f'{cog} has unloaded successfully!')
             await ctx.send(f'**`Successfuly unloaded Cog: {cog}`**')
@@ -75,6 +79,8 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
             await asyncio.sleep(1)
         except Exception as e:
             await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+            print('Ignoring exception in reloading cog {}:'.format(cog), file=sys.stderr)
+            traceback.print_exception(type(e), e, e.__traceback__, file=sys.stderr)
         else:
             await ctx.send(f'**`Successfully loaded {cog}`**')
             print(f'Cog: {cog} has loaded sucessfuly!')

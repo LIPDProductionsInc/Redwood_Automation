@@ -82,24 +82,36 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             
         elif isinstance(error, AttributeError):
             await ctx.send(f':x: | AttributeError: {error}')
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             
         elif isinstance(error, NameError):
             await ctx.send(f':x: | NameError: {error}')
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
         
         elif isinstance(error, ValueError):
             await ctx.send(f':x: | ValueError: {error}')
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
         
         elif isinstance(error, SyntaxError):
             await ctx.send(f':x: | SyntaxError: {error}')
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             
         elif isinstance(error, KeyError):
             await ctx.send(f':x: | KeyError: {error} is not found')
             
         elif isinstance(error, TypeError):
             await ctx.send(f':x: | TypeError: {error}')
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
         
         elif isinstance(error, IndexError):
             await ctx.send(f':x: | IndexError: {error}')
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             
         elif isinstance(error, discord.HTTPException):
              await ctx.send(f':x: | HTTPException: {error.status} (error code: {error.code}): {error.text}')
