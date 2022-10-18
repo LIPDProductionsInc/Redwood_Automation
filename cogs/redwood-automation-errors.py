@@ -1,3 +1,4 @@
+from ast import ExceptHandler
 import discord
 import requests
 import roblox
@@ -149,6 +150,12 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
         elif isinstance(error, commands.BadArgument):
             if ctx.command.qualified_name == 'tag list':
                 await ctx.send('I could not find that member. Please try again.')
+            elif ctx.command.qualified_name == "floor":
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == "legal-review":
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == "dimiss":
+                await ctx.send(error, ephemeral=True)
             
         elif isinstance(error, commands.CheckFailure):
             await ctx.send(':x: | Error not captured')
@@ -156,9 +163,16 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
         elif isinstance(error, commands.UserInputError):
-            await ctx.send(':x: | UserInputError: {}'.format(error))
-            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            if ctx.command.qualified_name == 'floor':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'legal-review':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'propose':
+                await ctx.send(error, ephemeral=True)
+            else:
+                await ctx.send(':x: | UserInputError: {}'.format(error))
+                print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
         else:
             exc_type, exc_value, exc_tb = sys.exc_info()

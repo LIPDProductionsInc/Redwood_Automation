@@ -86,15 +86,18 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     async def floor(self, ctx, member:discord.Member):
         if ctx.channel.name.startswith("council-session"):
-            overwrite = {
-                member: discord.PermissionOverwrite(send_messages=True, embed_links=True)
-            }
-            await ctx.channel.edit(overwrites=overwrite)
-            await ctx.send(f"{member.mention}: you have the floor.")
+            if discord.utils.get(member.roles, id=646549322682466305) or discord.utils.get(member.roles, id=646551227626160139) or discord.utils.get(member.roles, id=673008336010084378) or discord.utils.get(member.roles, id=646549329493884929):
+                raise commands.BadArgument("This person can already speak in the session.")
+            else:
+                overwrite = {
+                    member: discord.PermissionOverwrite(send_messages=True, embed_links=True)
+                }
+                await ctx.channel.edit(overwrites=overwrite)
+                await ctx.send(f"{member.mention}: you have the floor.")
         else:
             if ctx.interaction == None:
                 await ctx.message.delete()
-            await ctx.send("The floor can only be given in a city council session channel.", ephemeral=True)
+            raise commands.UserInputError("The floor can only be given in a city council session channel.")
             pass
         pass
 
@@ -103,11 +106,14 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     async def dismiss(self, ctx, member:discord.Member):
         if ctx.channel.name.startswith("council-session"):
-            overwrite = {
-                member: discord.PermissionOverwrite(send_messages=False, embed_links=False)
-            }
-            await ctx.channel.edit(overwrites=overwrite)
-            await ctx.send(f"{member.mention} has been dismissed from the floor.", ephemeral=True)
+            if discord.utils.get(member.roles, id=646549322682466305) or discord.utils.get(member.roles, id=646551227626160139) or discord.utils.get(member.roles, id=673008336010084378) or discord.utils.get(member.roles, id=646549329493884929):
+                raise commands.BadArgument("This person cannot be dismissed like this in the session.")
+            else:
+                overwrite = {
+                    member: discord.PermissionOverwrite(send_messages=False, embed_links=False)
+                }
+                await ctx.channel.edit(overwrites=overwrite)
+                await ctx.send(f"{member.mention} has been dismissed from the floor.", ephemeral=True)
         else:
             if ctx.interaction == None:
                 await ctx.message.delete()
@@ -118,18 +124,20 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="propose", description="Proposes a bill to the rest of city council.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
+    @app_commands.describe(bill_name="The name of the bill bring proposed.", bill_link="The link to the bill being proposed.")
     async def propose(self, ctx, *, bill_name, bill_link):
         if ctx.channel.id == 941499579029913611:
             if ctx.interaction == None:
                 await ctx.message.delete()
             await ctx.send(f"**{ctx.author.mention}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
         else:
-            await ctx.send("This command can only be used in <#941499579029913611>.", ephemeral=True)
+            raise commands.UserInputError("This command can only be used in <#941499579029913611>.")
             pass
     
     @commands.hybrid_command(name="legal-review", description="Send a bill to the City Attorney's Office for review.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    @app_commands.describe(trello_link="The link to the Trello card for the bill.")
     async def legal_review(self, ctx, trello_link):
         if ctx.interaction == None:
             await ctx.message.delete()
@@ -137,7 +145,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             if trello_link.startswith("https://trello.com/c/"):
                 await ctx.send(f"{trello_link} \n\n<@&646549330479546379>")
             else:
-                raise commands.BadArgument
+                raise commands.BadArgument("The link provided needs to be a Trello card.")
         else:
             await ctx.send("This command can only be used in a council session channel.")
             pass
