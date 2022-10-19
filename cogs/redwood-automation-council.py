@@ -37,7 +37,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             else:
                 await interaction.response.send_message(f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
         else:
-            await interaction.response.send_message("The docket can only be announced in the city council channel.", ephemeral=True)
+            raise commands.UserInputError("The docket can only be announced in the city council channel.")
             pass
         pass
 
@@ -72,7 +72,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             else:
                 if ctx.interaction == None:
                     await ctx.message.delete()
-                await ctx.send("This command can only be used in a council session channel.", ephemeral=True)
+                raise commands.UserInputError("This command can only be used in a council session channel.")
         elif session_type == "In-Game":
             channel = ctx.bot.get_channel(646541531523710996)
             await channel.send("The session has been ended.")
@@ -117,7 +117,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         else:
             if ctx.interaction == None:
                 await ctx.message.delete()
-            await ctx.send("This command can only be used in a council session channel.")
+            raise commands.UserInputError("This command can only be used in a council session channel.")
             pass
         pass
 
@@ -136,14 +136,14 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     
     @commands.hybrid_command(name="legal-review", description="Send a bill to the City Attorney's Office for review.")
     @commands.guild_only()
-    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
     @app_commands.describe(trello_link="The link to the Trello card for the bill.")
     async def legal_review(self, ctx, trello_link):
         if ctx.interaction == None:
             await ctx.message.delete()
         if ctx.channel.id == 941499579029913611:
             if trello_link.startswith("https://trello.com/c/"):
-                await ctx.send(f"{trello_link} \n\n<@&646549330479546379>")
+                await ctx.send(f"{trello_link} \n\n <@&646549330479546379>")
             else:
                 raise commands.BadArgument("The link provided needs to be a Trello card.")
         else:

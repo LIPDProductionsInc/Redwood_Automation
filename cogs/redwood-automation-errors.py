@@ -73,8 +73,12 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             await ctx.send(f'This command is restricted to {error.missing_role}s only!')
 
         elif isinstance(error, commands.MissingAnyRole):
-            if ctx.command.qualified_name == 'accept':
-                await ctx.send(f':x: | This command can only be used by management')
+            if ctx.command.qualified_name == 'legal-review':
+                await ctx.send(f':x: | This command can only be used by the city council.', ephemeral=True)
+            elif ctx.command.qualified_name == 'session':
+                await ctx.send(f':x: | This command can only be used by the Presiding Officers.', ephemeral=True)
+            elif ctx.command.qualified_name == 'end-session':
+                await ctx.send(f':x: | This command can only be used by the Presiding Officers.', ephemeral=True)
             else:
                 await ctx.send(f':x: | This command can only be used by {error.missing_roles}')
             
@@ -168,6 +172,12 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             elif ctx.command.qualified_name == 'legal-review':
                 await ctx.send(error, ephemeral=True)
             elif ctx.command.qualified_name == 'propose':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'dimiss':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'end-session':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'docket':
                 await ctx.send(error, ephemeral=True)
             else:
                 await ctx.send(':x: | UserInputError: {}'.format(error))
