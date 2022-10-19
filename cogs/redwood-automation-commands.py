@@ -18,13 +18,15 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
             description=f''':ping_pong: ***Pong!***
 **Latency:** {round(self.bot.latency * 1000)}ms'''
             )
+        embed.set_footer(text=f"Developed by {self.bot.owner}")
+        embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed)
         pass
 
     @commands.hybrid_command(name="source", description="Get the source code of the bot.")
     @commands.guild_only()
     async def source_command(self, ctx: commands.Context):
-        await ctx.send("Check out the source code for Redwood Deli and help add to the bot here: https://github.com/LIPDProductionsInc/Redwood_Automation")
+        await ctx.send("Check out the source code for Redwood Automation and help add to the bot here: https://github.com/LIPDProductionsInc/Redwood_Automation")
         pass
 
     @commands.hybrid_command(name="serverinfo", description="Get information about the server.")
@@ -64,8 +66,9 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
             status = f":red_circle: {status}"
         elif status == "Offline":
             status = f":black_circle: {status}"
-        embed.add_field(name="Name", value=member.mention, inline=True).add_field(name="Nickname", value=member.nick, inline=True).add_field(name="Status", value=status, inline=True)
-        embed.add_field(name="Joined At", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=True)
+        embed.set_author(name=f"{member}", icon_url=member.display_avatar.url)
+        embed.add_field(name="Name", value=member.mention, inline=True).add_field(name="Status", value=status, inline=True)
+        embed.add_field(name="Joined At", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=False)
         embed.add_field(name="Created At", value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=True)
         embed.add_field(name="Bot?", value=member.bot, inline=True)
         embed.add_field(name=f"Roles ({len(roles) - 1})", value=", ".join(role.mention for role in roles[1:]), inline=False)
@@ -86,7 +89,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
             title=f"{member.name}'s Avatar",
             colour=member.colour
             )
-        embed.set_image(url=member.avatar_url)
+        embed.set_image(url=member.display_avatar.url)
         embed.set_footer(text=f"Developed by {self.bot.owner} | User ID: {member.id}")
         await ctx.send(embed=embed)
         pass

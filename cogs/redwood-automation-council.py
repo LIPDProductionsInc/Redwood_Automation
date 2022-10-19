@@ -31,13 +31,13 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.guild_only()
     @app_commands.checks.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str):
-        if self.bot.category_id == 646552329654370345:
+        if self.bot.channel.name.startswith("council-session"):
             if first == "True":
                 await interaction.response.send_message(f"The first item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
             else:
                 await interaction.response.send_message(f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
         else:
-            raise commands.UserInputError("The docket can only be announced in the city council channel.")
+            raise commands.UserInputError("The docket can only be announced in a session channel.")
             pass
         pass
 
