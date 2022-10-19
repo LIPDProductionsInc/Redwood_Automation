@@ -1,4 +1,3 @@
-from unicodedata import name
 import discord
 import datetime
 
@@ -23,7 +22,7 @@ class HelpCog(commands.Cog, name="Help Cog"):
         await ctx.send(embed=embed)
         pass
 
-        @commands.command(name="beta-help", description="Shows help about a command or the bot (Beta version", hidden=True)
+        @commands.command(name="beta-help", description="Shows help about a command or the bot (Beta version)", aliases=["help-beta"], hidden=True)
         @commands.is_owner()
         async def beta_help(self, ctx, *, command: str = None):
             embed = discord.Embed(
