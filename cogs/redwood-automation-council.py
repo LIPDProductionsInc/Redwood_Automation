@@ -30,6 +30,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.")
     @app_commands.guild_only()
     @app_commands.checks.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    @app_commands.describe(first="True of False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.")
     async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str):
         if self.bot.channel.name.startswith("council-session"):
             if first == "True":
@@ -44,6 +45,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="session", description="Starts a city council session, either in-game or on Discord.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    @app_commands.describe(session_type="The type of session to start. Either \"in-game\" or \"discord\".")
     async def session(self, ctx, session_type:Literal["In-Game", "Discord"]):
         if session_type == "In-Game":
             channel = ctx.bot.get_channel(646541531523710996)
@@ -64,6 +66,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="end-session", description="Ends a city council session, either in-game or on Discord.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    @app_commands.describe(session_type="The type of session to end. Either \"in-game\" or \"discord\".")
     async def end_session(self, ctx, session_type:Literal["In-Game", "Discord"]):
         if session_type == "Discord":
             if ctx.channel.name.startswith("council-session"):
@@ -84,6 +87,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="floor", description="Gives a non-council member the floor to speak.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    @app_commands.describe(member="The non-council member to give the floor to.")
     async def floor(self, ctx, member:discord.Member):
         if ctx.channel.name.startswith("council-session"):
             if discord.utils.get(member.roles, id=646549322682466305) or discord.utils.get(member.roles, id=646551227626160139) or discord.utils.get(member.roles, id=673008336010084378) or discord.utils.get(member.roles, id=646549329493884929):
@@ -104,6 +108,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="dismiss", description="Dismisses a non-council member from the floor.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
+    @app_commands.describe(member="The non-council member to dismiss from the floor.")
     async def dismiss(self, ctx, member:discord.Member):
         if ctx.channel.name.startswith("council-session"):
             if discord.utils.get(member.roles, id=646549322682466305) or discord.utils.get(member.roles, id=646551227626160139) or discord.utils.get(member.roles, id=673008336010084378) or discord.utils.get(member.roles, id=646549329493884929):
