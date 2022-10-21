@@ -137,10 +137,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             raise commands.UserInputError("This command can only be used in <#941499579029913611>.")
             pass
     
-    @commands.hybrid_command(name="legal-review", description="Send a bill to the City Attorney's Office for review.")
+    @commands.hybrid_command(name="legal-review", description="Send a proposal to the City Attorney's Office for review.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
-    @app_commands.describe(trello_link="The link to the Trello card for the bill.")
+    @app_commands.describe(trello_link="The link to the Trello card for the proposal.")
     async def legal_review(self, ctx, trello_link):
         if ctx.interaction == None:
             await ctx.message.delete()
@@ -150,7 +150,52 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             else:
                 raise commands.BadArgument("The link provided needs to be a Trello card.")
         else:
-            raise commands.UserInputError("This command can only be used in a council session channel.")
+            raise commands.UserInputError("This command can only be used in <#941499579029913611>.")
+            pass
+        pass
+
+    @commands.hybrid_command(name="send", description="Send a proposal to either the mayor for signature or the persiding officer to be added to the docket.")
+    @commands.guild_only()
+    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549330479546379)
+    @app_commands.describe(trello_link="The link to the Trello card for the proposal.", location="The location to send the proposal to.")
+    async def send(self, ctx, location: Literal["Mayor", "Docket"], trello_link):
+        if location == "Mayor":
+            channel = self.bot.get_channel(762320251441774632)
+            if ctx.channel.name.startswith("council-session"):
+                if trello_link.startswith("https://trello.com/c/"):
+                    await channel.send(f"{trello_link} \n\n <@&646549322682466305>")
+                else:
+                    raise commands.BadArgument("The link provided needs to be a Trello card.")
+            elif ctx.channel.id == 646552474265845780:
+                if ctx.interaction == None:
+                    await ctx.message.delete()
+                if trello_link.startswith("https://trello.com/c/"):
+                    await channel.send(f"{trello_link} \n\n <@&646549322682466305>")
+                    await ctx.send("Proposal sent to the mayor for signature.", ephemeral=True)
+                else:
+                    raise commands.BadArgument("The link provided needs to be a Trello card.")
+            else:
+                raise commands.UserInputError("This command can only be used in <#646552474265845780> or a council session channel.")
+                pass
+        elif location == "Docket":
+            if discord.utils.get(ctx.author.roles, id=646549330479546379):
+                if ctx.channel.id == 646552474265845780:
+                    if ctx.interaction == None:
+                        await ctx.message.delete()
+                    channel = ctx.bot.get_channel(851985129232793630)
+                    if trello_link.startswith("https://trello.com/c/"):
+                        await channel.send(f"{trello_link} \n\n <@&673008336010084378> Approved and added to the docket.")
+                        await ctx.send("Presiding officer notified.", ephemeral=True)
+                    else:
+                        raise commands.BadArgument("The link provided needs to be a Trello card.")
+                else:
+                    raise commands.UserInputError("This command can only be used in <#646552474265845780>.")
+                    pass
+            else:
+                raise commands.MissingRole(missing_role=646549330479546379)
+                pass
+        else:
+            raise commands.BadArgument("The location provided needs to be either Mayor or Docket.")
             pass
         pass
 
