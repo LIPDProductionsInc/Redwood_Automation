@@ -132,7 +132,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         if ctx.channel.id == 941499579029913611:
             if ctx.interaction == None:
                 await ctx.message.delete()
-            await ctx.send(f"**{ctx.author.mention}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** {bill_name} \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
+            await ctx.send(f"**{ctx.author.mention}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** \"{bill_name}\" \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
         else:
             raise commands.UserInputError("This command can only be used in <#941499579029913611>.")
             pass
@@ -150,14 +150,13 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             else:
                 raise commands.BadArgument("The link provided needs to be a Trello card.")
         else:
-            await ctx.send("This command can only be used in a council session channel.")
+            raise commands.UserInputError("This command can only be used in a council session channel.")
             pass
         pass
 
     @commands.hybrid_command(name="charter", description="Sends a link to the City Charter.")
     @commands.guild_only()
     async def charter(self, ctx):
-        """If the member is part of the City Council, send them to the Google Docs link, otherwise send them to the Google PDF link"""
         if ctx.author.id in [646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929]:
             await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n <https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>", ephemeral=True)
         else:
