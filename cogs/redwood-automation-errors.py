@@ -6,13 +6,16 @@ import sqlite3
 import sys
 import traceback
 
-from discord.ext import commands, tasks
+from discord import Interaction
+from discord.ext import commands
+from discord.app_commands import AppCommandError
 from roblox import InternalServerError
 
 class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
 
     def __init__(self, bot):
         self.bot = bot
+        bot.tree.on_error = self.on_app_command_error
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -190,6 +193,10 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 #            await channel.send(f':x: | ERROR IN r!{ctx.command}: {f"{new_line}".join(traceback.format_exception(exc_type, exc_value, exc_tb))}')
+
+    async def on_app_command_error(self, interaction:Interaction, error:AppCommandError):
+        print('Ignoring exception in command {}:'.format(interaction.command), file=sys.stderr)
+        traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
     @commands.command(name='repeat', aliases=['mimic', 'copy'], hidden=True)
     async def do_repeat(self, ctx, *, inp: str):

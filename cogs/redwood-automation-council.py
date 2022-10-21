@@ -37,8 +37,6 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 await interaction.response.send_message(f"The first item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
             else:
                 await interaction.response.send_message(f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
-        else:
-            raise commands.UserInputError("The docket can only be announced in a session channel.")
             pass
         pass
 
