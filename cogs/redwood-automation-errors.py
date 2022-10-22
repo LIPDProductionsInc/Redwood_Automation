@@ -81,11 +81,13 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
 
         elif isinstance(error, commands.MissingAnyRole):
             if ctx.command.qualified_name == 'legal-review':
-                await ctx.send(f':x: | This command can only be used by the city council.', ephemeral=True)
+                await ctx.send(f':x: | This command can only be used by the City Council.', ephemeral=True)
             elif ctx.command.qualified_name == 'session':
                 await ctx.send(f':x: | This command can only be used by the Presiding Officers.', ephemeral=True)
             elif ctx.command.qualified_name == 'end-session':
                 await ctx.send(f':x: | This command can only be used by the Presiding Officers.', ephemeral=True)
+            elif ctx.command.qualified_name == 'template':
+                await ctx.send(f':x: | This command can only be used by the City Council.', ephemeral=True)
             else:
                 await ctx.send(f':x: | This command can only be used by {error.missing_roles}')
             

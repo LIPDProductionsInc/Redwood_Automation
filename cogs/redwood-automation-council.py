@@ -164,6 +164,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             if ctx.channel.name.startswith("council-session"):
                 if trello_link.startswith("https://trello.com/c/"):
                     await channel.send(f"{trello_link} \n\n <@&646549322682466305>")
+                    await ctx.send("The bill has been sent to the mayor for signature.")
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
             elif ctx.channel.id == 646552474265845780:
@@ -202,11 +203,18 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="charter", description="Sends a link to the City Charter.")
     @commands.guild_only()
     async def charter(self, ctx):
-        if ctx.author.id in [646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929]:
+        if discord.utils.get(ctx.author.roles, id=646549322682466305) or discord.utils.get(ctx.author.roles, id=646551227626160139) or discord.utils.get(ctx.author.roles, id=673008336010084378) or discord.utils.get(ctx.author.roles, id=646549329493884929):
             await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n <https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>", ephemeral=True)
         else:
             await ctx.send("Current City Charter: \n <https://drive.google.com/file/d/1Q6QzU6fZM6vZ8W8m9X9F1pOJl0v1hWkK/view?usp=sharing>")
             pass
+        pass
+
+    @commands.hybrid_command(name="template", description="Sends a link to the Trello card proposal template.")
+    @commands.guild_only()
+    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
+    async def template(self, ctx):
+        await ctx.send("Here is the link to the Bill Templates: \n <https://trello.com/c/tuOk4RtM")
         pass
 
     pass
