@@ -242,29 +242,35 @@ Latency: **{round(self.bot.latency * 1000)}**ms
     @commands.is_owner()
     async def _rolerequest(self, ctx):
         request_role = """
-The following roles can be requested from <@155149108183695360> using `?rank` followed by the name of the role:
-- <@&1000334009651429467>
-- <@&1001014065822453800>
-- <@&1001013976840294450>
+The following roles can be requested:
+- <@&763469321459728384>
+- <@&762321175900454933>
+- <@&1004462014044831845>
+- <@&763466171148140584>
+- <@&646552051290996749>
+- <@&763469003985256479>
+- <@&942850250434031647>
+- <@&763478824641495040>
+- <@&959865461846204436>
+- <@&853817144243650561>
         """
         notice = """
 - Your up-to-date callsign or rank **MUST** be a part of your nickname
-- Applicants, Candidates, Probationary Officers, etc., do **NOT** get department roles
+        """
+        businesses = """
+Please include the link to your business permit from FDOCM
         """
         embed = discord.Embed(
             title="**ROLE REQUEST**",
             colour=discord.Color.blue(),
             description="""
-To be able to view all the necessary channels in this server, you must have the appropriate role(s).
-
-If you have verified with <@426537812993638400> before, check your DM's, because most likely your roles have already been given to you.
-If you have not verified with <@426537812993638400> before, run `/verify` and make sure to select the command from <@426537812993638400> to get yourself verified.
-If you still have not gotten all the roles you need, open a <#999293384504119326> to request the roles you need. **ANY REQUESTS MADE IN THIS CHANNEL WILL NOT BE SEEN!!!**
-
-If you need new roles, first run `/update` from <@426537812993638400> to get your roles updated, if that fails, open a <#999293384504119326>."""
+Tag <@&646554162405834762> to request or remove a role. **I CANNOT GIVE YOU ROLES**
+Make sure your nickname is set to your ROBLOX username.
+You are responsible for keeping your roles and username up-to-date with changes."""
         )
         embed.add_field(name='**Requestable Roles**', value=request_role, inline=True)
         embed.add_field(name='**Notice to Department Employees:**', value=notice, inline=True)
+        embed.add_field(name='**Notice to Business Owners:**', value=businesses, inline=True)
         embed.set_footer(text=f"Developed by {self.bot.owner}", icon_url=ctx.author.avatar)
         embed.set_thumbnail(url=str(self.bot.user.avatar))
         await ctx.send(embed=embed)
