@@ -53,7 +53,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 ctx.guild.get_role(646549322682466305): discord.PermissionOverwrite(send_messages=True),
                 ctx.guild.get_role(646551227626160139): discord.PermissionOverwrite(send_messages=True),
                 ctx.guild.get_role(673008336010084378): discord.PermissionOverwrite(send_messages=True),
-                ctx.guild.get_role(646549329493884929): discord.PermissionOverwrite(send_messages=True)
+                ctx.guild.get_role(646549329493884929): discord.PermissionOverwrite(send_messages=True),
+                ctx.guild.get_role(763469321459728384): discord.PermissionOverwrite(view_channel=True, send_messages=False)
             }
             await ctx.guild.create_text_channel(f"council-session-new", category=ctx.guild.get_channel(646552329654370345), overwrites=overwrite)
             await ctx.send(f"**A Discord City Council Session is starting.**\n\nPlease join at the following link: <Link Here> \n\n@here")
@@ -69,14 +70,14 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         if session_type == "Discord":
             if ctx.channel.name.startswith("council-session"):
                 await ctx.channel.category.edit(id=761730715024097311, reason="Session Ended", sync_permissions=True, position=0)
-                await ctx.send("The session has been ended.")
+                await ctx.send("The session is hereby adjourned. \n\n (<@&646549329493884929>) \n CC: <@&763471193524535336>")
             else:
                 if ctx.interaction == None:
                     await ctx.message.delete()
                 raise commands.UserInputError("This command can only be used in a council session channel.")
         elif session_type == "In-Game":
             channel = ctx.bot.get_channel(646541531523710996)
-            await channel.send("The session has been ended.")
+            await channel.send("The session has been adjourned.")
             pass
         else:
             raise commands.BadArgument
