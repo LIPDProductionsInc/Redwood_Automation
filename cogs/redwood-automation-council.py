@@ -32,7 +32,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.checks.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     @app_commands.describe(first="True of False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.")
     async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str):
-        if self.bot.channel.name.startswith("council-session"):
+        if interaction.channel.name.startswith("council-session"):
             if first == "True":
                 await interaction.response.send_message(f"The first item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
             else:

@@ -31,21 +31,21 @@ class AdminCog(commands.Cog, name="Admin Cog"):
 '''
             )
         else:
-            channel = ctx.bot.get_channel(os.getenv("LogChannel"))
+            #channel = ctx.bot.get_channel(os.getenv("LogChannel"))
             await member.ban(reason=reason)
             embed=discord.Embed(
                 colour=discord.Color.green(),
                 description=f''':white_check_mark: ***{member} was banned*** | {reason}'''
                 )
-            embed2=discord.Embed(
-                colour=discord.Color.red()
-                )
-            embed2.set_author(name=f"Ban | {member}", icon_url=member.avatar_url)
-            embed2.add_field(name="User", value=f"{member.mention}", inline=True).add_field(name="Moderator", value=f"{ctx.author.mention}", inline=True).add_field(name="Reason", value=f"{reason}", inline=True)
-            embed2.set_footer(text=f"ID: {member.id}")
-            embed2.timestamp=datetime.datetime.utcnow()
+            #embed2=discord.Embed(
+            #    colour=discord.Color.red()
+            #    )
+            #embed2.set_author(name=f"Ban | {member}", icon_url=member.avatar_url)
+            #embed2.add_field(name="User", value=f"{member.mention}", inline=True).add_field(name="Moderator", value=f"{ctx.author.mention}", inline=True).add_field(name="Reason", value=f"{reason}", inline=True)
+            #embed2.set_footer(text=f"ID: {member.id}")
+            #embed2.timestamp=datetime.datetime.utcnow()
             await ctx.send(embed=embed)
-            await channel.send(embed=embed2)
+            #await channel.send(embed=embed2)
             pass
         pass
 
@@ -66,21 +66,21 @@ class AdminCog(commands.Cog, name="Admin Cog"):
             )
             await ctx.send(embed=embed)
         else:
-            channel = ctx.bot.get_channel(os.getenv("LogChannel"))
+            #channel = ctx.bot.get_channel(os.getenv("LogChannel"))
             await member.kick(reason=reason)
             embed=discord.Embed(
                 colour=discord.Color.green(),
                 description=f''':white_check_mark: ***{member} was kicked*** | {reason}'''
                 )
-            embed2=discord.Embed(
-                colour=discord.Color.red()
-                )
-            embed2.set_author(name=f"Kick | {member}", icon_url=member.avatar_url)
-            embed2.add_field(name="User", value=f"{member.mention}", inline=True).add_field(name="Moderator", value=f"{ctx.author.mention}", inline=True).add_field(name="Reason", value=f"{reason}", inline=True)
-            embed2.set_footer(text=f"ID: {member.id}")
-            embed2.timestamp=datetime.datetime.utcnow()
+            #embed2=discord.Embed(
+            #    colour=discord.Color.red()
+            #    )
+            #embed2.set_author(name=f"Kick | {member}", icon_url=member.avatar_url)
+            #embed2.add_field(name="User", value=f"{member.mention}", inline=True).add_field(name="Moderator", value=f"{ctx.author.mention}", inline=True).add_field(name="Reason", value=f"{reason}", inline=True)
+            #embed2.set_footer(text=f"ID: {member.id}")
+            #embed2.timestamp=datetime.datetime.utcnow()
             await ctx.send(embed=embed)
-            await channel.send(embed=embed2)
+            #await channel.send(embed=embed2)
             pass
         pass
 
@@ -101,21 +101,21 @@ class AdminCog(commands.Cog, name="Admin Cog"):
             )
             await ctx.send(embed=embed)
         else:
-            channel = ctx.bot.get_channel(os.getenv("LogChannel"))
+            #channel = ctx.bot.get_channel(os.getenv("LogChannel"))
             await ctx.guild.unban(member)
             embed=discord.Embed(
                 colour=discord.Color.green(),
                 description=f''':white_check_mark: ***{member} was unbanned***'''
                 )
-            embed2=discord.Embed(
-                colour=discord.Color.green()
-                )
-            embed2.set_author(name=f"Unban | {member}", icon_url=member.avatar_url)
-            embed2.add_field(name="User", value=f"{member.mention}", inline=True).add_field(name="Moderator", value=f"{ctx.author.mention}", inline=True)
-            embed2.set_footer(text=f"ID: {member.id}")
-            embed2.timestamp=datetime.datetime.utcnow()
+            #embed2=discord.Embed(
+            #    colour=discord.Color.green()
+            #    )
+            #embed2.set_author(name=f"Unban | {member}", icon_url=member.avatar_url)
+            #embed2.add_field(name="User", value=f"{member.mention}", inline=True).add_field(name="Moderator", value=f"{ctx.author.mention}", inline=True)
+            #embed2.set_footer(text=f"ID: {member.id}")
+            #embed2.timestamp=datetime.datetime.utcnow()
             await ctx.send(embed=embed)
-            await channel.send(embed=embed2)
+            #await channel.send(embed=embed2)
             pass
         pass
 
