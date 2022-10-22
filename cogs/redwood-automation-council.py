@@ -154,7 +154,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             pass
         pass
 
-    @commands.hybrid_command(name="send", description="Send a proposal to either the mayor for signature or the persiding officer to be added to the docket.")
+    @commands.hybrid_command(name="send", description="Send a proposal to either the mayor for signature or the persiding officer for notification.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549330479546379)
     @app_commands.describe(trello_link="The link to the Trello card for the proposal.", location="The location to send the proposal to.")
