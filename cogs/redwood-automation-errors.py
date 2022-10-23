@@ -88,6 +88,14 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(f':x: | This command can only be used by the Presiding Officers.', ephemeral=True)
             elif ctx.command.qualified_name == 'template':
                 await ctx.send(f':x: | This command can only be used by the City Council.', ephemeral=True)
+            elif ctx.command.qualified_name == 'send':
+                await ctx.send(f':x: | This command can only be used by the City Attorney or the Presiding Officer.', ephemeral=True)
+            elif ctx.command.qualified_name == 'floor':
+                await ctx.send(f':x: | This command can only be used by the Presiding Officer.', ephemeral=True)
+            elif ctx.command.qualified_name == 'dismiss':
+                await ctx.send(f':x: | This command can only be used by the Presiding Officer.', ephemeral=True)
+            elif ctx.command.qualified_name == 'propose':
+                await ctx.send(f':x: | This command can only be used by the City Council.', ephemeral=True)
             else:
                 await ctx.send(f':x: | This command can only be used by {error.missing_roles}')
             

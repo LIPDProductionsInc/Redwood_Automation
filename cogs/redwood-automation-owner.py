@@ -210,9 +210,9 @@ Python Version: **{sys.version}**
 
 Discord.py Version: **{discord.__version__}**
 
-Current CPU Usage: **{psutil.cpu_percent()}**
+Current CPU Usage: **{psutil.cpu_percent()}**%
 
-Current RAM Usage: **{psutil.virtual_memory().percent}**
+Current RAM Usage: **{psutil.virtual_memory().percent}**%
 
 Average System Load: **{[x / psutil.cpu_count() * 100 for x in psutil.getloadavg()]}%**
 
