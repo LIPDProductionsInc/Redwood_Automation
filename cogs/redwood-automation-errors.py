@@ -128,7 +128,11 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             
         elif isinstance(error, discord.HTTPException):
-             await ctx.send(f':x: | HTTPException: {error.status} (error code: {error.code}): {error.text}')
+            if error.status == 403 and error.code == 50013 and ctx.command.qualified_name == 'ban' or ctx.command.qualified_name == 'kick':
+                prefix = await self.bot.get_prefix(ctx.message)
+                await ctx.send(f'{ctx.author.mention} Yeah no, I ain\'t doing {prefix}{ctx.command.qualified_name} on {ctx.message.mentions[0].mention}.')
+            else:
+                await ctx.send(f':x: | HTTPException: {error.status} (error code: {error.code}): {error.text}')
         
 #         if isinstance(error, requests.RequestsException):
 #             await ctx.send(':x: | There was an ambiguous exception that occurred while trying to fetch the API data.')
@@ -191,6 +195,22 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             elif ctx.command.qualified_name == 'docket':
                 await ctx.send(error, ephemeral=True)
             elif ctx.command.qualified_name == 'send':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'flip':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'roll':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'coin':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'dice':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'choose':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == '8ball':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'rps':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'rpsls':
                 await ctx.send(error, ephemeral=True)
             else:
                 await ctx.send(':x: | UserInputError: {}'.format(error))
