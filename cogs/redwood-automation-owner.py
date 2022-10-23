@@ -202,9 +202,9 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
     @commands.is_owner()
     async def _stats(self, ctx):
         embed = discord.Embed(
-            title='Redwood Deli',
+            title='Redwood Automation',
             type='rich',
-            colour=discord.Color(0xFF9E00),
+            colour=discord.Color.dark_blue(),
             description=f'''
 Python Version: **{sys.version}**
 
