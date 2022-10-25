@@ -37,7 +37,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 if docket_link.startswith("https://trello.com/c/"):
                     await interaction.response.send_message(f"The first item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
                 else:
-                    raise app_commands.errors.CommandError("The docket link must be a Trello link.")
+                    await interaction.response.send_message(":x: The link you provided is not a valid Trello link. Please try again.", ephemeral=True)
             else:
                 await interaction.response.send_message(f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
             pass

@@ -20,7 +20,6 @@ class HelpCog(commands.Cog, name="Help Cog"):
             embed.add_field(name="Council Commands", value="`propose`, `legal-review`, `charter`, `template`", inline=False)
         if discord.utils.get(ctx.author.roles, id=646549322682466305) or discord.utils.get(ctx.author.roles, id=646551227626160139) or discord.utils.get(ctx.author.roles, id=673008336010084378):
             embed.add_field(name="Presiding Officer Commands", value="`docket`, `session`, `end-session`, `floor`, `dismiss`, `send`", inline=False)
-        '''If the author has the city attorney role (646549330479546379), add city attorney commands to the help embed via a field.'''
         if discord.utils.get(ctx.author.roles, id=646549330479546379):
             embed.add_field(name="City Attorney Commands", value="`send`", inline=False)
         embed.add_field(name="Commands", value="`help`, `ping`, `serverinfo`, `userinfo`, `avatar`, `council`", inline=False)
@@ -39,20 +38,18 @@ class HelpCog(commands.Cog, name="Help Cog"):
         )
         embed.add_field(name="Commands", value="`help` `ping` `serverinfo` `userinfo` `avatar`", inline=False)
         embed.add_field(name="Moderation", value="`ban` `kick` `unban` `role`", inline=False)
-        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.avatar_url))
+        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.user.avatar))
         await ctx.send(embed=embed)
         if command is None:
             embed = discord.Embed(title="Help", description="Here's a list of all my commands:", color=0x00ff00)
             for cog in self.bot.cogs:
                 cog = self.bot.get_cog(cog)
-                if cog.qualified_name == "Owner Cog":
-                    continue
-                if cog.qualified_name == "Help Cog":
-                    continue
-                if cog.qualified_name == "Error Cog":
-                    continue
-                if cog.qualified_name == "Admin Cog":
-                    continue
+                if ctx.author.guild_permissions.ban_members or ctx.author.guild_permissions.kick_members:
+                    if cog.qualified_name == "Admin Cog":
+                        continue
+                if discord.utils.get(ctx.author.roles, id=646549329493884929) or discord.utils.get(ctx.author.roles, id=646549322682466305) or discord.utils.get(ctx.author.roles, id=646551227626160139) or discord.utils.get(ctx.author.roles, id=673008336010084378) or discord.utils.get(ctx.author.roles, id=646549330479546379):
+                    if cog.qualified_name == "Council Cog":
+                        continue
                 if cog.qualified_name == "Commands Cog":
                     continue
                 embed.add_field(name=cog.qualified_name, value="`" + "`, `".join([c.name for c in cog.get_commands()]) + "`", inline=False)
