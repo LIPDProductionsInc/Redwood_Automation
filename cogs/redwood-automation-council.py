@@ -33,13 +33,13 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.describe(first="True of False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.")
     async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str):
         if interaction.channel.name.startswith("council-session"):
-            if first == "True":
-                if docket_link.startswith("https://trello.com/c/"):
+            if docket_link.startswith("https://trello.com/c/"):
+                if first == "True":
                     await interaction.response.send_message(f"The first item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
                 else:
-                    await interaction.response.send_message(":x: The link you provided is not a valid Trello link. Please try again.", ephemeral=True)
+                    await interaction.response.send_message(f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
             else:
-                await interaction.response.send_message(f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
+                await interaction.response.send_message(":x: The link you provided is not a valid Trello link. Please try again.", ephemeral=True)
             pass
         pass
 
