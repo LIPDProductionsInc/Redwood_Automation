@@ -18,7 +18,7 @@ class HelpCog(commands.Cog, name="Help Cog"):
             )
         embed.add_field(name="Commands", value="`help` `ping` `serverinfo` `userinfo` `avatar`", inline=False)
         embed.add_field(name="Moderation", value="`ban` `kick` `unban` `role`", inline=False)
-        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.avatar_url))
+        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.user.avatar))
         await ctx.send(embed=embed)
         pass
 
