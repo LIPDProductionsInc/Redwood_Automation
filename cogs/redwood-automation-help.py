@@ -36,7 +36,6 @@ class HelpCog(commands.Cog, name="Help Cog"):
         description="Here is a list of commands you can use with Redwood Automation.",
         color=discord.Color.dark_blue()
         )
-        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.user.avatar))
         if command is None:
             embed = discord.Embed(title="Help", description="Here's a list of all my commands:", color=0x00ff00)
             for cog in self.bot.cogs:
@@ -50,7 +49,7 @@ class HelpCog(commands.Cog, name="Help Cog"):
                 if cog.qualified_name == "Commands Cog":
                     continue
                 embed.add_field(name=cog.qualified_name, value="`" + "`, `".join([c.name for c in cog.get_commands()]) + "`", inline=False)
-            embed.set_footer(text="Use !beta-help <command> for more info on a command.")
+            embed.set_footer(text=f"Use !beta-help <command> for more info on a command| Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.user.avatar))
             await ctx.send(embed=embed)
         else:
             if (cmd := self.bot.get_command(command)) is not None:
