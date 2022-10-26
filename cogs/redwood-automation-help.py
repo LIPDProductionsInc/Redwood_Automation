@@ -51,9 +51,9 @@ class HelpCog(commands.Cog, name="Help Cog"):
                 embed = discord.Embed(title=f"Help for {cmd.name}", description=cmd.help, colour=discord.Colour.dark_blue())
                 embed.add_field(name="Usage", value=f"`{cmd.signature}`", inline=False)
                 if cmd.aliases:
-                    embed.add_field(name="Aliases", value="`" + "`, `".join(cmd.aliases) + "`" or None, inline=False)
-                if isinstance(cmd, commands.Command):
-                    embed.add_field(name="Cooldown", value=cmd._buckets._cooldown.per or None, inline=False)
+                    embed.add_field(name="Aliases", value="`" + "`, `".join(cmd.aliases) + "`", inline=False)
+                if cmd._buckets._cooldown:
+                    embed.add_field(name="Cooldown", value=f"{cmd._buckets._cooldown.per} seconds", inline=False)
                 await ctx.send(embed=embed)
             else:
                 await ctx.send("That command doesn't exist.")
