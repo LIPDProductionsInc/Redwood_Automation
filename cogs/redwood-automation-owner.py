@@ -206,7 +206,6 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         elif type == 'role-request':
             message = await ctx.fetch_message(1033469960216916079)
             embed = message.embeds[0].description = 'Most roles are managed through <@426537812993638400> and can be given using `/verify` or `/update`. The roles that are requestable are listed below and require you to ping <@&646554162405834762> to get them.'
-            '''Edit the first field of the embed'''
             embed = message.embeds[0].fields[0].value = '''
 The following roles can be requested:
 - <@&762321175900454933>
@@ -264,16 +263,11 @@ Latency: **{round(self.bot.latency * 1000)}**ms
     async def _rolerequest(self, ctx):
         request_role = """
 The following roles can be requested:
-- <@&763469321459728384>
 - <@&762321175900454933>
-- <@&1004462014044831845>
-- <@&763466171148140584>
-- <@&646552051290996749>
-- <@&763469003985256479>
-- <@&942850250434031647>
 - <@&763478824641495040>
 - <@&959865461846204436>
 - <@&853817144243650561>
+- <@&1024429857104478228>
         """
         notice = """
 - Your up-to-date callsign or rank **MUST** be a part of your nickname
@@ -285,9 +279,8 @@ Please include the link to your business permit from FDOCM
             title="**ROLE REQUEST**",
             colour=discord.Color.blue(),
             description="""
-Tag <@&646554162405834762> to request or remove a role. **I CANNOT GIVE YOU ROLES**
-Make sure your nickname is set to your ROBLOX username.
-You are responsible for keeping your roles and username up-to-date with changes."""
+Most roles are managed through <@426537812993638400> and can be given using `/verify` or `/update`.
+The roles that are requestable are listed below and require you to ping <@&646554162405834762> to get them."""
         )
         embed.add_field(name='**Requestable Roles**', value=request_role, inline=True)
         embed.add_field(name='**Notice to Department Employees:**', value=notice, inline=True)
