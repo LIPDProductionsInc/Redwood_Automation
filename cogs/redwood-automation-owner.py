@@ -197,6 +197,27 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         message = await channel.fetch_message(id)
         await message.edit(content=content)
         pass
+
+    @commands.command(name='edit-specific', hidden=True)
+    @commands.is_owner()
+    async def _edit_specific(self, ctx, type = None):
+        if type == None:
+            await ctx.send('Please specify a type', ephemeral=True)
+        elif type == 'role-request':
+            message = await ctx.fetch_message(1033469960216916079)
+            embed = message.embeds[0].description = 'Most roles are managed through <@426537812993638400> and can be given using `/verify` or `/update`. The roles that are requestable are listed below and require you to ping <@&646554162405834762> to get them.'
+            '''Edit the first field of the embed'''
+            embed = message.embeds[0].fields[0].value = '''
+The following roles can be requested:
+- <@&762321175900454933>
+- <@&763478824641495040>
+- <@&959865461846204436>
+- <@&853817144243650561>
+- <@&1024429857104478228>
+            '''
+            embed = message.embeds[0].footer.text = f'Developed by {self.bot.owner}'
+            await message.edit(embed=embed)
+            pass
     
     @commands.command(name='stats', hidden=True)
     @commands.is_owner()
