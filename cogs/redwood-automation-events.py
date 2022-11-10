@@ -1,0 +1,48 @@
+import discord
+import datetime
+
+from discord.ext import commands
+
+class EventsCog(commands.Cog, name="Events Cog"):
+    def __init__(self, bot: commands.Bot) -> None:
+        self.bot = bot
+    
+    @commands.Cog.listener()
+    async def on_message_edit(self, before, after):
+        if before.channel.name.startswith('council-session'):
+            channel = self.bot.get_channel(1040322534454861904)
+            link = "https://discordapp.com/channels/{}/{}/{}".format(before.guild.id, before.channel.id, before.id)
+            embed = discord.Embed(
+                colour = discord.Color.blue(),
+                description = f'**Message edited in** {before.channel.mention} [Jump to Message]({link})'
+                )
+            embed.add_field(name='Before:', value=f'{before.content}', inline=False)
+            embed.add_field(name='After:', value=f'{after.content}', inline=False)
+            embed.set_author(name=f'{before.author}', icon_url=before.author.avatar)
+            embed.set_footer(text=f'ID: {before.author.id}')
+            embed.timestamp = datetime.datetime.utcnow()
+            await channel.send(embed=embed)
+            pass
+        pass
+
+    @commands.Cog.listener()
+    async def on_message_delete(self, message):
+        if message.channel.name.startswith('council-session'):
+            channel = self.bot.get_channel(1040322534454861904)
+            link = "https://discordapp.com/channels/{}/{}/{}".format(message.guild.id, message.channel.id, message.id)
+            embed = discord.Embed(
+                colour = discord.Color.red(),
+                description = f'**Message deleted in** {message.channel.mention} [Jump to Message]({link})'
+                )
+            embed.add_field(name='Message:', value=f'{message.content}', inline=False)
+            embed.set_author(name=f'{message.author}', icon_url=message.author.avatar)
+            embed.set_footer(text=f'ID: {message.author.id}')
+            embed.timestamp = datetime.datetime.utcnow()
+            await channel.send(embed=embed)
+            pass
+        pass
+
+    pass
+
+async def setup(bot):
+    await bot.add_cog(EventsCog(bot))

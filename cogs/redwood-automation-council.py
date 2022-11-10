@@ -210,9 +210,11 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     @app_commands.describe(type="The type of vote to start.")
-    async def vote(self, ctx, type:Literal["Amendment", "Bill", "Resolution", "Motion"]):
+    async def vote(self, ctx, type:Literal["Amendment", "Bill", "Resolution", "Motion", "Nomination"]):
         if ctx.channel.name.startswith("council-session"):
-            await ctx.send(f"Vote on the {type.lower()}\n\n<@&646549329493884929>")
+            if ctx.interaction == None:
+                await ctx.message.delete()
+            await ctx.send(f"Vote on the {type.lower()}\n\n<@&646549329493884929>", reference=ctx.message.reference)
         else:
             raise commands.UserInputError("This command can only be used in a council session channel.")
             pass

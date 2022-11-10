@@ -28,9 +28,10 @@ initial_extensions = ['cogs.redwood-automation-admin',
                       'cogs.redwood-automation-commands',
                       'cogs.redwood-automation-council',
                       'cogs.redwood-automation-errors',
+                      'cogs.redwood-automation-events',
                       'cogs.redwood-automation-fun',
                       'cogs.redwood-automation-help',
-                      'cogs.redwood-automation-ocr',
+                      #'cogs.redwood-automation-ocr',
                       'cogs.redwood-automation-owner'
                       ]
 
