@@ -212,9 +212,22 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.describe(type="The type of vote to start.")
     async def vote(self, ctx, type:Literal["Amendment", "Bill", "Resolution", "Motion", "Nomination"]):
         if ctx.channel.name.startswith("council-session"):
-            if ctx.interaction == None:
-                await ctx.message.delete()
-            await ctx.send(f"Vote on the {type.lower()}\n\n<@&646549329493884929>", reference=ctx.message.reference)
+            if type != "Motion":
+                if ctx.interaction == None:
+                    await ctx.message.delete()
+                embed = discord.Embed(
+                    description=f"Vote on the {type.lower()}",
+                    colour=discord.Color.dark_blue()
+                )
+                embed.set_footer(text=f'Vote started by {ctx.author.display_name}', icon_url=ctx.author.avatar)
+                await ctx.send("<@&646549329493884929>", embed=embed, reference=ctx.message.reference)
+            else:
+                embed = discord.Embed(
+                    description=f"Vote on the {type.lower()}",
+                    colour=discord.Color.dark_blue()
+                )
+                embed.set_footer(text=f'Vote started by {ctx.author.display_name}', icon_url=ctx.author.avatar)
+                await ctx.send("<@&646549329493884929>", embed=embed)
         else:
             raise commands.UserInputError("This command can only be used in a council session channel.")
             pass
