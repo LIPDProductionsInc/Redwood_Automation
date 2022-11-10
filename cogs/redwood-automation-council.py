@@ -215,19 +215,24 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             if type != "Motion":
                 if ctx.interaction == None:
                     await ctx.message.delete()
-                embed = discord.Embed(
-                    description=f"Vote on the {type.lower()}",
-                    colour=discord.Color.dark_blue()
-                )
-                embed.set_footer(text=f'Vote started by {ctx.author.display_name}', icon_url=ctx.author.avatar)
-                await ctx.send("<@&646549329493884929>", embed=embed, reference=ctx.message.reference)
+                    embed = discord.Embed(
+                        description=f"**Vote on the {type.lower()}**",
+                        colour=discord.Color.dark_blue()
+                    )
+                    embed.set_footer(text=f'Vote started by {ctx.author.display_name}', icon_url=ctx.author.avatar)
+                    await ctx.send("<@&646549329493884929>", embed=embed, reference=ctx.message.reference)
+                else:
+                    await ctx.send(f"Vote on the {type.lower()}\n\n<@&646549329493884929>")
             else:
-                embed = discord.Embed(
-                    description=f"Vote on the {type.lower()}",
-                    colour=discord.Color.dark_blue()
-                )
-                embed.set_footer(text=f'Vote started by {ctx.author.display_name}', icon_url=ctx.author.avatar)
-                await ctx.send("<@&646549329493884929>", embed=embed)
+                if ctx.interaction == None:
+                    embed = discord.Embed(
+                        description=f"**Vote on the {type.lower()}**",
+                        colour=discord.Color.dark_blue()
+                    )
+                    embed.set_footer(text=f'Vote started by {ctx.author.display_name}', icon_url=ctx.author.avatar)
+                    await ctx.send("<@&646549329493884929>", embed=embed)
+                else:
+                    await ctx.send(f"Vote on the {type.lower()}\n\n<@&646549329493884929>")
         else:
             raise commands.UserInputError("This command can only be used in a council session channel.")
             pass
