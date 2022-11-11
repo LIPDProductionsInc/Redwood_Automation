@@ -48,13 +48,6 @@ class EventsCog(commands.Cog, name="Events Cog"):
             pass
         pass
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.startswith('!!') or message.startswith('??'):
-            '''Do nothing, don't trigger the bot'''
-            pass
-        pass
-    
     pass
 
 async def setup(bot):
