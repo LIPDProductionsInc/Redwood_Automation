@@ -1,6 +1,5 @@
 import discord
-import sys
-import traceback
+import asyncio
 
 from discord import app_commands
 from discord.ext import commands
@@ -17,13 +16,12 @@ class VoteOptions(discord.ui.Select):
 
         super().__init__(placeholder="Select a vote type", options=options)
 
-    async def callback(self, interaction: discord.Interaction, message: discord.Message) -> None:
-        embed = discord.Embed(
+    async def callback(self, interaction: discord.Interaction) -> None:
+        self.voteembed = discord.Embed(
             description=f"**Vote on the {self.values[0].lower()}**",
             colour=discord.Color.dark_blue()
         )
         #embed.set_footer(text=f'Vote started by {interaction.author.display_name}', icon_url=interaction.author.avatar)
-        await interaction.message.reply(embed=embed)
 
 class VoteView(discord.ui.View):
     def __init__(self):
@@ -38,6 +36,12 @@ class ContextTestCog(commands.Cog, name="Context Test Cog"):
     async def context_menu_callback(self, interaction: discord.Interaction, message: discord.Message) -> None:
         view = VoteView()
         await interaction.response.send_message('Select the vote type below', view=view, ephemeral=True)
+        try:
+            await self.bot.wait_for('select_option', check=lambda i: i.user == interaction.user, timeout=60)
+            await message.reply(embed=view.voteembed)
+        except asyncio.TimeoutError:
+            await interaction.response.send_message('You took too long to select a vote type.', ephemeral=True)
+            return
         pass
 
     pass

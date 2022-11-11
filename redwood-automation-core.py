@@ -22,8 +22,6 @@ def get_prefix(bot, message):
     # If we are in a guild, we allow for the user to mention us or use any of the prefixes in our list.
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-
 bot = MyBot(command_prefix=get_prefix, help_command=None, case_insensitive=True, intents=discord.Intents.all(), fetch_offline_users=True, allowed_mentions=discord.AllowedMentions(everyone=True, roles=True, users=True))
 tree = bot.tree
 
@@ -62,8 +60,10 @@ async def on_user_update(before, after):
     except AttributeError:
         pass
 
+discord.utils.setup_logging(level=40)
+
 async def main():
     async with bot:
-        await bot.start(os.getenv("BotToken"), log_handler=handler, log_level=logging.DEBUG)
+        await bot.start(os.getenv("BotToken")
 
 asyncio.run(main())
