@@ -1,4 +1,6 @@
 import discord
+import sys
+import traceback
 
 from discord import app_commands
 from discord.ext import commands
@@ -23,6 +25,11 @@ class VoteOptions(discord.ui.Select):
         #embed.set_footer(text=f'Vote started by {interaction.author.display_name}', icon_url=interaction.author.avatar)
         await message.reply(embed=embed)
 
+    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
+        await interaction.response.send_message('Oops! Something went wrong.', ephemeral=True)
+        print('Ignoring exception in class VoteOptions', file=sys.stderr)
+        traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+
 class VoteView(discord.ui.View):
     def __init__(self):
         super().__init__()
@@ -33,10 +40,15 @@ class ContextTestCog(commands.Cog, name="Context Test Cog"):
         self.bot: commands.Bot = bot
         self.bot.tree.add_command(app_commands.ContextMenu(name='Context Test', callback=self.context_menu_callback))
 
-    async def context_menu_callback(self, interaction: discord.Interaction) -> None:
+    async def context_menu_callback(self, interaction: discord.Interaction, message: discord.Message) -> None:
         view = VoteView()
         await interaction.response.send_message('Select the vote type below', view=view, ephemeral=True)
         pass
+
+    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
+        await interaction.response.send_message('Oops! Something went wrong.', ephemeral=True)
+        print('Ignoring exception in ContextMenu Test', file=sys.stderr)
+        traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
     pass
 
