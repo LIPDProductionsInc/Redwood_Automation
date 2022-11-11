@@ -64,6 +64,6 @@ discord.utils.setup_logging(level=40)
 
 async def main():
     async with bot:
-        await bot.start(os.getenv("BotToken")
+        await bot.start(os.getenv("BotToken"))
 
 asyncio.run(main())
