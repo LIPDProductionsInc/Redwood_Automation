@@ -19,15 +19,12 @@ class VoteOptions(discord.ui.Select):
     async def callback(self, interaction: discord.Interaction) -> None:
         option = self.values[0].lower()
 
-    def funA(self, x):
-        VoteOptions.option = x
-
 class VoteView(discord.ui.View):
     def __init__(self):
         super().__init__()
         self.add_item(VoteOptions())
 
-class ContextTestCog(commands.Cog, VoteOptions, name="Context Test Cog"):
+class ContextTestCog(commands.Cog, name="Context Test Cog"):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot: commands.Bot = bot
         self.bot.tree.add_command(app_commands.ContextMenu(name='Context Test', callback=self.context_menu_callback))
@@ -35,13 +32,11 @@ class ContextTestCog(commands.Cog, VoteOptions, name="Context Test Cog"):
     async def context_menu_callback(self, interaction: discord.Interaction, message: discord.Message) -> None:
         view = VoteView()
         await interaction.response.send_message('Select the vote type below', view=view, ephemeral=True)
-        '''Wait for self.shared['option'] to be set by the select menu before continuing'''
-        while VoteOptions.option is None:
+        while option is None:
             await asyncio.sleep(0.1)
-            '''When the option is set, continue'''
         else:
             embed = discord.Embed(
-                description = f'**Vote on the {VoteOptions.option}**',
+                description = f'**Vote on the {option}**',
                 colour=discord.Color.dark_blue()
             )
             embed.set_footer(text=f'Vote started by {interaction.author.mention}', icon_url=interaction.author.avatar)
