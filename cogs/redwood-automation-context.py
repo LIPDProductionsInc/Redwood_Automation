@@ -8,22 +8,22 @@ class VoteOptions(discord.ui.Select):
     def __init__(self, message: discord.Message):
         self.message = message
         options = [
-            discord.SelectOption(label="Amendment", value="Has the council vote on the charter amendment proposal."),
-            discord.SelectOption(label="Bill", value="Has the council vote on the bill proposal."),
-            discord.SelectOption(label="Motion", value="Has the council vote on the motion."),
-            discord.SelectOption(label="Nomination", value="Has the council vote on the nomination of a person to a position."),
-            discord.SelectOption(label="Resolution", value="Has the council vote on the resolution.")
+            discord.SelectOption(label="Amendment", value="amendment."),
+            discord.SelectOption(label="Bill", value="bill "),
+            discord.SelectOption(label="Motion", value="motion"),
+            discord.SelectOption(label="Nomination", value="nomination"),
+            discord.SelectOption(label="Resolution", value="resolution")
         ]
 
         super().__init__(placeholder="Select a vote type", options=options)
 
     async def callback(self, interaction: discord.Interaction) -> None:
         embed = discord.Embed(
-                description = f'**Vote on the {self.labels[0].lower()}**',
+                description = f'**Vote on the {self.values[0].lower()}**',
                 colour=discord.Color.dark_blue()
             )
         embed.set_footer(text=f'Vote started by {interaction.user.display_name}', icon_url=interaction.user.avatar)
-        await self.message.reply(embed=embed)
+        await self.message.reply("<@&646549329493884929>", embed=embed)
 
 class VoteView(discord.ui.View):
     def __init__(self, message: discord.Message):
