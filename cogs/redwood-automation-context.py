@@ -19,10 +19,10 @@ class VoteOptions(discord.ui.Select):
 
     async def callback(self, interaction: discord.Interaction) -> None:
         embed = discord.Embed(
-                description = f'**Vote on the {self.values[0].lower()}**',
+                description = f'**Vote on the {self.labels[0].lower()}**',
                 colour=discord.Color.dark_blue()
             )
-        embed.set_footer(text=f'Vote started by {interaction.author.mention}', icon_url=interaction.author.avatar)
+        embed.set_footer(text=f'Vote started by {interaction.user.display_name}', icon_url=interaction.user.avatar)
         await self.message.reply(embed=embed)
 
 class VoteView(discord.ui.View):
@@ -33,11 +33,14 @@ class VoteView(discord.ui.View):
 class ContextTestCog(commands.Cog, name="Context Test Cog"):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot: commands.Bot = bot
-        self.bot.tree.add_command(app_commands.ContextMenu(name='Context Test', callback=self.context_menu_callback))
+        self.bot.tree.add_command(app_commands.ContextMenu(name='Start a Vote', callback=self.context_menu_callback))
 
     async def context_menu_callback(self, interaction: discord.Interaction, message: discord.Message) -> None:
-        view = VoteView(message)
-        await interaction.response.send_message('Select the vote type below', view=view, ephemeral=True)
+        if interaction.channel.name.startswith("council-session"):
+            view = VoteView(message)
+            await interaction.response.send_message('Select the vote type below', view=view, ephemeral=True)
+        else:
+            await interaction.response.send_message('This command can only be used in a council session channel.', ephemeral=True)
         pass
 
     pass
