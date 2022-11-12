@@ -5,7 +5,8 @@ from discord import app_commands
 from discord.ext import commands
 
 class VoteOptions(discord.ui.Select):
-    def __init__(self):
+    def __init__(self, message: discord.Message):
+        self.message = message
         options = [
             discord.SelectOption(label="Amendment", value="Has the council vote on the charter amendment proposal."),
             discord.SelectOption(label="Bill", value="Has the council vote on the bill proposal."),
@@ -17,12 +18,17 @@ class VoteOptions(discord.ui.Select):
         super().__init__(placeholder="Select a vote type", options=options)
 
     async def callback(self, interaction: discord.Interaction) -> None:
-        option = self.values[0].lower()
+        embed = discord.Embed(
+                description = f'**Vote on the {self.values[0].lower()}**',
+                colour=discord.Color.dark_blue()
+            )
+        embed.set_footer(text=f'Vote started by {interaction.author.mention}', icon_url=interaction.author.avatar)
+        await self.message.reply(embed=embed)
 
 class VoteView(discord.ui.View):
-    def __init__(self):
+    def __init__(self, message: discord.Message):
         super().__init__()
-        self.add_item(VoteOptions())
+        self.add_item(VoteOptions(message))
 
 class ContextTestCog(commands.Cog, name="Context Test Cog"):
     def __init__(self, bot: commands.Bot) -> None:
@@ -30,17 +36,8 @@ class ContextTestCog(commands.Cog, name="Context Test Cog"):
         self.bot.tree.add_command(app_commands.ContextMenu(name='Context Test', callback=self.context_menu_callback))
 
     async def context_menu_callback(self, interaction: discord.Interaction, message: discord.Message) -> None:
-        view = VoteView()
+        view = VoteView(message)
         await interaction.response.send_message('Select the vote type below', view=view, ephemeral=True)
-        while option is None:
-            await asyncio.sleep(0.1)
-        else:
-            embed = discord.Embed(
-                description = f'**Vote on the {option}**',
-                colour=discord.Color.dark_blue()
-            )
-            embed.set_footer(text=f'Vote started by {interaction.author.mention}', icon_url=interaction.author.avatar)
-            await message.reply(embed=embed)
         pass
 
     pass
