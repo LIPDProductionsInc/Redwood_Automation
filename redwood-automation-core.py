@@ -26,6 +26,7 @@ bot = MyBot(command_prefix=get_prefix, help_command=None, case_insensitive=True,
 tree = bot.tree
 
 initial_extensions = ['cogs.redwood-automation-admin',
+                      'cogs.redwood-automation-clerk',
                       'cogs.redwood-automation-commands',
                       'cogs.redwood-automation-council',
                       'cogs.redwood-automation-errors',

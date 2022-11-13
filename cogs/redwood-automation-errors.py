@@ -99,6 +99,8 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(f':x: | This command can only be used by the Presiding Officer.', ephemeral=True)
             elif ctx.command.qualified_name == 'propose':
                 await ctx.send(f':x: | This command can only be used by the City Council.', ephemeral=True)
+            elif ctx.command.qualified_name == 'transcript':
+                await ctx.send(f':x: | This command can only be used by the Clerk\'s Office.', ephemeral=True)
             else:
                 await ctx.send(f':x: | This command can only be used by {error.missing_roles}')
             
@@ -222,6 +224,8 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             elif ctx.command.qualified_name == 'rps':
                 await ctx.send(error, ephemeral=True)
             elif ctx.command.qualified_name == 'rpsls':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'transcript':
                 await ctx.send(error, ephemeral=True)
             else:
                 await ctx.send(':x: | UserInputError: {}'.format(error))
