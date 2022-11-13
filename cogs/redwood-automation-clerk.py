@@ -9,16 +9,13 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
 
     @commands.hybrid_command(name='transcript', description='Get a transcript of the session')
     @commands.guild_only()
-    @commands.is_owner()
-    #@commands.has_role(763471193524535336)
+    @commands.has_role(763471193524535336)
     async def transcript(self, ctx: commands.Context) -> None:
-        '''Create an HTML transcript of the session, then send the file to the channel'''
         if ctx.channel.name.startswith("council-session"):
             await ctx.send("`Saving...`")
-            history = await ctx.channel.history(limit=None).flatten()
             transcript = ""
-            for message in history:
-                transcript += f"{message.author.display_name}: {message.content}\n"
+            async for message in ctx.channel.history(limit=None, oldest_first=True):
+                transcript += f"{message.author.display_name} (ID {message.author.id}): {message.content}<br>"
             with open("transcript.html", "w") as file:
                 file.write(transcript)
             await ctx.send(file=discord.File("transcript.html", filename=f"{ctx.channel.name}-transcript.html"))
