@@ -254,7 +254,7 @@ Latency: **{round(self.bot.latency * 1000)}**ms
     @commands.hybrid_command(name='test', hidden=True)
     @commands.is_owner()
     async def _test(self, ctx):
-        print(discord.InteractionType.application_command)
+        print(ctx.guild.get_role(646549322682466305).members[0].mention if len(ctx.guild.get_role(646549322682466305).members) > 0 else None)
         await ctx.send('Sent')
         pass
 
