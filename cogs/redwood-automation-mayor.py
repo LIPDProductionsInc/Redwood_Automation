@@ -5,186 +5,23 @@ import traceback
 from discord import app_commands
 from discord.ext import commands
 
-class ApprovalPoll(discord.ui.Modal, title="Title (This is a test)"):
+class PollOptions(discord.ui.Select):
+    def __init__(self):
 
-    mayormember = discord.guild.get_role(646549322682466305).members[0].mention if len(discord.guild.get_role(646549322682466305).members) > 0 else None
-    deputymayormember = discord.guild.get_role(646551227626160139).members[0].mention if len(discord.guild.get_role(646551227626160139).members) > 0 else None
-    chiefofstaffmember = discord.guild.get_role(854157399732387850).members[0].mention if len(discord.guild.get_role(854157399732387850).members) > 0 else None
-    deputychiefofstaffmember = discord.guild.get_role(940716304233545758).members[0].mention if len(discord.guild.get_role(940716304233545758).members) > 0 else None
-    chairpersonmember = discord.guild.get_role(673008336010084378).members[0].mention if len(discord.guild.get_role(673008336010084378).members) > 0 else None
+        options = [
+            discord.SelectOption(label="Yes", value="Yes"),
+            discord.SelectOption(label="No", value="No")
+        ]
 
-    if mayormember is not None:
-        mayor = discord.ui.TextInput(
-            label=f"Do you approve of Mayor {mayormember.display_name} based off their decisions, actions, conduct, and overall term thus far?",
-            style=discord.TextStyle.short,
-            placeholder="Answer Yes or No",
-            required=True,
-            min_length=2,
-            max_length=3
-        )
-    
-    if deputymayormember is not None:
-        deputymayor = discord.ui.TextInput(
-            label=f"Do you approve of Deputy Mayor {deputymayormember.display_name} based off their decisions, actions, conduct, and overall term thus far?",
-            style=discord.TextStyle.short,
-            placeholder="Answer Yes or No",
-            required=True,
-            min_length=2,
-            max_length=3
-        )
+        super().__init__(placeholder="Select an option", min_values=1, max_values=1, options=options)
 
-    cityattorney = discord.ui.TextInput(
-        label="Do you approve of City Attorney based off their decisions, actions, conduct, and overall term thus far?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
+class ApprovalPoll(discord.ui.View):
+    def __init__(self):
+        super().__init__()
 
-    cityattorneyoffice = discord.ui.TextInput(
-        label="Do you approve of the City Attorney's Office as a whole?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
+        self.add_item(PollOptions())
 
-    ocrdirector = discord.ui.TextInput(
-        label="Do you approve of the Office of Commerce Relations Director based off their decisions, actions, conduct, and overall term thus far?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    ocrdeputydirector = discord.ui.TextInput(
-        label="Do you approve of the Office of Commerce Relations Deputy Director based off their decisions, actions, conduct, and overall term thus far?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    ocroffice = discord.ui.TextInput(
-        label="Do you approve of the Office of Commerce Relations as a whole?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    if chiefofstaffmember is not None:
-        chiefofstaff = discord.ui.TextInput(
-            label=f"Do you approve of Chief of Staff {chiefofstaffmember.display_name} based off their decisions, actions, conduct, and overall term thus far?",
-            style=discord.TextStyle.short,
-            placeholder="Answer Yes or No",
-            required=True,
-            min_length=2,
-            max_length=3
-        )
-
-    if deputychiefofstaffmember is not None:
-        deputychiefofstaff = discord.ui.TextInput(
-            label=f"Do you approve of Deputy Chief of Staff {deputychiefofstaffmember.display_name} based off their decisions, actions, conduct, and overall term thus far?",
-            style=discord.TextStyle.short,
-            placeholder="Answer Yes or No",
-            required=True,
-            min_length=2,
-            max_length=3
-        )
-
-    presssecretary = discord.ui.TextInput(
-        label="Do you approve of the Press Secretary based off their decisions, actions, conduct, and overall term thus far?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    policechief = discord.ui.TextInput(
-        label="Do you approve of the Police Chief based off their decisions, actions, conduct, and overall term thus far?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    policedepartment = discord.ui.TextInput(
-        label="Do you approve of the Redwood Police Department as a whole?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    if chairpersonmember is not None:
-        chairperson = discord.ui.TextInput(
-            label=f"Do you approve of Chairperson {chairpersonmember.display_name} based off their decisions, actions, conduct, and overall term thus far?",
-            style=discord.TextStyle.short,
-            placeholder="Answer Yes or No",
-            required=True,
-            min_length=2,
-            max_length=3
-        )
-    
-    citycouncil = discord.ui.TextInput(
-        label="Do you approve of the City Council as a whole?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    cityclerk = discord.ui.TextInput(
-        label="Do you approve of the City Clerk based off their decisions, actions, conduct, and overall term thus far?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    assistantcityclerk = discord.ui.TextInput(
-        label="Do you approve of the Assistant City Clerk based off their decisions, actions, conduct, and overall term thus far?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    government = discord.ui.TextInput(
-        label="Do you approve of the Redwood City Government as a whole?",
-        style=discord.TextStyle.short,
-        placeholder="Answer Yes or No",
-        required=True,
-        min_length=2,
-        max_length=3
-    )
-
-    feedback = discord.ui.TextInput(
-        label="Is there anything else you'd like to bring up or discuss?",
-        style=discord.TextStyle.long,
-        placeholder="Answer here",
-        required=False,
-        min_length=0,
-        max_length=1000
-    )
-
-    notice = discord.ui.TextInput(
-        label="Please answer honestly and to the best of your ability. If you do not answer honestly or use this to troll, moderation action will be taken."
-    )
-
-    async def on_submit(self, interaction: discord.Interaction):
+    async def callback(self, interaction: discord.Interaction):
         channel = self.bot.get_channel(808055214287618059)
         await interaction.response.send_message(f'Your feedback has been sent!', ephemeral=True)
         embed = discord.Embed(
@@ -219,10 +56,6 @@ class ApprovalPoll(discord.ui.Modal, title="Title (This is a test)"):
         embed.timestamp = datetime.datetime.now()
         await channel.send(embed=embed)
 
-    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
-        await interaction.response.send_message('Oops! Something went wrong.', ephemeral=True)
-        traceback.print_tb(error.__traceback__)
-
     pass
 
 class MayorCog(commands.Cog, name="Mayor Commands"):
@@ -233,7 +66,71 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
     @commands.guild_only()
     @commands.is_owner()
     async def feedback(self, interaction: discord.Interaction) -> None:
-        await interaction.response.send_modal(ApprovalPoll())
+        questionnumber = 0
+        mayormember = interaction.Guild.get_role(role_id=646549322682466305).members[0].mention if len(interaction.Guild.get_role(role_id=646549322682466305).members) > 0 else None
+        deputymayormember = interaction.Guild.get_role(role_id=646551227626160139).members[0].mention if len(interaction.Guild.get_role(role_id=646551227626160139).members) > 0 else None
+        chiefofstaffmember = interaction.Guild.get_role(role_id=854157399732387850).members[0].mention if len(interaction.Guild.get_role(role_id=854157399732387850).members) > 0 else None
+        deputychiefofstaffmember = interaction.Guild.get_role(role_id=940716304233545758).members[0].mention if len(interaction.Guild.get_role(role_id=940716304233545758).members) > 0 else None
+        chairpersonmember = interaction.Guild.get_role(role_id=673008336010084378).members[0].mention if len(interaction.Guild.get_role(role_id=673008336010084378).members) > 0 else None
+        view = ApprovalPoll()
+        if mayormember is not None:
+            questionnumber += 1
+            await interaction.response.send(f"Question {questionnumber}: Do you approve of Mayor {mayormember.display_name} based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+            view.wait()
+        if deputymayormember is not None:
+            questionnumber += 1
+            await interaction.response.send(f"Question {questionnumber}: Do you approve of Deputy Mayor {deputymayormember.display_name} based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+            view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Attorney based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Attorney's Office as a whole?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations Director based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations Deputy Director based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations as a whole?", ephemeral=True, view=view)
+        view.wait()
+        if chiefofstaffmember is not None:
+            questionnumber += 1
+            await interaction.response.send(f"Question {questionnumber}: Do you approve of Chief of Staff {chiefofstaffmember.display_name} based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+            view.wait()
+        if deputychiefofstaffmember is not None:
+            questionnumber += 1
+            await interaction.response.send(f"Question {questionnumber}: Do you approve of Deputy Chief of Staff {deputychiefofstaffmember.display_name} based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+            view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Press Secretary based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Police Chief based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Redwood Police Department as a whole?", ephemeral=True, view=view)
+        view.wait()
+        if chairpersonmember is not None:
+            questionnumber += 1
+            await interaction.response.send(f"Question {questionnumber}: Do you approve of Chairperson {chairpersonmember.display_name} based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+            view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Council as a whole?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Clerk based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Assistant City Clerk based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        view.wait()
+        questionnumber += 1
+        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Redwood City Government as a whole?", ephemeral=True, view=view)
+        view.wait()
+        await interaction.response.send(f"Thank you for your feedback! Your responses have been recorded and will be reviewed by the Mayor.", ephemeral=True)
+        pass
 
     pass
 
