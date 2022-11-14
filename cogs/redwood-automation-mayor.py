@@ -68,57 +68,57 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
         questionnumber = 0
         view = ApprovalPoll()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Mayor based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Mayor based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Deputy Mayor based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Deputy Mayor based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Attorney based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the City Attorney based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Attorney's Office as a whole?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the City Attorney's Office as a whole?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations Director based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations Director based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations Deputy Director based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations Deputy Director based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations as a whole?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Office of Commerce Relations as a whole?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Chief of Staff based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Chief of Staff based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of Deputy Chief of Staff based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of Deputy Chief of Staff based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Press Secretary based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Press Secretary based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Police Chief based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Police Chief based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Redwood Police Department as a whole?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Redwood Police Department as a whole?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Chairperson based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Chairperson based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Council as a whole?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the City Council as a whole?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the City Clerk based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the City Clerk based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Assistant City Clerk based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Assistant City Clerk based off their decisions, actions, conduct, and overall term thus far?", ephemeral=True, view=view)
         view.wait()
         questionnumber += 1
-        await interaction.response.send(f"Question {questionnumber}: Do you approve of the Redwood City Government as a whole?", ephemeral=True, view=view)
+        await interaction.response.send_message(f"Question {questionnumber}: Do you approve of the Redwood City Government as a whole?", ephemeral=True, view=view)
         view.wait()
-        await interaction.response.send(f"Thank you for your feedback! Your responses have been recorded and will be reviewed by the Mayor.", ephemeral=True)
+        await interaction.response.send_message(f"Thank you for your feedback! Your responses have been recorded and will be reviewed by the Mayor.", ephemeral=True)
         pass
 
     pass
