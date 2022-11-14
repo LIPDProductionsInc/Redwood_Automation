@@ -38,6 +38,7 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
 
     @app_commands.command(name='feedback', description='Send feedback to the Mayor')
     @commands.guild_only()
+    @commands.is_owner()
     async def feedback(self, interaction: discord.Interaction) -> None:
         channel = self.bot.get_channel(808055214287618059)
         await channel.response.send_modal(ApprovalPoll())
