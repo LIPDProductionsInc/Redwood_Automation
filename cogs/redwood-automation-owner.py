@@ -258,6 +258,20 @@ Latency: **{round(self.bot.latency * 1000)}**ms
         await ctx.send('Sent')
         pass
 
+    @commands.command(name='verify', hidden=True)
+    @commands.is_owner()
+    async def _verify(self, ctx):
+        embed = discord.Embed(
+            title='Verification Needed',
+            type='rich',
+            colour=discord.Color.dark_blue(),
+            description='If you are seeing this message, you have not verified your account. Please verify your account by typing `/verify` in <#646550331991523328>.'
+        )
+        embed.set_footer(text=f"Developed by {self.bot.owner}")
+        embed.set_thumbnail(url=str(self.bot.user.avatar))
+        await ctx.send(embed=embed)
+        pass
+
     @commands.command(name='role-request', hidden=True)
     @commands.is_owner()
     async def _rolerequest(self, ctx):

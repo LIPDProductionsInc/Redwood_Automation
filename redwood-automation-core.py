@@ -40,7 +40,7 @@ initial_extensions = ['cogs.redwood-automation-admin',
 
 @bot.event
 async def on_ready():
-    print(f'Successfully logged in as {bot.user}, Running Verison 0.0.0.6'.format(bot))
+    print(f'Successfully logged in as {bot.user}, Running Verison 0.0.0.8'.format(bot))
     activity = discord.Activity(name='the city | !help', type=discord.ActivityType.watching)
     await bot.change_presence(activity=activity)
     await asyncio.sleep(1)

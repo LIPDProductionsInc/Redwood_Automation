@@ -152,7 +152,9 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             await ctx.message.delete()
         if ctx.channel.id == 941499579029913611:
             if trello_link.startswith("https://trello.com/c/"):
-                await ctx.send(f"{trello_link} \n\n <@&646549330479546379>")
+                channel = ctx.bot.get_channel(873744876079026218)
+                await channel.send(f"{trello_link}\n\n<@&646549330479546379>")
+                await ctx.send("The proposal has been sent to the City Attorney's Office for review.", ephemeral=True)
             else:
                 raise commands.BadArgument("The link provided needs to be a Trello card.")
         else:
@@ -197,10 +199,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                         raise commands.BadArgument("The link provided needs to be a Trello card.")
                 else:
                     raise commands.UserInputError("This command can only be used in <#646552474265845780>.")
-                    pass
             else:
                 raise commands.MissingRole(missing_role=646549330479546379)
-                pass
         else:
             raise commands.BadArgument("The location provided needs to be either Mayor or Docket.")
             pass
