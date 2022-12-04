@@ -9,27 +9,24 @@ from discord.ext import commands
 class FeedbackModal(discord.ui.Modal, title="Feedback"):
 
     feedback = discord.ui.TextInput(
-        label="Please leave the feedback you have about the City of Redwood here",
+        label="Leave your feedback for the City of Redwood",
         style=discord.TextStyle.long,
         placeholder="Type your feedback here...",
         required=True,
         min_length=10
     )
 
-    notice = discord.ui.TextInput(
-        label="This is an anonymous feedback form. ID's are only collected for the purpose of preventing spam. By submitting this form, you agree that you are not abusing this form.",
-    )
-
     async def on_submit(self, interaction: discord.Interaction):
         await interaction.response.send_message("Thank you for your feedback!", ephemeral=True)
-        channel = self.bot.get_channel(1042645528053284874)
+        channel = interaction.client.get_channel(1042645528053284874)
         embed = discord.Embed(
             title="New Feedback", 
             description=self.feedback.value, 
             colour=discord.Color.dark_blue()
             )
         embed.set_footer(text=f"ID: {interaction.user.id}")
-        embed.set_thumbnail(url=self.bot.user.avatar)
+        '''Get the bot's avatar via interaction and set it as the embed's thumbnail'''
+        embed.set_thumbnail(url=interaction.guild.me.avatar)
         embed.timestamp = datetime.datetime.now()
         await channel.send(embed=embed)
 
@@ -46,3 +43,6 @@ class FeedbackCog(commands.Cog, name="Feedback"):
     @app_commands.guild_only()
     async def feedback(self, interaction: discord.Interaction):
         await interaction.response.send_modal(FeedbackModal())
+
+async def setup(bot: commands.Bot) -> None:
+    await bot.add_cog(FeedbackCog(bot))
