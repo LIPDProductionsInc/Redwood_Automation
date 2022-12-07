@@ -183,9 +183,9 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         )
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/646552474265845780/1028765111411810305/Capture4.PNG")
         embed.set_author(name='Redwood Information')
-        embed.add_field(name='Council Boards', value='[City Council](https://trello.com/b/gVPTVd0r) \n [City Records](https://trello.com/b/g06YwcHJ)', inline=False)
-        embed.add_field(name='Administration Boards', value='[Office of the Mayor](https://trello.com/b/pK66sdV7) \n [Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
-        embed.add_field(name='Other Links', value='[City Charter](https://trello.com/c/Pm1y1ZzD) \n [Floor Rules](https://trello.com/c/XpLJXTTI) \n [Twitter](http://twitter.com/CityofRedwood)', inline=False)
+        embed.add_field(name='Council Boards', value='[City Council](https://trello.com/b/gVPTVd0r) \n[City Records](https://trello.com/b/g06YwcHJ)', inline=False)
+        embed.add_field(name='Administration Boards', value='[Office of the Mayor](https://trello.com/b/pK66sdV7) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
+        embed.add_field(name='Other Links', value='[City Charter](https://trello.com/c/Pm1y1ZzD) \n[Floor Rules](https://trello.com/c/XpLJXTTI) \n[Twitter](http://twitter.com/CityofRedwood)', inline=False)
         embed.set_footer(text='Information last updated on:')
         embed.timestamp = datetime.datetime.now()
         await channel.send(embed=embed)
@@ -213,8 +213,16 @@ The following roles can be requested:
 - <@&959865461846204436>
 - <@&853817144243650561>
 - <@&1024429857104478228>
+- <@&1045827799967088840>
             '''
             embed = message.embeds[0].footer.text = f'Developed by {self.bot.owner}'
+            await message.edit(embed=embed)
+        elif type == 'information-links':
+            message = await ctx.fetch_message(1038839060954890250)
+            embed = message.embeds[0].fields[0].value = '[City Council](https://trello.com/b/gVPTVd0r) \n[City Records](https://trello.com/b/g06YwcHJ)'
+            embed = message.embeds[0].fields[1].value = '[Office of the Mayor](https://trello.com/b/pK66sdV7) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)'
+            embed = message.embeds[0].fields[2].value = '[City Charter](https://trello.com/c/Pm1y1ZzD) \n[Floor Rules](https://trello.com/c/XpLJXTTI) \n[Twitter](http://twitter.com/CityofRedwood) \n[RPD Handbook](https://docs.google.com/document/d/18K-IHoT6MStN6b_kb7RSBGEpxMuSYgepN21Fw4TFtR0/edit) \n[RPD Public Database](https://docs.google.com/spreadsheets/d/1y5Cgqdn9faUx_nLvaO7RT6V93ehXzMTv68Q00OAOcoo/edit)'
+            embed = message.embeds[0].timestamp = datetime.datetime.now()
             await message.edit(embed=embed)
             pass
     
@@ -282,6 +290,7 @@ The following roles can be requested:
 - <@&959865461846204436>
 - <@&853817144243650561>
 - <@&1024429857104478228>
+- <@&1045827799967088840>
         """
         notice = """
 - Your up-to-date callsign or rank **MUST** be a part of your nickname
