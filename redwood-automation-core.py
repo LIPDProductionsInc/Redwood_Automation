@@ -3,7 +3,6 @@ import asyncio
 import os
 import logging
 
-from discord import Guild, app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 load_dotenv()
@@ -26,6 +25,7 @@ bot = MyBot(command_prefix=get_prefix, help_command=None, case_insensitive=True,
 tree = bot.tree
 
 initial_extensions = ['cogs.redwood-automation-admin',
+                      'cogs.redwood-automation-city-hall',
                       'cogs.redwood-automation-clerk',
                       'cogs.redwood-automation-commands',
                       'cogs.redwood-automation-council',
