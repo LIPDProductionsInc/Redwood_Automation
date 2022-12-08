@@ -17,11 +17,13 @@ class HelpCog(commands.Cog, name="Help Cog"):
             color=discord.Color.dark_blue()
             )
         if discord.utils.get(ctx.author.roles, id=646549329493884929):
-            embed.add_field(name="Council Commands", value="`propose`, `legal-review`, `charter`, `template`", inline=False)
+            embed.add_field(name="Council Commands", value="`propose`, `legal-review`, `charter`, `template`, `documents`", inline=False)
         if discord.utils.get(ctx.author.roles, id=646549322682466305) or discord.utils.get(ctx.author.roles, id=646551227626160139) or discord.utils.get(ctx.author.roles, id=673008336010084378):
-            embed.add_field(name="Presiding Officer Commands", value="`docket`, `session`, `end-session`, `floor`, `dismiss`, `send`", inline=False)
+            embed.add_field(name="Presiding Officer Commands", value="`docket`, `session`, `end-session`, `floor`, `dismiss`, `send`, `documents`", inline=False)
         if discord.utils.get(ctx.author.roles, id=646549330479546379):
-            embed.add_field(name="City Attorney Commands", value="`send`", inline=False)
+            embed.add_field(name="City Attorney Commands", value="`send`, `documents`", inline=False)
+        if discord.utils.get(ctx.author.roles, id=1038941326047191161):
+            embed.add_field(name="Emergency Executive Committee Commands", value="`eas-init`, `issue`", inline=False)
         embed.add_field(name="Commands", value="`help`, `ping`, `serverinfo`, `userinfo`, `avatar`, `council`", inline=False)
         embed.add_field(name="Moderation", value="`ban`, `kick`, `unban`", inline=False)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.user.avatar))
