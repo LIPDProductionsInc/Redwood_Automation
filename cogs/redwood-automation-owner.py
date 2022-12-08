@@ -194,7 +194,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
     @commands.command(name='edit', hidden=True)
     @commands.is_owner()
     async def _edit(self, ctx, id, content):
-        message = await channel.fetch_message(id)
+        message = await ctx.fetch_message(id)
         await message.edit(content=content)
         pass
 
@@ -204,25 +204,18 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         if type == None:
             await ctx.send('Please specify a type', ephemeral=True)
         elif type == 'role-request':
-            message = await ctx.fetch_message(1033469960216916079)
-            embed = message.embeds[0].description = 'Most roles are managed through <@426537812993638400> and can be given using `/verify` or `/update`. The roles that are requestable are listed below and require you to ping <@&646554162405834762> to get them.'
-            embed = message.embeds[0].fields[0].value = '''
-The following roles can be requested:
-- <@&762321175900454933>
-- <@&763478824641495040>
-- <@&959865461846204436>
-- <@&853817144243650561>
-- <@&1024429857104478228>
-- <@&1045827799967088840>
-            '''
-            embed = message.embeds[0].footer.text = f'Developed by {self.bot.owner}'
+            message = await ctx.fetch_message(1038828402536349736)
+            embed = message.embeds[0]
+            embed.set_field_at(0, name='Requestable Roles', value='The following roles can be requested: \n- <@&762321175900454933> \n- <@&763478824641495040> \n- <@&959865461846204436> \n- <@&853817144243650561> \n- <@&1024429857104478228> \n- <@&1045827799967088840>', inline=True)
+            embed.set_footer(text=f'Developed by {self.bot.owner}')
             await message.edit(embed=embed)
         elif type == 'information-links':
             message = await ctx.fetch_message(1038839060954890250)
-            embed = message.embeds[0].fields[0].value = '[City Council](https://trello.com/b/gVPTVd0r) \n[City Records](https://trello.com/b/g06YwcHJ)'
-            embed = message.embeds[0].fields[1].value = '[Office of the Mayor](https://trello.com/b/pK66sdV7) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)'
-            embed = message.embeds[0].fields[2].value = '[City Charter](https://trello.com/c/Pm1y1ZzD) \n[Floor Rules](https://trello.com/c/XpLJXTTI) \n[Twitter](http://twitter.com/CityofRedwood) \n[RPD Handbook](https://docs.google.com/document/d/18K-IHoT6MStN6b_kb7RSBGEpxMuSYgepN21Fw4TFtR0/edit) \n[RPD Public Database](https://docs.google.com/spreadsheets/d/1y5Cgqdn9faUx_nLvaO7RT6V93ehXzMTv68Q00OAOcoo/edit)'
-            embed = message.embeds[0].timestamp = datetime.datetime.now()
+            embed = message.embeds[0]
+            embed.set_field_at(0, name='Council Boards', value='[City Council](https://trello.com/b/gVPTVd0r) \n[City Records](https://trello.com/b/g06YwcHJ)', inline=False)
+            embed.set_field_at(1, name='Adminstration Boards', value='[Office of the Mayor](https://trello.com/b/pK66sdV7) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
+            embed.set_field_at(2, name='Other Links', value='[City Charter](https://trello.com/c/Pm1y1ZzD) \n[Floor Rules](https://trello.com/c/XpLJXTTI) \n[Twitter](http://twitter.com/CityofRedwood) \n[RPD Handbook](https://docs.google.com/document/d/18K-IHoT6MStN6b_kb7RSBGEpxMuSYgepN21Fw4TFtR0/edit) \n[RPD Public Database](https://docs.google.com/spreadsheets/d/1y5Cgqdn9faUx_nLvaO7RT6V93ehXzMTv68Q00OAOcoo/edit)', inline=False)
+            embed.timestamp = datetime.datetime.now()
             await message.edit(embed=embed)
             pass
     
