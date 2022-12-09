@@ -115,6 +115,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
             embed.timestamp = datetime.datetime.now()
             await channel2.send("@everyone", embed=embed)
+        await ctx.send("Issued!", ephemeral=True)
         await channel.send(embed=embed)
         pass
 
