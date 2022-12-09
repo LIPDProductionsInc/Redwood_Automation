@@ -24,6 +24,8 @@ class EventsCog(commands.Cog, name="Events Cog"):
                 embed.timestamp = datetime.datetime.now()
                 await channel.send(embed=embed)
                 pass
+            if after.content.startswith('[Original Message Deleted]'):
+                await after.delete()
             pass
         pass
 
