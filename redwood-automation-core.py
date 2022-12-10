@@ -35,7 +35,7 @@ initial_extensions = ['cogs.redwood-automation-admin',
                       'cogs.redwood-automation-feedback',
                       'cogs.redwood-automation-fun',
                       'cogs.redwood-automation-help',
-                      #'cogs.redwood-automation-mayor',
+                      'cogs.redwood-automation-mayor',
                       #'cogs.redwood-automation-ocr',
                       'cogs.redwood-automation-owner'
                       ]
