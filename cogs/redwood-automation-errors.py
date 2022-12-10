@@ -103,6 +103,10 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(f':x: | This command can only be used by the Clerk\'s Office.', ephemeral=True)
             elif ctx.command.qualified_name == 'docket':
                 await ctx.send(f':x: | This command can only be used by the Presiding Officers.', ephemeral=True)
+            elif ctx.command.qualified_name == 'appoint':
+                await ctx.send(f':x: | This command can only be used by the Mayor, Deputy Mayor or City Chairperson at this time.', ephemeral=True)
+            elif ctx.command.qualified_name == 'elections':
+                await ctx.send(f':x: | This command can only be used by the Mayor, Deputy Mayor or City Chairperson.', ephemeral=True)
             else:
                 await ctx.send(f':x: | This command can only be used by {error.missing_roles}')
             
@@ -189,6 +193,14 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             elif ctx.command.qualified_name == "dimiss":
                 await ctx.send(error, ephemeral=True)
             elif ctx.command.qualified_name == "send":
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == "propose":
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == "appoint":
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == "elections":
+                await ctx.send(error, ephemeral=True)
+            else:
                 await ctx.send(error, ephemeral=True)
             
         elif isinstance(error, commands.CheckFailure):
