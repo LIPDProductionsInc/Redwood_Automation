@@ -112,6 +112,21 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
             pass
         pass
 
+    @commands.hybrid_command(name="oaths", description="Creates a channel where people can take their oaths for the term")
+    @commands.has_any_role(721013396094582795, 646549322682466305, 646551227626160139, 673008336010084378)
+    async def oaths(self, ctx:commands.Context, type:Literal["Mayor's Office", "City Council"], term_id:str) -> None:
+        overwrites = {
+            ctx.guild.get_role(851212299745230898): discord.PermissionOverwrite(send_messages=True),
+            ctx.guild.get_role(763471193377603644): discord.PermissionOverwrite(send_messages=True)
+        }
+        if type == "Mayor's Office":
+            type = "mayors-office"
+        elif type == "City Council":
+            type = "city-council"
+        await ctx.guild.create_text_channel(f"{type}-oaths-{term_id}", overwrites=overwrites)
+        await ctx.send("Oaths channel created!", ephemeral=True)
+        pass
+
     pass
 
 async def setup(bot: commands.Bot) -> None:
