@@ -64,9 +64,9 @@ async def on_user_update(before, after):
     except AttributeError:
         pass
 
-discord.utils.setup_logging(level=40)
 
 async def main():
+    discord.utils.setup_logging(level=40)
     async with bot:
         await bot.start(os.getenv("BotToken"))
 
