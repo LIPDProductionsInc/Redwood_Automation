@@ -52,11 +52,11 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
                     role = discord.utils.get(ctx.guild.roles, id=851212299745230898)
                     await person.add_roles(role, reason=f"Added by {ctx.author} ({ctx.author.id})")
                     await ctx.send(f"{person.mention} has been added as an Alderperson-elect!", ephemeral=True)
-            elif position.id == 987139446971432971: #Redwood Executive Emergency Committee
+            elif position.id == 1038941326047191161: #Redwood Executive Emergency Committee
                 channel = ctx.bot.get_channel(646541531523710996)
-                role = discord.utils.get(ctx.guild.roles, id=987139446971432971)
+                role = discord.utils.get(ctx.guild.roles, id=1038941326047191161)
                 await person.add_roles(role, reason=f"Nominated by {ctx.author} ({ctx.author.id})")
-                await ctx.send(f"{person.mention} has been nominated as Chairperson!")
+                await ctx.send(f"{person.mention} has been appointed to the Redwood Executive Emergency Comittee!")
                 await channel.send(f"<:NewMayorSeal:1033299735630585876> | {person.mention} has been appointed to the Redwood Executive Emergency Comittee!\n\n- {ctx.author.mention}")
             else:
                 await ctx.send("You cannot appoint someone to that role at this time!", ephemeral=True)
