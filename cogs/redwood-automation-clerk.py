@@ -9,7 +9,7 @@ def get_chat_exporter_path():
     if os.name == 'nt': # windows environment
         return f'.{os.sep}DiscordChatExporter.CLI{os.sep}DiscordChatExporter.Cli.exe'
     elif os.name == 'posix': # linux environment
-        return f'dotnet .{os.sep}DiscordChatExporter.CLI{os.sep}DiscordChatExporter.Cli.dll'
+        return f'dotnet .{os.sep}home{os.sep}pi{os.sep}DiscordChatExporter.CLI{os.sep}DiscordChatExporter.Cli.dll'
     else:
         return
 
@@ -34,6 +34,23 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
             raise commands.UserInputError("This command can only be used in a council session channel.")
         pass
 
+    @commands.command(name='transcript-display')
+    @commands.guild_only()
+    @commands.is_owner()
+    async def transcript_display(self, ctx: commands.Context) -> None:
+        channel = ctx.bot.get_channel(1054420793913770025)
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-1-transcript.html", filename=f"council-session-1-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-2-transcript.html", filename=f"council-session-2-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-3-transcript.html", filename=f"council-session-3-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-4-transcript.html", filename=f"council-session-4-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-5-transcript.html", filename=f"council-session-5-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-6-transcript.html", filename=f"council-session-6-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-7-transcript.html", filename=f"council-session-7-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-8-transcript.html", filename=f"council-session-8-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-9-transcript.html", filename=f"council-session-9-transcript.html"))
+        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-10-transcript.html", filename=f"council-session-10-transcript.html"))
+        pass
+
     @commands.hybrid_command(name='transcript-simple', description='Get a transcript of the session (Simple Version)')
     @commands.guild_only()
     @commands.is_owner()
@@ -45,7 +62,7 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
             if not path:
                 raise commands.CommandError("Unsupported OS")
             file_path = f"{ctx.channel.name}-transcript.html"
-            subprocess.run([path, "export", "-t", "html", "-c", "redwood", "-o", file_path, "-f", "html", "-b", "0", "-e", "0", "-i", ctx.channel.id])
+            subprocess.run([path, "export", "-t", "html", "-c", "redwood", "-o", file_path, "-f", "html", "-b", "0", "-e", "0", "-i", str(ctx.channel.id)])
             await ctx.send(file=discord.File(file_path, filename=file_path))
         else:
             raise commands.UserInputError("This command can only be used in a council session channel.")
