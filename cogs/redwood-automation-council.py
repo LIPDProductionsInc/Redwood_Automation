@@ -47,7 +47,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     @app_commands.describe(session_type="The type of session to start. Either \"in-game\" or \"discord\".")
-    async def session(self, ctx, session_type:Literal["In-Game", "Discord"]):
+    async def session(self, ctx, session_type:Literal["In-Game", "Discord"], session_number:int = None):
         if session_type == "In-Game":
             channel = ctx.bot.get_channel(646541531523710996)
             await channel.send(f"**An in-game City Council Session is starting.**\n\nPlease join at the following link: <Link Here> \n\n@here")
@@ -60,7 +60,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 ctx.guild.get_role(646549329493884929): discord.PermissionOverwrite(send_messages=True),
                 ctx.guild.get_role(763469321459728384): discord.PermissionOverwrite(view_channel=True, send_messages=False)
             }
-            channel2 = await ctx.guild.create_text_channel(f"council-session-new", category=ctx.guild.get_channel(646552329654370345), overwrites=overwrites, reason="City Council Session Started")
+            channel2 = await ctx.guild.create_text_channel(f"council-session-{session_number}", category=ctx.guild.get_channel(646552329654370345), overwrites=overwrites, reason="City Council Session Started")
             await channel.send(f"**A Discord City Council Session is starting.**\n\n {channel2.mention} \n\n@here")
             await channel2.send(f"<:NewRedwoodSeal:1029041166508904519> {ctx.author.mention} has called the council into order on this {datetime.datetime.now().strftime('%A, %B %d, %Y')} at {datetime.datetime.now().strftime('%I:%M %p')}.To declare presence, please state **\"I\"**. The session will commence upon the presence of 1/2 of the incumbent Alderpersons.\n\nIt is requested that you refrain from deleting or edit messages in order to prevent errors with the record of fact.\n\n(<@&646549329493884929>)")
         else:
@@ -74,7 +74,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     async def end_session(self, ctx, session_type:Literal["In-Game", "Discord"]):
         if session_type == "Discord":
             if ctx.channel.name.startswith("council-session"):
-                await ctx.channel.category.edit(id=761730715024097311, reason="Session Ended", sync_permissions=True, position=0)
+                await ctx.channel.edit(category=ctx.get_channel(761730715024097311), reason="Session Ended", sync_permissions=True, position=0)
                 await ctx.send("The session is hereby adjourned. \n\n (<@&646549329493884929>) \n CC: <@&763471193524535336>")
             else:
                 if ctx.interaction == None:
