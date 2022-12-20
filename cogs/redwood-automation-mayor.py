@@ -151,6 +151,18 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
         await ctx.send("Oaths channel created!", ephemeral=True)
         pass
 
+    @commands.hybrid_command(name="seal", description="Updates the seal of the city")
+    @commands.guild_only()
+    @commands.check_any(commands.is_owner(), commands.has_any_role(987139446971432971, 646551227626160139, 763471106618556416))
+    async def seal(self, ctx:commands.Context, file:discord.File) -> None:
+        if file.filename.endswith(".png"):
+            await ctx.guild.edit(icon=file.fp.read())
+            await ctx.bot.user.edit(avatar=file.fp.read())
+            await ctx.send("Seal updated!", ephemeral=True)
+        else:
+            raise commands.BadArgument("That is not a PNG file!")
+        pass
+
     pass
 
 async def setup(bot: commands.Bot) -> None:
