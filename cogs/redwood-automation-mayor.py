@@ -154,7 +154,7 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
     @commands.hybrid_command(name="seal", description="Updates the seal of the city")
     @commands.guild_only()
     @commands.check_any(commands.is_owner(), commands.has_any_role(987139446971432971, 646551227626160139, 763471106618556416))
-    async def seal(self, ctx:commands.Context, file:discord.File) -> None:
+    async def seal(self, ctx:commands.Context, file:discord.Attachment) -> None:
         if file.filename.endswith(".png"):
             await ctx.guild.edit(icon=file.fp.read())
             await ctx.bot.user.edit(avatar=file.fp.read())
