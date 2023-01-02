@@ -87,19 +87,19 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         elif level == "Minor Emergency":
             embed = discord.Embed(
                 title="Redwood City Emergency Alert System",
-                colour=discord.Color.red()
+                colour=discord.Color.orange()
             )
-            embed.add_field(name=":red_square: | Minor Emergency", value=f"There is currently a city emergency in progress in the City of Redwood. A State of Emergency has **not** been declared at this time. Details can be found below:\n\n{message}", inline=False)
+            embed.add_field(name=":orange_square: | Minor Emergency", value=f"There is currently an emergency event in progress in the City of Redwood. A City Emergency has **not** been declared at this time. Details can be found below:\n\n{message}", inline=False)
             embed.set_thumbnail(url=ctx.bot.user.avatar)
             embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
             embed.timestamp = datetime.datetime.now()
-        elif level == "Major Weather Event (State of Emergency)":
+        elif level == "Major Weather Event (City Emergency)":
             channel2 = ctx.bot.get_channel(646541531523710996)
             embed = discord.Embed(
                 title="Redwood City Emergency Alert System",
                 colour=discord.Color.red()
             )
-            embed.add_field(name=":red_square: | Major Weather Event (State of Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A State of Emergency has been declared. Details can be found below:\n\n{message}", inline=False)
+            embed.add_field(name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}", inline=False)
             embed.set_thumbnail(url=ctx.bot.user.avatar)
             embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
             embed.timestamp = datetime.datetime.now()
@@ -110,7 +110,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
                 title="Redwood City Emergency Alert System",
                 colour=discord.Color.red()
             )
-            embed.add_field(name=":red_square: | State of Emergency", value=f"A State of Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
+            embed.add_field(name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
             embed.set_thumbnail(url=ctx.bot.user.avatar)
             embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
             embed.timestamp = datetime.datetime.now()
