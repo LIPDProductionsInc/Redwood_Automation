@@ -19,8 +19,9 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
             embed.add_field(name="Assistant City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549330479546379) and not discord.utils.get(member.roles, id=763470466269577216)][0], inline=False)
         else:
             embed.add_field(name="Assistant City Attorneys", value="\n".join([member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549330479546379) and not discord.utils.get(member.roles, id=763470466269577216)]), inline=False)
+        embed.set_thumbnail(url=ctx.bot.user.avatar)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
-        embed.timestamp = datetime.datetime.utcnow()
+        embed.timestamp = datetime.datetime.now()
         await ctx.send(embed=embed)
         pass
 
