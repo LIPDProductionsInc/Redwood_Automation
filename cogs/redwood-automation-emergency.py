@@ -119,6 +119,22 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         await channel.send(embed=embed)
         pass
 
+    @commands.hybrid_command(name="emergency-committee", description="View the current members of the Emergency Committee.", alaises=["reec"])
+    @commands.guild_only()
+    async def emergency_committee(self, ctx: commands.Context) -> None:
+        embed = discord.Embed(
+            title="Redwood City Executive Emergency Committee",
+            description="The current members of the Redwood Executive Emergency Committee are as follows:",
+            colour=discord.Color.dark_blue()
+        )
+        embed.add_field(name="Mayor", value=ctx.guild.get_role(646549322682466305).members[0].mention if len(ctx.guild.get_role(646549322682466305).members) > 0 else "VACANT", inline=False)
+        embed.add_field(name="Deputy Mayor", value=ctx.guild.get_role(646551227626160139).members[0].mention if len(ctx.guild.get_role(646551227626160139).members) > 0 else "VACANT", inline=True)
+        embed.add_field(name="Committee Advisor", value="\n".join([member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=1038941326047191161) and not discord.utils.get(member.roles, id=646549322682466305) and not discord.utils.get(member.roles, id=646551227626160139)]), inline=False)
+        embed.set_thumbnail(url=ctx.bot.user.avatar)
+        embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
+        embed.timestamp = datetime.datetime.now()
+        await ctx.send(embed=embed)
+
     pass
 
 async def setup(bot: commands.Bot) -> None:
