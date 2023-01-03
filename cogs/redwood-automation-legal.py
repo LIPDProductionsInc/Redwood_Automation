@@ -7,7 +7,7 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="legal-office", description="View the current members of the City Attorney's Office.")
+    @commands.hybrid_command(name="legal-office", description="View the current members of the City Attorney's Office.")
     async def legal_office(self, ctx):
         embed = discord.Embed(
             title="Redwood City Attorney's Office",
