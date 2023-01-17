@@ -25,7 +25,6 @@ class FeedbackModal(discord.ui.Modal, title="Feedback"):
             colour=discord.Color.dark_blue()
             )
         embed.set_footer(text=f"ID: {interaction.user.id}")
-        '''Get the bot's avatar via interaction and set it as the embed's thumbnail'''
         embed.set_thumbnail(url=interaction.guild.me.avatar)
         embed.timestamp = datetime.datetime.now()
         await channel.send(embed=embed)
