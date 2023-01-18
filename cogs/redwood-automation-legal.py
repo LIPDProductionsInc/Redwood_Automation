@@ -4,6 +4,7 @@ import sys
 import traceback
 
 from discord.ext import commands
+from discord import app_commands
 
 class ComplaintModal(discord.ui.Modal, title="Complaint Form", label="Test"):
     offender = discord.ui.TextInput(
@@ -16,9 +17,9 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form", label="Test"):
     )
 
     department = discord.ui.TextInput(
-        label="What department is the person in?",
+        label="What department/office is the person in?",
         style=discord.TextStyle.short,
-        placeholder="Enter the department here...",
+        placeholder="Enter the department/office here...",
         required=True,
         min_length=3,
         max_length=60
@@ -46,7 +47,7 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form", label="Test"):
         label="List any evidence and/or witnesses here",
         style=discord.TextStyle.long,
         placeholder="Enter any evidence and/or witnesses here...",
-        required=False,
+        required=True,
         min_length=0
     )
 
@@ -55,7 +56,7 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form", label="Test"):
         channel = interaction.client.get_channel(1034315223856840735)
         embed = discord.Embed(
             title="New Complaint",
-            description=f"**Offender:** {self.offender.value}\n**Department:** {self.department.value}\n**Date:** {self.date.value}\n**Complaint:** {self.complaint.value}\n**Evidence/Witnesses:** {self.additional.value}\n**Submitter:** {interaction.user.mention}",
+            description=f"**Offender:**\n{self.offender.value}\n\n**Department/Office:**\n{self.department.value}\n\n**Date:**\n{self.date.value}\n\n**Complaint:**\n{self.complaint.value}\n\n**Evidence/Witnesses:**\n{self.additional.value}\n\n**Submitter:**\n{interaction.user.mention}",
             colour=discord.Color.dark_blue()
         )
         embed.set_footer(text=f"ID: {interaction.user.id}")
@@ -94,7 +95,8 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
         await ctx.send(embed=embed)
         pass
 
-    @commands.hybrid_command(name="complaint", description="Submit a complaint against a member of the Redwood City Government.")
+    @app_commands.command(name="complaint", description="Submit a complaint against a member of the Redwood City Government.")
+    @app_commands.guild_only()
     async def complaint(self, interaction: discord.Interaction):
         await interaction.response.send_modal(ComplaintModal())
         pass
