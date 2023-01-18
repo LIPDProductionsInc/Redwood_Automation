@@ -1,4 +1,5 @@
 import discord
+import datetime
 import requests
 import roblox
 import sqlite3
@@ -116,6 +117,20 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             await ctx.send(f':x: | AttributeError: {error}')
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            channel = ctx.bot.get_channel(784368117299150849)
+            embed = discord.Embed(
+                type='rich',
+                colour = discord.Colour.red()
+            )
+            embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
+            embed.add_field(name='Attribute Error', value=f'{error}', inline=False)
+            embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
+            embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
+            embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
+            embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
+            embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
+            embed.timestamp = datetime.datetime.now()
+            await channel.send(embed=embed)
             
         elif isinstance(error, NameError):
             await ctx.send(f':x: | NameError: {error}')
@@ -206,6 +221,20 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             await ctx.send(':x: | Error not captured')
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            channel = ctx.bot.get_channel(784368117299150849)
+            embed = discord.Embed(
+                type='rich',
+                colour = discord.Colour.red()
+            )
+            embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
+            embed.add_field(name='Check Failure Error', value=f'{error}', inline=False)
+            embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
+            embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
+            embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
+            embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
+            embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
+            embed.timestamp = datetime.datetime.now()
+            await channel.send(embed=embed)
 
         elif isinstance(error, commands.UserInputError):
             if ctx.command.qualified_name == 'floor':
@@ -245,12 +274,29 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
                 traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
+        elif isinstance(error, commands.CheckAnyFailure):
+            if ctx.command.qualified_name == 'seal':
+                await ctx.send("You can not change the seal.", ephemeral=True)
+            else:
+                await ctx.send("Error not captured. Sent to console for capturing", ephemeral=True)
+                channel = ctx.bot.get_channel(784368117299150849)
+                embed = discord.Embed(
+                    type='rich',
+                    colour = discord.Colour.red()
+                )
+                embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
+                embed.add_field(name='Check Any Failure Error', value=f'{error}', inline=False)
+                embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
+                embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
+                embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
+                embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
+                embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
+                embed.timestamp = datetime.datetime.now()
+                await channel.send(embed=embed)
+
         else:
-            exc_type, exc_value, exc_tb = sys.exc_info()
-            new_line = '\n'
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-#            await channel.send(f':x: | ERROR IN r!{ctx.command}: {f"{new_line}".join(traceback.format_exception(exc_type, exc_value, exc_tb))}')
 
     async def on_app_command_error(self, interaction:Interaction, error:AppCommandError):
         print('Ignoring exception in command {}:'.format(interaction.command), file=sys.stderr)
