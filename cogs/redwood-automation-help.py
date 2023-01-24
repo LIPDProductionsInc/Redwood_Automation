@@ -30,7 +30,9 @@ class HelpCog(commands.Cog, name="Help Cog"):
             embed.add_field(name="Deputy Mayor Commands", value="`appoint`, `seal`", inline=False)
         if discord.utils.get(ctx.author.roles, id=763471106618556416):
             embed.add_field(name="Press Office Commands", value="`seal`", inline=False)
-        embed.add_field(name="Commands", value="`help`, `ping`, `serverinfo`, `userinfo`, `avatar`, `council`", inline=False)
+        if discord.utils.get(ctx.author.roles, id=763471193524535336):
+            embed.add_field(name="City Clerk Commands", value="`transcript`", inline=False)
+        embed.add_field(name="Commands", value="`help`, `ping`, `serverinfo`, `userinfo`, `avatar`, `council`, `legal-office`, `complaint`, `feedback`", inline=False)
         embed.add_field(name="Moderation", value="`ban`, `kick`, `unban`", inline=False)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner}", icon_url=str(self.bot.user.avatar))
         await ctx.send(embed=embed)

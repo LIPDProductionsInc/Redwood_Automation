@@ -60,8 +60,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 ctx.guild.get_role(646549329493884929): discord.PermissionOverwrite(send_messages=True),
                 ctx.guild.get_role(763469321459728384): discord.PermissionOverwrite(view_channel=True, send_messages=False)
             }
+            if session_number is None:
+                session_number = "new"
             channel2 = await ctx.guild.create_text_channel(f"council-session-{session_number}", category=ctx.guild.get_channel(646552329654370345), overwrites=overwrites, reason="City Council Session Started")
-            await channel.send(f"**A Discord City Council Session is starting.**\n\n {channel2.mention} \n\n@here")
+            await channel.send(f"**A Discord City Council Session is starting.**\n\n{channel2.mention} \n\n@here")
             await channel2.send(f"<:NewRedwoodSeal:1029041166508904519> {ctx.author.mention} has called the council into order on this {datetime.datetime.now().strftime('%A, %B %d, %Y')} at {datetime.datetime.now().strftime('%I:%M %p')}.To declare presence, please state **\"I\"**. The session will commence upon the presence of 1/2 of the incumbent Alderpersons.\n\nIt is requested that you refrain from deleting or edit messages in order to prevent errors with the record of fact.\n\n(<@&646549329493884929>)")
         else:
             raise commands.BadArgument
