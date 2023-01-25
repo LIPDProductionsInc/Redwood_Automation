@@ -100,9 +100,9 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 raise commands.BadArgument("This person can already speak in the session.")
             else:
                 overwrite = {
-                    member: discord.PermissionOverwrite(send_messages=True, embed_links=True)
+                    discord.PermissionOverwrite(send_messages=True, embed_links=True)
                 }
-                await ctx.channel.edit(overwrites=overwrite)
+                await ctx.channel.set_permissions(member, overwrite=overwrite)
                 await ctx.send(f"{member.mention}: you have the floor.")
         else:
             if ctx.interaction == None:
@@ -120,10 +120,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             if discord.utils.get(member.roles, id=646549322682466305) or discord.utils.get(member.roles, id=646551227626160139) or discord.utils.get(member.roles, id=673008336010084378) or discord.utils.get(member.roles, id=646549329493884929):
                 raise commands.BadArgument("This person cannot be dismissed like this in the session.")
             else:
-                overwrite = {
-                    member: discord.PermissionOverwrite(send_messages=False, embed_links=False)
-                }
-                await ctx.channel.edit(overwrites=overwrite)
+                await ctx.channel.set_permissions(member, overwrite=None)
                 await ctx.send(f"{member.mention} has been dismissed from the floor.", ephemeral=True)
         else:
             if ctx.interaction == None:

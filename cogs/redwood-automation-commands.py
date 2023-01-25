@@ -38,7 +38,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
         embed.add_field(name="Owner", value=ctx.guild.owner, inline=True).add_field(name="Category Channels", value=len(ctx.guild.categories), inline=True).add_field(name="Text Channels", value=len(ctx.guild.text_channels), inline=True)
         embed.add_field(name="Voice Channels", value=len(ctx.guild.voice_channels), inline=True).add_field(name="Members", value=ctx.guild.member_count, inline=True).add_field(name="Roles", value=len(ctx.guild.roles), inline=True)
         embed.add_field(name="Created At", value=ctx.guild.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=True)
-        embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.set_thumbnail(url=ctx.guild.icon)
         embed.set_footer(text=f"Developed by {self.bot.owner} | Server ID: {ctx.guild.id}")
         await ctx.send(embed=embed)
         pass
