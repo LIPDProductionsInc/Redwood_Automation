@@ -17,10 +17,14 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
         channel = ctx.bot.get_channel(1054420793913770025)
         if ctx.channel.name.startswith("council-session"):
             await ctx.send("`Saving...`")
-            transcript = await chat_exporter.export(ctx.channel, tz_info='EST')
-            transcript_file = discord.File(io.BytesIO(transcript.encode()),filename=f"{ctx.channel.name}.html")
-            await ctx.send(file=transcript_file)
-            await channel.send(f"{ctx.channel.name}", file=transcript_file)
+            try:
+                transcript = await chat_exporter.export(ctx.channel, tz_info='EST')
+                transcript_file = discord.File(io.BytesIO(transcript.encode()),filename=f"{ctx.channel.name}.html")
+                await ctx.send(file=transcript_file)
+                await channel.send(f"{ctx.channel.name}", file=transcript_file)
+            except Exception as e:
+                await ctx.send(f"`{e}`", ephemeral=True)
+                print("Ignoring exception in command transcript: {}".format(e))
         else:
             raise commands.UserInputError("This command can only be used in a council session channel.")
         pass

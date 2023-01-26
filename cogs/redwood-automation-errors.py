@@ -6,7 +6,6 @@ import sqlite3
 import sys
 import traceback
 
-from discord import Interaction
 from discord.ext import commands
 from discord.app_commands import AppCommandError
 from roblox import InternalServerError
@@ -15,7 +14,11 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
 
     def __init__(self, bot):
         self.bot = bot
-        bot.tree.on_error = self.on_app_command_error
+    
+    def cog_load(self):
+        tree = self.bot.tree
+        self._old_tree_error = tree.on_error
+        tree.on_error = self.on_app_command_error
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -298,7 +301,7 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
-    async def on_app_command_error(self, interaction:Interaction, error:AppCommandError):
+    async def on_app_command_error(self, interaction:discord.Interaction, error:AppCommandError):
         print('Ignoring exception in command {}:'.format(interaction.command), file=sys.stderr)
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
