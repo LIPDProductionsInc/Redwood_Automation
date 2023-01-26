@@ -12,6 +12,7 @@ class VoteOptions(discord.ui.Select):
             discord.SelectOption(label="Bill", value="bill "),
             discord.SelectOption(label="Motion", value="motion"),
             discord.SelectOption(label="Nomination", value="nomination"),
+            discord.SelectOption(label="Ratifaction", value="ratification"),
             discord.SelectOption(label="Resolution", value="resolution")
         ]
 

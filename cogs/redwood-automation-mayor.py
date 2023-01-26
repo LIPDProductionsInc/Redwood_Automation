@@ -112,7 +112,7 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
                 else:
                     raise commands.BadArgument("That is not a valid link!")
             else:
-                raise commands.BadArgument("You do not have permission to announce Mayor and Deputy elections!")
+                raise commands.BadArgument("You do not have permission to announce Mayor and Deputy Mayor elections!")
         elif type == "City Council":
             if ctx.author.get_role(646549322682466305) or ctx.author.get_role(646551227626160139) or ctx.author.get_role(673008336010084378):
                 if forumlink.startswith("https://forums.stateoffirestone.com/t/"):

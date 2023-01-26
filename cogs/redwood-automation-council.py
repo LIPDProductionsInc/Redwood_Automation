@@ -229,7 +229,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     @app_commands.describe(type="The type of vote to start.")
-    async def vote(self, ctx, type:Literal["Amendment", "Bill", "Resolution", "Motion", "Nomination"]):
+    async def vote(self, ctx, type:Literal["Amendment", "Bill", "Motion", "Nomination", "Ratification", "Resolution"]):
         if ctx.channel.name.startswith("council-session"):
             if type != "Motion":
                 if ctx.interaction == None:
