@@ -99,10 +99,19 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             if discord.utils.get(member.roles, id=646549322682466305) or discord.utils.get(member.roles, id=646551227626160139) or discord.utils.get(member.roles, id=673008336010084378) or discord.utils.get(member.roles, id=646549329493884929):
                 raise commands.BadArgument("This person can already speak in the session.")
             else:
-                overwrite = {
-                    discord.PermissionOverwrite(send_messages=True, embed_links=True)
-                }
+                overwrite = discord.PermissionOverwrite(send_messages=True, embed_links=True)
                 await ctx.channel.set_permissions(member, overwrite=overwrite)
+                channel = ctx.bot.get_channel(1040322534454861904)
+                embed = discord.Embed(
+                    title="Floor Given",
+                    colour=discord.Color.dark_blue()
+                )
+                embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar)
+                embed.add_field(name="Floor Given To:", value=member.mention, inline=False)
+                embed.add_field(name="Given By:", value=ctx.author.mention, inline=False)
+                embed.set_footer(text=f"ID: {ctx.author.id}")
+                embed.timestamp = datetime.datetime.now()
+                await channel.send(embed=embed)
                 await ctx.send(f"{member.mention}: you have the floor.")
         else:
             if ctx.interaction == None:
@@ -121,6 +130,17 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 raise commands.BadArgument("This person cannot be dismissed like this in the session.")
             else:
                 await ctx.channel.set_permissions(member, overwrite=None)
+                channel = ctx.bot.get_channel(1040322534454861904)
+                embed = discord.Embed(
+                    title="Dismissed From Floor",
+                    colour=discord.Color.dark_blue()
+                )
+                embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar)
+                embed.add_field(name="User Dismissed:", value=member.mention, inline=False)
+                embed.add_field(name="Dismissed By:", value=ctx.author.mention, inline=False)
+                embed.set_footer(text=f"ID: {ctx.author.id}")
+                embed.timestamp = datetime.datetime.now()
+                await channel.send(embed=embed)
                 await ctx.send(f"{member.mention} has been dismissed from the floor.", ephemeral=True)
         else:
             if ctx.interaction == None:
