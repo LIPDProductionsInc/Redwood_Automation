@@ -79,16 +79,19 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
 
     @commands.hybrid_command(name="legal-office", description="View the current members of the City Attorney's Office.")
     async def legal_office(self, ctx):
+        city_attorney = 646549330479546379
+        admin = 719393017848528928
+        moderator = 646554162405834762
         embed = discord.Embed(
             title="Redwood City Attorney's Office",
             description="The current members of the City Attorney's Office are as follows:",
             colour=discord.Color.dark_blue()
         )
-        embed.add_field(name="City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549330479546379) and discord.utils.get(member.roles, id=719393017848528928)][0], inline=True)
-        if len(discord.utils.get(ctx.guild.roles, id=646549330479546379).members) == 2:
-            embed.add_field(name="Assistant City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549330479546379) and discord.utils.get(member.roles, id=646554162405834762)][0], inline=False)
+        embed.add_field(name="City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=admin)][0], inline=True)
+        if len(discord.utils.get(ctx.guild.roles, id=city_attorney).members) == 2:
+            embed.add_field(name="Assistant City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=moderator)][0], inline=False)
         else:
-            embed.add_field(name="Assistant City Attorneys", value="\n".join([member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=646549330479546379) and discord.utils.get(member.roles, id=646554162405834762)]), inline=False)
+            embed.add_field(name="Assistant City Attorneys", value="\n".join([member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=moderator)]), inline=False)
         embed.set_thumbnail(url=ctx.bot.user.avatar)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
         embed.timestamp = datetime.datetime.now()
