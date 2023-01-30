@@ -167,7 +167,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         embed.add_field(name='6. Any type of malicious links, files, or anything of the sort, are strictly forbidden', value='Violating this rule will result in your permanent removal from this server', inline=False)
         embed.add_field(name='7. Do not argue in any public text channel', value='If you wish to argue, take it to direct messages', inline=False)
         embed.add_field(name='8. Utilize appropriate profile pictures', value='They may not consist of pornography, gore, or have relations to a terrorist organization', inline=False)
-        embed.set_footer(text='Rules lase updated on:')
+        embed.set_footer(text='Rules last updated on:')
         embed.timestamp = datetime.datetime.now()
         await channel.send(embed=embed)
         pass
@@ -210,7 +210,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
             embed.set_footer(text=f'Developed by {self.bot.owner}')
             await message.edit(embed=embed)
         elif type == 'information-links':
-            message = await ctx.fetch_message(1038839060954890250)
+            message = await ctx.fetch_message(1068923992079081644)
             embed = message.embeds[0]
             embed.set_field_at(0, name='Council Boards', value='[City Council](https://trello.com/b/gVPTVd0r) \n[City Records](https://trello.com/b/g06YwcHJ)', inline=False)
             embed.set_field_at(1, name='Adminstration Boards', value='[Office of the Mayor](https://trello.com/b/pK66sdV7) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
