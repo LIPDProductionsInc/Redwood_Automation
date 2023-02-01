@@ -163,6 +163,12 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
             raise commands.BadArgument("That is not a PNG file!")
         pass
 
+    @commands.hybrid_command(name="polls", description="Provides a link to approval polls")
+    @commands.guild_only()
+    async def polls(self, ctx:commands.Context) -> None:
+        await ctx.send("https://forms.gle/fd3SC9hRV9yzaR8e7", ephemeral=True)
+        pass
+
     pass
 
 async def setup(bot: commands.Bot) -> None:
