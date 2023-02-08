@@ -28,16 +28,14 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
     @group.command(name='departments', description="Get the departments the user is in")
     async def departments_command(self, interaction: discord.Interaction, roblox_id: int):
         user = await client.get_user(roblox_id)
-        roles = await user.get_roles()
+        roles = await user.get_group_roles()
         role = None
         for final_role in roles:
-            if final_role.group.id == 14725251:
+            if final_role.group.id == 14725251: #RPD
                 role = final_role
                 break
         print(role)
         #Departments
-        #group = client.get_base_group(15256757)
-        #rpd = client.get_base_group(14725251)
         #apd = client.get_base_group(14089278)
         #pdp = client.get_base_group(4431799)
         #scpa = client.get_base_group(11324038)
