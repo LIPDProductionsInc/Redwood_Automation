@@ -97,45 +97,45 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
             colour=discord.Colour.dark_blue()
         )
         if rpd != "Guest":
-            embed.add_field(name="Redwood Police Department", value=rpd)
+            embed.add_field(name="Redwood Police Department", value=rpd, inline=False)
         if apd != "Guest":
-            embed.add_field(name="Arborfield Police Department", value=apd)
+            embed.add_field(name="Arborfield Police Department", value=apd, inline=False)
         if pdp != "Guest":
-            embed.add_field(name="Promience District Police", value=pdp)
+            embed.add_field(name="Promience District Police", value=pdp, inline=False)
         if scpa != "Guest":
-            embed.add_field(name="Stapleton County Port Authroity", value=scpa)
+            embed.add_field(name="Stapleton County Port Authroity", value=scpa, inline=False)
         if scfd != "Guest":
-            embed.add_field(name="Stapleton County Fire Department", value=scfd)
+            embed.add_field(name="Stapleton County Fire Department", value=scfd, inline=False)
         if scso != "Guest":
-            embed.add_field(name="Stapleton County Sheriff's Office", value=scso)
+            embed.add_field(name="Stapleton County Sheriff's Office", value=scso, inline=False)
         if fps != "Guest":
-            embed.add_field(name="Firestone Park Service", value=fps)
+            embed.add_field(name="Firestone Park Service", value=fps, inline=False)
         if fbi != "Guest":
-            embed.add_field(name="Firestone Bureau of Investigation", value=fbi)
+            embed.add_field(name="Firestone Bureau of Investigation", value=fbi, inline=False)
         if doa != "Guest":
-            embed.add_field(name="Department of Aviation", value=doa)
+            embed.add_field(name="Department of Aviation", value=doa, inline=False)
         if dos != "Guest":
-            embed.add_field(name="Department of State", value=dos)
+            embed.add_field(name="Department of State", value=dos, inline=False)
         if doh != "Guest":
-            embed.add_field(name="Department of Health", value=doh)
+            embed.add_field(name="Department of Health", value=doh, inline=False)
         if courts != "Guest":
-            embed.add_field(name="Firestone Courts", value=courts)
+            embed.add_field(name="Firestone Courts", value=courts, inline=False)
         if dpw != "Guest":
-            embed.add_field(name="Department of Public Works", value=dpw)
+            embed.add_field(name="Department of Public Works", value=dpw, inline=False)
         if dps != "Guest":
-            embed.add_field(name="Department of Public Safety", value=dps)
+            embed.add_field(name="Department of Public Safety", value=dps, inline=False)
         if docm != "Guest":
-            embed.add_field(name="Department of Commerce", value=docm)
+            embed.add_field(name="Department of Commerce", value=docm, inline=False)
         if doc != "Guest":
-            embed.add_field(name="Department of Corrections", value=doc)
+            embed.add_field(name="Department of Corrections", value=doc, inline=False)
         if doj != "Guest":
-            embed.add_field(name="Department of Justice", value=doj)
+            embed.add_field(name="Department of Justice", value=doj, inline=False)
         if dot != "Guest":
-            embed.add_field(name="Department of Transportation", value=dot)
+            embed.add_field(name="Department of Transportation", value=dot, inline=False)
         if fng != "Guest":
-            embed.add_field(name="Firestone National Guard", value=fng)
+            embed.add_field(name="Firestone National Guard", value=fng, inline=False)
         if fsp != "Guest":
-            embed.add_field(name="Firestone State Police", value=fsp)
+            embed.add_field(name="Firestone State Police", value=fsp, inline=False)
         if len(embed.fields) == 0:
             embed.description = "This user is not in any departments"
         '''If a user is in two or more primary departments and not the Founder, make the description say that'''
