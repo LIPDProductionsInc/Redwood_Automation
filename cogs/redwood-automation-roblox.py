@@ -112,23 +112,23 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
             embed.add_field(name="Firestone Park Service", value=fps, inline=False)
         if fbi != "Guest":
             embed.add_field(name="Firestone Bureau of Investigation", value=fbi, inline=False)
-        if doa != "Guest":
+        if doa != "Guest" or doa != "Firestone Citizen":
             embed.add_field(name="Department of Aviation", value=doa, inline=False)
-        if dos != "Guest":
+        if dos != "Guest" or dos != "Firestone Citizen":
             embed.add_field(name="Department of State", value=dos, inline=False)
         if doh != "Guest":
             embed.add_field(name="Department of Health", value=doh, inline=False)
-        if courts != "Guest":
+        if courts != "Guest" or courts != "Firestone Citizen":
             embed.add_field(name="Firestone Courts", value=courts, inline=False)
         if dpw != "Guest":
             embed.add_field(name="Department of Public Works", value=dpw, inline=False)
-        if dps != "Guest":
+        if dps != "Guest" or dps != "Firestone Citizen":
             embed.add_field(name="Department of Public Safety", value=dps, inline=False)
-        if docm != "Guest":
+        if docm != "Guest" or docm != "Firestone Citizen":
             embed.add_field(name="Department of Commerce", value=docm, inline=False)
         if doc != "Guest":
             embed.add_field(name="Department of Corrections", value=doc, inline=False)
-        if doj != "Guest":
+        if doj != "Guest" or doj != "Firestone Citizen":
             embed.add_field(name="Department of Justice", value=doj, inline=False)
         if dot != "Guest":
             embed.add_field(name="Department of Transportation", value=dot, inline=False)
