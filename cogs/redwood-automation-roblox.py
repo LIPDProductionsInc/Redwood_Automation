@@ -26,6 +26,7 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
         pass
 
     @group.command(name='departments', description="Get the departments the user is in")
+    @app_commands.describe(roblox_id="The Roblox ID of the user")
     async def departments_command(self, interaction: discord.Interaction, roblox_id: int):
         user = await client.get_user(roblox_id)
         roles = await user.get_group_roles()
@@ -157,12 +158,12 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
             embed.add_field(name="Firestone State Police", value=fsp)
         if len(embed.fields) == 0:
             embed.description = "This user is not in any departments"
-        '''If a user is in two or more primary departments, make the description say that'''
+        '''If a user is in two or more primary departments and not the Founder, make the description say that'''
         #List the Primary Departments Here
-        '''If a user is in three or more secondary departments, make the description say that'''
+        '''If a user is in three or more secondary departments and not the Founder, make the description say that'''
         #List the Secondary Departments Here
         #embed.set_thumbnail(url=ROBLOX_AVATAR)
-        embed.set_footer(text=f"Redwood Automation | Requested by: {interaction.author.name}")
+        embed.set_footer(text=f"Redwood Automation | Requested by: {interaction.user.name}")
         embed.timestamp = datetime.datetime.now()
         await interaction.response.send_message(embed=embed)
         pass
