@@ -54,64 +54,44 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
             fsp = "Guest"
             if final_role.group.id == 14725251: #RPD
                 rpd = final_role.name
-                break
             if final_role.group.id == 14089278: #APD
                 apd = final_role.name
-                break
             if final_role.group.id == 4431799: #PDP
                 pdp = final_role.name
-                break
             if final_role.group.id == 11324038: #SCPA
                 scpa = final_role.name
-                break
             if final_role.group.id == 2805393: #SCFD
                 scfd = final_role.name
-                break
             if final_role.group.id == 2805388: #SCSO
                 scso = final_role.name
-                break
             if final_role.group.id == 5684663: #FPS
                 fps = final_role.name
-                break
             if final_role.group.id == 3411434: #FBI
                 fbi = final_role.name
-                break
             if final_role.group.id == 2890690: #DOA
                 doa = final_role.name
-                break
             if final_role.group.id == 2842177: #DOS
                 dos = final_role.name
-                break
             if final_role.group.id == 2826521: #DOH
                 doh = final_role.name
-                break
             if final_role.group.id == 2825030: #Courts
                 courts = final_role.name
-                break
             if final_role.group.id == 2811838: #DPW
                 dpw = final_role.name
-                break
             if final_role.group.id == 2809133: #DPS
                 dps = final_role.name
-                break
             if final_role.group.id == 2808791: #DOCM
                 docm = final_role.name
-                break
             if final_role.group.id == 2807789: #DOC
                 doc = final_role.name
-                break
             if final_role.group.id == 2803369: #DOJ
                 doj = final_role.name
-                break
             if final_role.group.id == 2803367: #DOT
                 dot = final_role.name
-                break
             if final_role.group.id == 2803372: #FNG
                 fng = final_role.name
-                break
             if final_role.group.id == 2803364: #FSP
                 fsp = final_role.name
-                break
         embed = discord.Embed(
             title=f"{user.name}'s Departments",
             colour=discord.Colour.dark_blue()
