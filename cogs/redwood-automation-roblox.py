@@ -148,6 +148,32 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
         await interaction.response.send_message(embed=embed)
         pass
 
+    @group.command(name="certifications", description="Shows a user's certifications")
+    @app_commands.describe(roblox_id="The user's Roblox ID")
+    async def certifications(self, interaction: discord.Interaction, roblox_id: int):
+        user = await self.client.get_user(roblox_id)
+        roles = await user.get_roles()
+        ffa = "None Obtainable"
+        post = "None Obtainable"
+        for role in roles:
+            if role.group.id == 2979146: #FFA
+                ffa = role.name
+            if role.group.id == 2808300: #POST
+                post = role.name
+        embed = discord.Embed(
+            title=f"{user.name}'s Certifications",
+            colour=discord.Colour.dark_blue()
+        )
+        embed.add_field(name="Firestone Fire Academy", value=ffa, inline=False)
+        embed.add_field(name="Peace Officer Standards and Training", value=post, inline=False)
+        if len(embed.fields) == 0 or len(embed.fields) == 1:
+            raise TypeError(f"Expected 2 fields, got {len(embed.fields)}")
+        #embed.set_thumbnail(url=ROBLOX_AVATAR)
+        embed.set_footer(text=f"Redwood Automation | Requested by: {interaction.user.name}")
+        embed.timestamp = datetime.datetime.now()
+        await interaction.response.send_message(embed=embed)
+        pass
+
     pass
 
 async def setup(bot: commands.Bot):
