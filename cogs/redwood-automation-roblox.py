@@ -151,8 +151,8 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
     @group.command(name="certifications", description="Shows a user's certifications")
     @app_commands.describe(roblox_id="The user's Roblox ID")
     async def certifications(self, interaction: discord.Interaction, roblox_id: int):
-        user = await self.client.get_user(roblox_id)
-        roles = await user.get_roles()
+        user = await client.get_user(roblox_id)
+        roles = await user.get_group_roles()
         ffa = "None Obtainable"
         post = "None Obtainable"
         for role in roles:
