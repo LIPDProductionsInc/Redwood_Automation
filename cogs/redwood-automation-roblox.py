@@ -31,67 +31,67 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
         user = await client.get_user(roblox_id)
         roles = await user.get_group_roles()
         #Departments
-        for final_role in roles:
-            rpd = "Guest"
-            apd = "Guest"
-            pdp = "Guest"
-            scpa = "Guest"
-            scfd = "Guest"
-            scso = "Guest"
-            fps = "Guest"
-            fbi = "Guest"
-            doa = "Guest"
-            dos = "Guest"
-            doh = "Guest"
-            courts = "Guest"
-            dpw = "Guest"
-            dps = "Guest"
-            docm = "Guest"
-            doc = "Guest"
-            doj = "Guest"
-            dot = "Guest"
-            fng = "Guest"
-            fsp = "Guest"
-            if final_role.group.id == 14725251: #RPD
-                rpd = final_role.name
-            if final_role.group.id == 14089278: #APD
-                apd = final_role.name
-            if final_role.group.id == 4431799: #PDP
-                pdp = final_role.name
-            if final_role.group.id == 11324038: #SCPA
-                scpa = final_role.name
-            if final_role.group.id == 2805393: #SCFD
-                scfd = final_role.name
-            if final_role.group.id == 2805388: #SCSO
-                scso = final_role.name
-            if final_role.group.id == 5684663: #FPS
-                fps = final_role.name
-            if final_role.group.id == 3411434: #FBI
-                fbi = final_role.name
-            if final_role.group.id == 2890690: #DOA
-                doa = final_role.name
-            if final_role.group.id == 2842177: #DOS
-                dos = final_role.name
-            if final_role.group.id == 2826521: #DOH
-                doh = final_role.name
-            if final_role.group.id == 2825030: #Courts
-                courts = final_role.name
-            if final_role.group.id == 2811838: #DPW
-                dpw = final_role.name
-            if final_role.group.id == 2809133: #DPS
-                dps = final_role.name
-            if final_role.group.id == 2808791: #DOCM
-                docm = final_role.name
-            if final_role.group.id == 2807789: #DOC
-                doc = final_role.name
-            if final_role.group.id == 2803369: #DOJ
-                doj = final_role.name
-            if final_role.group.id == 2803367: #DOT
-                dot = final_role.name
-            if final_role.group.id == 2803372: #FNG
-                fng = final_role.name
-            if final_role.group.id == 2803364: #FSP
-                fsp = final_role.name
+        rpd = "Guest"
+        apd = "Guest"
+        pdp = "Guest"
+        scpa = "Guest"
+        scfd = "Guest"
+        scso = "Guest"
+        fps = "Guest"
+        fbi = "Guest"
+        doa = "Guest"
+        dos = "Guest"
+        doh = "Guest"
+        courts = "Guest"
+        dpw = "Guest"
+        dps = "Guest"
+        docm = "Guest"
+        doc = "Guest"
+        doj = "Guest"
+        dot = "Guest"
+        fng = "Guest"
+        fsp = "Guest"
+        for role in roles:
+            if role.group.id == 14725251: #RPD
+                rpd = role.name
+            if role.group.id == 14089278: #APD
+                apd = role.name
+            if role.group.id == 4431799: #PDP
+                pdp = role.name
+            if role.group.id == 11324038: #SCPA
+                scpa = role.name
+            if role.group.id == 2805393: #SCFD
+                scfd = role.name
+            if role.group.id == 2805388: #SCSO
+                scso = role.name
+            if role.group.id == 5684663: #FPS
+                fps = role.name
+            if role.group.id == 3411434: #FBI
+                fbi = role.name
+            if role.group.id == 2890690: #DOA
+                doa = role.name
+            if role.group.id == 2842177: #DOS
+                dos = role.name
+            if role.group.id == 2826521: #DOH
+                doh = role.name
+            if role.group.id == 2825030: #Courts
+                courts = role.name
+            if role.group.id == 2811838: #DPW
+                dpw = role.name
+            if role.group.id == 2809133: #DPS
+                dps = role.name
+            if role.group.id == 2808791: #DOCM
+                docm = role.name
+            if role.group.id == 2807789: #DOC
+                doc = role.name
+            if role.group.id == 2803369: #DOJ
+                doj = role.name
+            if role.group.id == 2803367: #DOT
+                dot = role.name
+            if role.group.id == 2803372: #FNG
+                fng = role.name
+            if role.group.id == 2803364: #FSP
+                fsp = role.name
         embed = discord.Embed(
             title=f"{user.name}'s Departments",
             colour=discord.Colour.dark_blue()
