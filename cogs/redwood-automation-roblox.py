@@ -96,45 +96,45 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
             title=f"{user.name}'s Departments",
             colour=discord.Colour.dark_blue()
         )
-        if rpd != "Guest":
+        if rpd not in ["Guest"]:
             embed.add_field(name="Redwood Police Department", value=rpd, inline=False)
-        if apd != "Guest":
+        if apd not in ["Guest"]:
             embed.add_field(name="Arborfield Police Department", value=apd, inline=False)
-        if pdp != "Guest":
+        if pdp not in ["Guest"]:
             embed.add_field(name="Promience District Police", value=pdp, inline=False)
-        if scpa != "Guest":
+        if scpa not in ["Guest"]:
             embed.add_field(name="Stapleton County Port Authroity", value=scpa, inline=False)
-        if scfd != "Guest":
+        if scfd not in ["Guest"]:
             embed.add_field(name="Stapleton County Fire Department", value=scfd, inline=False)
-        if scso != "Guest":
+        if scso not in ["Guest"]:
             embed.add_field(name="Stapleton County Sheriff's Office", value=scso, inline=False)
-        if fps != "Guest":
+        if fps not in ["Guest"]:
             embed.add_field(name="Firestone Park Service", value=fps, inline=False)
-        if fbi != "Guest":
+        if fbi not in ["Guest"]:
             embed.add_field(name="Firestone Bureau of Investigation", value=fbi, inline=False)
-        if doa != "Guest" or doa != "Firestone Citizen":
+        if doa not in ["Guest", "Firestone Citizen"]:
             embed.add_field(name="Department of Aviation", value=doa, inline=False)
-        if dos != "Guest" or dos != "Firestone Citizen":
+        if dos not in ["Guest", "Firestone Citizen"]:
             embed.add_field(name="Department of State", value=dos, inline=False)
-        if doh != "Guest":
+        if doh not in ["Guest"]:
             embed.add_field(name="Department of Health", value=doh, inline=False)
-        if courts != "Guest" or courts != "Firestone Citizen":
+        if courts not in ["Guest", "Firestone Citizen"]:
             embed.add_field(name="Firestone Courts", value=courts, inline=False)
-        if dpw != "Guest":
+        if dpw not in ["Guest"]:
             embed.add_field(name="Department of Public Works", value=dpw, inline=False)
-        if dps != "Guest" or dps != "Firestone Citizen":
+        if dps not in ["Guest", "Firestone Citizen"]:
             embed.add_field(name="Department of Public Safety", value=dps, inline=False)
-        if docm != "Guest" or docm != "Firestone Citizen":
+        if docm not in ["Guest", "Firestone Citizen"]:
             embed.add_field(name="Department of Commerce", value=docm, inline=False)
-        if doc != "Guest":
+        if doc not in ["Guest"]:
             embed.add_field(name="Department of Corrections", value=doc, inline=False)
-        if doj != "Guest" or doj != "Firestone Citizen":
+        if doj not in ["Guest", "Firestone Citizen"]:
             embed.add_field(name="Department of Justice", value=doj, inline=False)
-        if dot != "Guest":
+        if dot not in ["Guest"]:
             embed.add_field(name="Department of Transportation", value=dot, inline=False)
-        if fng != "Guest":
+        if fng not in ["Guest"]:
             embed.add_field(name="Firestone National Guard", value=fng, inline=False)
-        if fsp != "Guest":
+        if fsp not in ["Guest"]:
             embed.add_field(name="Firestone State Police", value=fsp, inline=False)
         if len(embed.fields) == 0:
             embed.description = "This user is not in any departments"
