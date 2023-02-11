@@ -4,10 +4,16 @@ import asyncio
 import datetime
 import json
 import psutil
+import roblox
 import sys
 import traceback
 
 from discord.ext import commands
+from dotenv import load_dotenv
+from roblox import Client
+
+load_dotenv()
+client = Client(os.getenv("RobloxToken"))
 
 class OwnerCog(commands.Cog, name="Owner Commands"):
 
@@ -257,7 +263,17 @@ Latency: **{round(self.bot.latency * 1000)}**ms
     @commands.hybrid_command(name='test', hidden=True)
     @commands.is_owner()
     async def _test(self, ctx):
-        print(ctx.guild.get_role(646549322682466305).members[0].mention if len(ctx.guild.get_role(646549322682466305).members) > 0 else None)
+        async def group_check(group):
+            fs_group_ids = [14725251, 14089278, 4431799, 11324038, 2805393, 2805388, 5684663, 3411434, 2890690, 2842177, 2826521, 2825030, 2811838, 2809133, 2808791, 2807789, 2803369, 2803367, 2803372, 2803364]
+            blocked_roles = ["Guest", "Firestone Citizen"]
+            if group.id in fs_group_ids and group.role.name not in blocked_roles:
+                return group.id in fs_group_ids and group.role.name not in blocked_roles
+            
+            user = await client.get_user(roblox_id)
+            groups = await user.get_group_roles()
+
+            firestone_groups = filter(group_check, groups)
+            print(firestone_groups)
         await ctx.send('Sent')
         pass
 
