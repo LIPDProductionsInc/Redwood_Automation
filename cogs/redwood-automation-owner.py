@@ -273,7 +273,8 @@ Latency: **{round(self.bot.latency * 1000)}**ms
         groups = await user.get_group_roles()
 
         firestone_groups = filter(group_check, groups)
-        print(firestone_groups)
+        for group in firestone_groups:
+            print(group)
         await ctx.send('Sent')
         pass
 
