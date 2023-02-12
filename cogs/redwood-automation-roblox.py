@@ -29,114 +29,24 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
     @group.command(name='departments', description="Get the departments the user is in")
     @app_commands.describe(roblox_id="The Roblox ID of the user")
     async def departments_command(self, interaction: discord.Interaction, roblox_id: int):
+        def group_check(user_role):
+            fs_group_ids = [14725251, 14089278, 4431799, 11324038, 2805393, 2805388, 5684663, 3411434, 2890690, 2842177, 2826521, 2825030, 2811838, 2809133, 2808791, 2807789, 2803369, 2803367, 2803372, 2803364]
+            blocked_roles = ["Guest", "Firestone Citizen"]
+            if user_role.group.id in fs_group_ids and user_role.name not in blocked_roles:
+              return True
+            else:
+              return False
+        
         user = await client.get_user(roblox_id)
-        roles = await user.get_group_roles()
-        #Departments
-        rpd = "Guest"
-        apd = "Guest"
-        pdp = "Guest"
-        scpa = "Guest"
-        scfd = "Guest"
-        scso = "Guest"
-        fps = "Guest"
-        fbi = "Guest"
-        doa = "Guest"
-        dos = "Guest"
-        doh = "Guest"
-        courts = "Guest"
-        dpw = "Guest"
-        dps = "Guest"
-        docm = "Guest"
-        doc = "Guest"
-        doj = "Guest"
-        dot = "Guest"
-        fng = "Guest"
-        fsp = "Guest"
-        for role in roles:
-            if role.group.id == 14725251: #RPD
-                rpd = role.name
-            if role.group.id == 14089278: #APD
-                apd = role.name
-            if role.group.id == 4431799: #PDP
-                pdp = role.name
-            if role.group.id == 11324038: #SCPA
-                scpa = role.name
-            if role.group.id == 2805393: #SCFD
-                scfd = role.name
-            if role.group.id == 2805388: #SCSO
-                scso = role.name
-            if role.group.id == 5684663: #FPS
-                fps = role.name
-            if role.group.id == 3411434: #FBI
-                fbi = role.name
-            if role.group.id == 2890690: #DOA
-                doa = role.name
-            if role.group.id == 2842177: #DOS
-                dos = role.name
-            if role.group.id == 2826521: #DOH
-                doh = role.name
-            if role.group.id == 2825030: #Courts
-                courts = role.name
-            if role.group.id == 2811838: #DPW
-                dpw = role.name
-            if role.group.id == 2809133: #DPS
-                dps = role.name
-            if role.group.id == 2808791: #DOCM
-                docm = role.name
-            if role.group.id == 2807789: #DOC
-                doc = role.name
-            if role.group.id == 2803369: #DOJ
-                doj = role.name
-            if role.group.id == 2803367: #DOT
-                dot = role.name
-            if role.group.id == 2803372: #FNG
-                fng = role.name
-            if role.group.id == 2803364: #FSP
-                fsp = role.name
+        groups = await user.get_group_roles()
+        
+        filtered_groups = filter(group_check, groups)
         embed = discord.Embed(
             title=f"{user.name}'s Departments",
             colour=discord.Colour.dark_blue()
         )
-        if rpd not in ["Guest"]:
-            embed.add_field(name="Redwood Police Department", value=rpd, inline=False)
-        if apd not in ["Guest"]:
-            embed.add_field(name="Arborfield Police Department", value=apd, inline=False)
-        if pdp not in ["Guest"]:
-            embed.add_field(name="Promience District Police", value=pdp, inline=False)
-        if scpa not in ["Guest"]:
-            embed.add_field(name="Stapleton County Port Authroity", value=scpa, inline=False)
-        if scfd not in ["Guest"]:
-            embed.add_field(name="Stapleton County Fire Department", value=scfd, inline=False)
-        if scso not in ["Guest"]:
-            embed.add_field(name="Stapleton County Sheriff's Office", value=scso, inline=False)
-        if fps not in ["Guest"]:
-            embed.add_field(name="Firestone Park Service", value=fps, inline=False)
-        if fbi not in ["Guest"]:
-            embed.add_field(name="Firestone Bureau of Investigation", value=fbi, inline=False)
-        if doa not in ["Guest", "Firestone Citizen"]:
-            embed.add_field(name="Department of Aviation", value=doa, inline=False)
-        if dos not in ["Guest", "Firestone Citizen"]:
-            embed.add_field(name="Department of State", value=dos, inline=False)
-        if doh not in ["Guest"]:
-            embed.add_field(name="Department of Health", value=doh, inline=False)
-        if courts not in ["Guest", "Firestone Citizen"]:
-            embed.add_field(name="Firestone Courts", value=courts, inline=False)
-        if dpw not in ["Guest"]:
-            embed.add_field(name="Department of Public Works", value=dpw, inline=False)
-        if dps not in ["Guest", "Firestone Citizen"]:
-            embed.add_field(name="Department of Public Safety", value=dps, inline=False)
-        if docm not in ["Guest", "Firestone Citizen"]:
-            embed.add_field(name="Department of Commerce", value=docm, inline=False)
-        if doc not in ["Guest"]:
-            embed.add_field(name="Department of Corrections", value=doc, inline=False)
-        if doj not in ["Guest", "Firestone Citizen"]:
-            embed.add_field(name="Department of Justice", value=doj, inline=False)
-        if dot not in ["Guest"]:
-            embed.add_field(name="Department of Transportation", value=dot, inline=False)
-        if fng not in ["Guest"]:
-            embed.add_field(name="Firestone National Guard", value=fng, inline=False)
-        if fsp not in ["Guest"]:
-            embed.add_field(name="Firestone State Police", value=fsp, inline=False)
+        for user_role in list(filtered_groups):
+            embed.add_field(name=user_role.group.name, value=user_role.role_name, inline=False)
         if len(embed.fields) == 0:
             embed.description = "This user is not in any departments"
         '''If a user is in two or more primary departments and not the Founder, make the description say that'''
