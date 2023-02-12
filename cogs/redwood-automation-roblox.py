@@ -8,6 +8,7 @@ from discord import app_commands
 from dotenv import load_dotenv
 from roblox import Client
 from roblox.bases.basegroup import BaseGroup
+from roblox.thumbnails import AvatarThumbnailType
 
 load_dotenv()
 client = Client(os.getenv("RobloxToken"))
@@ -142,7 +143,8 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
         #List the Primary Departments Here
         '''If a user is in three or more secondary departments and not the Founder, make the description say that'''
         #List the Secondary Departments Here
-        #embed.set_thumbnail(url=ROBLOX_AVATAR)
+        avatar = await client.thumbnails.get_user_avatar_thumbnails([roblox_id], type=AvatarThumbnailType.headshot, size=(150, 150))
+        embed.set_thumbnail(url=avatar[0].image_url)
         embed.set_footer(text=f"Redwood Automation | Requested by: {interaction.user.name}")
         embed.timestamp = datetime.datetime.now()
         await interaction.response.send_message(embed=embed)
@@ -168,7 +170,8 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
         embed.add_field(name="Peace Officer Standards and Training", value=post, inline=False)
         if len(embed.fields) == 0 or len(embed.fields) == 1:
             raise TypeError(f"Expected 2 fields, got {len(embed.fields)}")
-        #embed.set_thumbnail(url=ROBLOX_AVATAR)
+        avatar = await client.thumbnails.get_user_avatar_thumbnails([roblox_id], type=AvatarThumbnailType.headshot, size=(150, 150))
+        embed.set_thumbnail(url=avatar[0].image_url)
         embed.set_footer(text=f"Redwood Automation | Requested by: {interaction.user.name}")
         embed.timestamp = datetime.datetime.now()
         await interaction.response.send_message(embed=embed)
