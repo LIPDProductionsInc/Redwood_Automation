@@ -46,7 +46,7 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
             colour=discord.Colour.dark_blue()
         )
         for user_role in list(filtered_groups):
-            embed.add_field(name=user_role.group.name, value=user_role.role_name, inline=False)
+            embed.add_field(name=user_role.group.name, value=user_role.name, inline=False)
         if len(embed.fields) == 0:
             embed.description = "This user is not in any departments"
         '''If a user is in two or more primary departments and not the Founder, make the description say that'''
