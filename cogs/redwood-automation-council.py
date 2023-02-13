@@ -271,7 +271,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646549329493884929)
     async def template(self, ctx):
-        await ctx.send("Here is the link to the Bill Templates: \n <https://trello.com/c/tuOk4RtM")
+        await ctx.send("Here is the link to the Bill Templates: \n <https://trello.com/c/tuOk4RtM>")
         pass
 
     pass
