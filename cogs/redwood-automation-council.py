@@ -76,8 +76,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     async def end_session(self, ctx, session_type:Literal["In-Game", "Discord"]):
         if session_type == "Discord":
             if ctx.channel.name.startswith("council-session"):
-                await ctx.send("The session is hereby adjourned. \n\n (<@&646549329493884929>) \n CC: <@&763471193524535336>")
+                channel = ctx.bot.get_channel(1005534919117774898)
+                await ctx.send("The session is hereby adjourned. \n\n (<@&646549329493884929>)")
                 await ctx.channel.edit(category=ctx.guild.get_channel(761730715024097311), reason="Session Ended", sync_permissions=True, position=0)
+                await channel.send(f"<@&763471193524535336>\n\nHi, the session in {ctx.channel.mention} has been adjourned and is awaiting transcribing!")
             else:
                 if ctx.interaction == None:
                     await ctx.message.delete()
