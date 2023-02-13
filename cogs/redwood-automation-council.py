@@ -200,7 +200,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 if ctx.interaction == None:
                     await ctx.message.delete()
                 if trello_link.startswith("https://trello.com/c/"):
-                    await channel.send(f"{trello_link} \n\n <@&646549322682466305>")
+                    await channel.send(f"{trello_link} \n\n<@&646549322682466305>")
                     await ctx.send("Proposal sent to the mayor for signature.", ephemeral=True)
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
@@ -214,7 +214,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                         await ctx.message.delete()
                     channel = ctx.bot.get_channel(851985129232793630)
                     if trello_link.startswith("https://trello.com/c/"):
-                        await channel.send(f"{trello_link} \n\n <@&673008336010084378> Approved and added to the docket.")
+                        await channel.send(f"{trello_link} \n\n<@&673008336010084378> Approved and added to the docket.")
                         await ctx.send("Presiding officer notified.", ephemeral=True)
                     else:
                         raise commands.BadArgument("The link provided needs to be a Trello card.")
@@ -263,9 +263,9 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     async def charter(self, ctx):
         if discord.utils.get(ctx.author.roles, id=646549322682466305) or discord.utils.get(ctx.author.roles, id=646551227626160139) or discord.utils.get(ctx.author.roles, id=673008336010084378) or discord.utils.get(ctx.author.roles, id=646549329493884929):
-            await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n <https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>", ephemeral=True)
+            await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n<https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>", ephemeral=True)
         else:
-            await ctx.send("Current City Charter: \n <https://drive.google.com/file/d/1Q6QzU6fZM6vZ8W8m9X9F1pOJl0v1hWkK/view?usp=sharing>")
+            await ctx.send("Current City Charter: \n<https://drive.google.com/file/d/1Q6QzU6fZM6vZ8W8m9X9F1pOJl0v1hWkK/view?usp=sharing>")
             pass
         pass
 
