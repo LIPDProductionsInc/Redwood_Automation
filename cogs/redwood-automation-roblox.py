@@ -65,28 +65,22 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
                         secondaries += 1
             if field.name in secondary_departments:
                 secondaries += 1
-        if primaries >= 2 and user_role.name != "Founder" or user_role.name != "Firestone Developer":
+        if primaries >= 2 and user_role.name not in ["Founder", "Firestone Developer"]:
             primary_check = True
         else:
             primary_check = False
-        if secondaries >= 3 and user_role.name != "Founder" or user_role.name != "Firestone Developer":
+        if secondaries >= 3 and user_role.name not in ["Founder", "Firestone Developer"]:
             secondary_check = True
         else:
             secondary_check = False
-        if primary_check == True:
-            if embed.description == None:
-                embed.description = f"**WARNING:** This user has **{primaries} primary departments.** This is not allowed."
-            else:
-                embed.description += f"\n**WARNING:** This user has **{primaries} primary departments.** This is also not allowed."
-                pass
-            pass
-        if secondary_check == True:
-            if embed.description == None:
-                embed.description = f"**WARNING:** This user has **{secondaries} secondary departments.** This is not allowed."
-            else:
-                embed.description += f"\n**WARNING:** This user has **{secondaries} secondary departments.** This is also not allowed."
-                pass
-            pass
+        checkDescription = ""
+        if primary_check:
+            checkDescription += f"**WARNING:** This user has **{primaries} primary departments.** This is not allowed."
+        if secondary_check:
+            checkDescription += "\n"
+        if secondary_check:
+            checkDescription += f"**WARNING:** This user has **{secondaries} secondary departments.** This is not allowed."
+        embed.description = checkDescription
         avatar = await client.thumbnails.get_user_avatar_thumbnails([roblox_id], type=AvatarThumbnailType.headshot, size=(150, 150))
         embed.set_thumbnail(url=avatar[0].image_url)
         embed.set_footer(text=f"Redwood Automation | Requested by: {interaction.user.name}")
