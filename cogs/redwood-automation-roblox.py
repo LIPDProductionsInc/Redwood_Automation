@@ -30,7 +30,7 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
     @app_commands.describe(roblox_id="The Roblox ID of the user")
     async def departments_command(self, interaction: discord.Interaction, roblox_id: int):
         def group_check(user_role):
-            fs_group_ids = [14725251, 14089278, 4431799, 11324038, 2805393, 2805388, 5684663, 3411434, 2890690, 2842177, 2826521, 2825030, 2811838, 2809133, 2808791, 2807789, 2803369, 2803367, 2803372, 2803364]
+            fs_group_ids = [14725251, 14089278, 4431799, 11324038, 2805393, 2805388, 5684663, 3411434, 2890690, 2842177, 2826521, 2825030, 2811838, 2809133, 2808791, 2807789, 2803369, 2803367, 2803372, 2803364, 15301612]
             blocked_roles = ["Guest", "Firestone Citizen"]
             if user_role.group.id in fs_group_ids and user_role.name not in blocked_roles:
               return True
@@ -49,10 +49,44 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
             embed.add_field(name=user_role.group.name, value=user_role.name, inline=False)
         if len(embed.fields) == 0:
             embed.description = "This user is not in any departments"
-        '''If a user is in two or more primary departments and not the Founder, make the description say that'''
-        #List the Primary Departments Here
-        '''If a user is in three or more secondary departments and not the Founder, make the description say that'''
-        #List the Secondary Departments Here
+        #Primary and Secondary Departments Check
+        primary_departments = ["Firestone Bureau of Investigation", "Firestone State Patrol", "Firestone Park Service", "Stapleton County Sheriff's Office", "Redwood Police Department", "Arborfield Police Department", "Promience District Police"]
+        secondary_departments = ["Firestone Department of Corrections", "Firestone Department of Public Safety", "Firestone Department of Public Works", "Firestone Department of Transportation", "Firestone Department of Health", "Firestone Aviation Administration", "Firestone Department of Aviation", "Stapleton County Port Authority"]
+        primaries = 0
+        secondaries = 0
+        for field in embed.fields:
+            if field.name in primary_departments:
+                primaries += 1
+                #SCFD Special Check
+                if field.name == "Stapleton County Fire Department":
+                    if user_role.rank >= 40:
+                        primaries += 1
+                    else:
+                        secondaries += 1
+            if field.name in secondary_departments:
+                secondaries += 1
+        if primaries >= 2 and user_role.name != "Founder" or user_role.name != "Firestone Developer":
+            primary_check = True
+        else:
+            primary_check = False
+        if secondaries >= 3 and user_role.name != "Founder" or user_role.name != "Firestone Developer":
+            secondary_check = True
+        else:
+            secondary_check = False
+        if primary_check == True:
+            if embed.description == None:
+                embed.description = f"**WARNING:** This user has **{primaries} primary departments.** This is not allowed."
+            else:
+                embed.description += f"\n**WARNING:** This user has **{primaries} primary departments.** This is also not allowed."
+                pass
+            pass
+        if secondary_check == True:
+            if embed.description == None:
+                embed.description = f"**WARNING:** This user has **{secondaries} secondary departments.** This is not allowed."
+            else:
+                embed.description += f"\n**WARNING:** This user has **{secondaries} secondary departments.** This is also not allowed."
+                pass
+            pass
         avatar = await client.thumbnails.get_user_avatar_thumbnails([roblox_id], type=AvatarThumbnailType.headshot, size=(150, 150))
         embed.set_thumbnail(url=avatar[0].image_url)
         embed.set_footer(text=f"Redwood Automation | Requested by: {interaction.user.name}")
