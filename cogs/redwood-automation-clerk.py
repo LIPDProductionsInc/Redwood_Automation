@@ -18,10 +18,11 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
         if ctx.channel.name.startswith("council-session"):
             await ctx.send("`Saving...`")
             try:
-                transcript = await chat_exporter.export(ctx.channel, tz_info='EST')
+                transcript = await chat_exporter.export(ctx.channel, tz_info='EST', fancy_times=True)
+                transcript_file = discord.File(io.BytesIO(transcript.encode()),filename=f"{ctx.channel.name}.html")
+                await channel.send(f"{ctx.channel.name}", file=transcript_file)
                 transcript_file = discord.File(io.BytesIO(transcript.encode()),filename=f"{ctx.channel.name}.html")
                 await ctx.send(file=transcript_file)
-                await channel.send(f"{ctx.channel.name}", file=transcript_file)
             except Exception as e:
                 await ctx.send(f"`{e}`", ephemeral=True)
                 print("Ignoring exception in command transcript: {}".format(e))
