@@ -4,7 +4,7 @@ import datetime
 from discord.ext import commands
 from datetime import timedelta
 
-class HelpCog(commands.Cog, name="Help Cog"):
+class HelpCog(commands.Cog, name="Help Commands"):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
@@ -58,7 +58,7 @@ class HelpCog(commands.Cog, name="Help Cog"):
             await ctx.send(embed=embed)
         else:
             if (cmd := self.bot.get_command(command)) is not None:
-                embed = discord.Embed(title=f"Help for {cmd.name}", description=cmd.help, colour=discord.Colour.dark_blue())
+                embed = discord.Embed(title=f"Help for {cmd.name}", description=cmd.describe, colour=discord.Colour.dark_blue())
                 embed.add_field(name="Usage", value=f"`{cmd.signature}`", inline=False)
                 if cmd.aliases:
                     embed.add_field(name="Aliases", value="`" + "`, `".join(cmd.aliases) + "`", inline=False)
