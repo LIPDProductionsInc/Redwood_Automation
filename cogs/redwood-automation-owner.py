@@ -7,6 +7,7 @@ import psutil
 import roblox
 import sys
 import traceback
+import os
 
 from discord.ext import commands
 from dotenv import load_dotenv
