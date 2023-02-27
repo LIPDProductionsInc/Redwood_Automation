@@ -6,7 +6,7 @@ import traceback
 from discord.ext import commands
 from discord import app_commands
 
-class ComplaintModal(discord.ui.Modal, title="Complaint Form", label="Test"):
+class ComplaintModal(discord.ui.Modal, title="Complaint Form"):
     offender = discord.ui.TextInput(
         label="Who is your complaint against?",
         style=discord.TextStyle.short,
