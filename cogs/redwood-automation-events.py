@@ -10,24 +10,23 @@ class EventsCog(commands.Cog, name="Events Cog"):
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         if before.content != after.content:
-            if before.channel.name.startswith('council-session'):
-                channel = self.bot.get_channel(1040322534454861904)
-                link = "https://discordapp.com/channels/{}/{}/{}".format(before.guild.id, before.channel.id, before.id)
-                embed = discord.Embed(
-                    colour = discord.Color.blue(),
-                    description = f'**Message edited in** {before.channel.mention} [Jump to Message]({link})'
-                    )
-                embed.add_field(name='Before:', value=f'{before.content}', inline=False)
-                embed.add_field(name='After:', value=f'{after.content}', inline=False)
-                embed.set_author(name=f'{before.author}', icon_url=before.author.avatar)
-                embed.set_footer(text=f'ID: {before.author.id}')
-                embed.timestamp = datetime.datetime.now()
-                await channel.send(embed=embed)
-                pass
-            if after.content.startswith('[Original Message Deleted]'):
-                await after.delete()
-            pass
-        pass
+            if type(before.channel) != discord.DMChannel and type(after.channel) != discord.DMChannel:
+                if before.channel.name.startswith('council-session'):
+                    channel = self.bot.get_channel(1040322534454861904)
+                    link = "https://discordapp.com/channels/{}/{}/{}".format(before.guild.id, before.channel.id, before.id)
+                    embed = discord.Embed(
+                        colour = discord.Color.blue(),
+                        description = f'**Message edited in** {before.channel.mention} [Jump to Message]({link})'
+                        )
+                    embed.add_field(name='Before:', value=f'{before.content}', inline=False)
+                    embed.add_field(name='After:', value=f'{after.content}', inline=False)
+                    embed.set_author(name=f'{before.author}', icon_url=before.author.avatar)
+                    embed.set_footer(text=f'ID: {before.author.id}')
+                    embed.timestamp = datetime.datetime.now()
+                    await channel.send(embed=embed)
+                    pass
+                if after.content.startswith('[Original Message Deleted]'):
+                    await after.delete()
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
