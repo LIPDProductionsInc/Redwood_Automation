@@ -46,7 +46,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="session", description="Starts a city council session, either in-game or on Discord.")
     @commands.guild_only()
     @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
-    @app_commands.describe(session_type="The type of session to start. Either \"in-game\" or \"discord\".")
+    @app_commands.describe(session_type="The type of session to start. Either \"in-game\" or \"discord\".", session_number="The number of the Discord session.")
     async def session(self, ctx, session_type:Literal["In-Game", "Discord"], session_number:int = None):
         if session_type == "In-Game":
             channel = ctx.bot.get_channel(646541531523710996)
@@ -58,7 +58,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 ctx.guild.get_role(646551227626160139): discord.PermissionOverwrite(send_messages=True),
                 ctx.guild.get_role(673008336010084378): discord.PermissionOverwrite(send_messages=True),
                 ctx.guild.get_role(646549329493884929): discord.PermissionOverwrite(send_messages=True),
-                ctx.guild.get_role(763469321459728384): discord.PermissionOverwrite(view_channel=True, send_messages=False)
+                ctx.guild.get_role(763469321459728384): discord.PermissionOverwrite(view_channel=True, send_messages=False),
+                ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False)
             }
             if session_number is None:
                 session_number = "new"
@@ -78,7 +79,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             if ctx.channel.name.startswith("council-session"):
                 channel = ctx.bot.get_channel(1005534919117774898)
                 await ctx.send("The session is hereby adjourned. \n\n (<@&646549329493884929>)")
-                await ctx.channel.edit(category=ctx.guild.get_channel(761730715024097311), reason="Session Ended", sync_permissions=True, position=0)
+                overwrites = {
+                    ctx.guild.get_role(763471193524535336): discord.PermissionOverwrite(send_messages=True)
+                }
+                await ctx.channel.edit(category=ctx.guild.get_channel(761730715024097311), reason="Session Ended", overwrites=overwrites, position=0)
                 await channel.send(f"<@&763471193524535336>\n\nHi, the session in {ctx.channel.mention} has been adjourned and is awaiting transcribing!")
             else:
                 if ctx.interaction == None:
