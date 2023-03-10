@@ -30,14 +30,28 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.")
     @app_commands.guild_only()
     @app_commands.checks.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
-    @app_commands.describe(first="True or False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.")
-    async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str):
+    @app_commands.describe(first="True or False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.", debate = "Is the floor open or closed for debate?")
+    async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str, debate=Literal["Open", "Closed"]):
         if interaction.channel.name.startswith("council-session"):
             if docket_link.startswith("https://trello.com/c/"):
                 if first == "True":
-                    await interaction.response.send_message(f"The first item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
+                    message = f"The first item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n"
+                    if debate == "Closed":
+                        message += "(<@&646549329493884929>)"
+                    elif debate == "Open":
+                        message += "Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)"
+                    else:
+                        raise ValueError(f"{debate} is not a valid value for debate.")
+                    await interaction.response.send_message(f"{message}")
                 else:
-                    await interaction.response.send_message(f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)")
+                    message = f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n"
+                    if debate == "Closed":
+                        message += "(<@&646549329493884929>)"
+                    elif debate == "Open":
+                        message += "Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)"
+                    else:
+                        raise ValueError(f"{debate} is not a valid value for debate.")
+                    await interaction.response.send_message(f"{message}")
             else:
                 await interaction.response.send_message(":x: The link you provided is not a valid Trello link. Please try again.", ephemeral=True)
             pass
