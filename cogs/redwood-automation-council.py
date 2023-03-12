@@ -42,7 +42,6 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                         message += "Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)"
                     else:
                         raise ValueError(f"{debate} is not a valid value for debate.")
-                    await interaction.response.send_message(f"{message}")
                 else:
                     message = f"The next item on the docket is *\"{docket_item.title()}\"*. \n\n{docket_link} \n\n"
                     if debate == "Closed":
@@ -51,7 +50,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                         message += "Floor is open for debate. Say \"I\" to be recognized. (<@&646549329493884929>)"
                     else:
                         raise ValueError(f"{debate} is not a valid value for debate.")
-                    await interaction.response.send_message(f"{message}")
+                await interaction.response.send_message(f"{message}")
             else:
                 await interaction.response.send_message(":x: The link you provided is not a valid Trello link. Please try again.", ephemeral=True)
             pass
