@@ -9,7 +9,7 @@ class PressCog(commands.Cog, name="Press Commands"):
 
     @commands.hybrid_command(name="tweet", description="Repost a tweet")
     @commands.guild_only()
-    @commands.has_role(763471106618556416)
+    @commands.check_any(commands.is_owner(), commands.has_role(763471106618556416))
     async def tweet(self, ctx, tweet_url: str):
         if tweet_url.startswith("https://twitter.com/"):
             channel = self.bot.get_channel(761960138600349707)
