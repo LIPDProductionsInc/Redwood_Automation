@@ -110,8 +110,10 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(f':x: | This command can only be used by the Mayor, Deputy Mayor or City Chairperson at this time.', ephemeral=True)
             elif ctx.command.qualified_name == 'elections':
                 await ctx.send(f':x: | This command can only be used by the Mayor, Deputy Mayor or City Chairperson.', ephemeral=True)
+            elif ctx.command.qualified_name == 'tweet':
+                await ctx.send(f':x: | This command can only be used by the Press Secretary\'s Office.', ephemeral=True)
             else:
-                await ctx.send(f':x: | This command can only be used by {error.missing_roles}')
+                await ctx.send(f':x: | This command can only be used by {error.missing_roles}', ephemeral=True)
             
         elif isinstance(error, ZeroDivisionError):
             await ctx.send('Cannot divide by zero!')
@@ -216,6 +218,8 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             elif ctx.command.qualified_name == "appoint":
                 await ctx.send(error, ephemeral=True)
             elif ctx.command.qualified_name == "elections":
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == "tweet":
                 await ctx.send(error, ephemeral=True)
             else:
                 await ctx.send(error, ephemeral=True)
