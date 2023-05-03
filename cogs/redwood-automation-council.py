@@ -63,7 +63,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     async def session(self, ctx, session_type:Literal["In-Game", "Discord"], session_number:int = None):
         if session_type == "In-Game":
             channel = ctx.bot.get_channel(646541531523710996)
-            await channel.send(f"**An in-game City Council Session is starting.**\n\nPlease join at the following link: <Link Here> \n\n@here")
+            await channel.send(f"<:NewRedwoodSeal:1068175383729537065> | **SESSION**\n\n A City Council Session is starting on the second floor inside our city hall. Follow the signs to the chambers: https://www.roblox.com/games/10109179139/Redwood-City-Council-Chamber\n\n@here")
         elif session_type == "Discord":
             channel = ctx.bot.get_channel(646541531523710996)
             overwrites = {
