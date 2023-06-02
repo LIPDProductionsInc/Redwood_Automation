@@ -31,7 +31,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.guild_only()
     @app_commands.checks.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     @app_commands.describe(first="True or False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.", debate = "Is the floor open or closed for debate?")
-    async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str, debate=Literal["Open", "Closed"]):
+    async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str, debate:Literal["Open", "Closed"]):
         if interaction.channel.name.startswith("council-session"):
             if docket_link.startswith("https://trello.com/c/"):
                 if first == "True":
