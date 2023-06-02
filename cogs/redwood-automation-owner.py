@@ -213,7 +213,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         elif type == 'role-request':
             message = await ctx.fetch_message(1038828402536349736)
             embed = message.embeds[0]
-            embed.set_field_at(0, name='Requestable Roles', value='The following roles can be requested: \n- <@&762321175900454933> \n- <@&763478824641495040> \n- <@&959865461846204436> \n- <@&853817144243650561> \n- <@&1024429857104478228> \n- <@&1045827799967088840>', inline=True)
+            embed.set_field_at(0, name='Requestable Roles', value='The following roles can be requested: \n- <@&763478824641495040> \n- <@&959865461846204436> \n- <@&853817144243650561> \n- <@&1024429857104478228> \n- <@&1045827799967088840> \n- <@&1097402926143655977>', inline=True)
             embed.set_field_at(2, name='Notice to Business Owners:', value='To get the <@&762321175900454933> role, fill out the `/business-represenantive` command', inline=False)
             embed.set_footer(text=f'Developed by {self.bot.owner}')
             embed.set_thumbnail(url=str(self.bot.user.avatar))
