@@ -37,7 +37,7 @@ initial_extensions = ['cogs.redwood-automation-admin',
                       'cogs.redwood-automation-help',
                       'cogs.redwood-automation-legal',
                       'cogs.redwood-automation-mayor',
-                      #'cogs.redwood-automation-ocr',
+                      'cogs.redwood-automation-ocr',
                       'cogs.redwood-automation-owner',
                       'cogs.redwood-automation-roblox'
                       ]
