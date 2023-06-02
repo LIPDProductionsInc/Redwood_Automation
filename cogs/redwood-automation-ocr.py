@@ -25,7 +25,7 @@ class RedwoodAutomationOCR(commands.Cog, name="Office of Commerce Relations Comm
             embed.set_thumbnail(url=str(self.bot.user.avatar))
             embed.timestamp = datetime.datetime.now()
             '''Add reaction to the embed message to allow for easy approval and denial of the request.'''
-            message = await channel.send(embed=embed)#"<@&941858937836302377>", 
+            message = await channel.send("<@&941858937836302377>", embed=embed)
             await message.add_reaction("✅")
             await message.add_reaction("❌")
             await ctx.send("Your request has been sent to the Office of Commerce Relations. Your role will be added upon verification.", ephemeral=True)
