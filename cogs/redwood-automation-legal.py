@@ -256,7 +256,7 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
     @commands.hybrid_command(name="legal-office", description="View the current members of the City Attorney's Office.")
     async def legal_office(self, ctx):
         city_attorney = 646549330479546379
-        admin = 719393017848528928
+        admin = 763470466269577216
         moderator = 646554162405834762
         embed = discord.Embed(
             title="Redwood City Attorney's Office",
