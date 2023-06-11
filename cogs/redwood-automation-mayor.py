@@ -141,7 +141,9 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
     async def oaths(self, ctx:commands.Context, type:Literal["Mayor's Office", "City Council"], term_id:str) -> None:
         overwrites = {
             ctx.guild.get_role(851212299745230898): discord.PermissionOverwrite(send_messages=True),
-            ctx.guild.get_role(763471193377603644): discord.PermissionOverwrite(send_messages=True)
+            ctx.guild.get_role(763471193377603644): discord.PermissionOverwrite(send_messages=True),
+            ctx.guild.get_role(763469321459728384): discord.PermissionOverwrite(view_channel=True),
+            ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False, send_messages=False)
         }
         if type == "Mayor's Office":
             type = "mayors-office"

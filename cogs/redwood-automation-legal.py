@@ -265,9 +265,9 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
         )
         embed.add_field(name="City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=admin)][0], inline=True)
         if len(discord.utils.get(ctx.guild.roles, id=city_attorney).members) == 2:
-            embed.add_field(name="Assistant City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=moderator)][0], inline=False)
+            embed.add_field(name="Assistant City Attorney", value=[member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and not discord.utils.get(member.roles, id=admin)][0], inline=False)
         else:
-            embed.add_field(name="Assistant City Attorneys", value="\n".join([member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=moderator)]), inline=False)
+            embed.add_field(name="Assistant City Attorneys", value="\n".join([member.mention for member in ctx.guild.members if discord.utils.get(member.roles, id=city_attorney) and not discord.utils.get(member.roles, id=admin)]), inline=False)
         embed.set_thumbnail(url=ctx.bot.user.avatar)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
         embed.timestamp = datetime.datetime.now()
