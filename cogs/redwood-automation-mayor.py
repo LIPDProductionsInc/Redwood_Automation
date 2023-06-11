@@ -138,6 +138,7 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
 
     @commands.hybrid_command(name="oaths", description="Creates a channel where people can take their oaths for the term")
     @commands.has_any_role(721013396094582795, 646549322682466305, 646551227626160139, 673008336010084378)
+    @app_commands.describe(type="The type of oath channel to create", term_id="The ID of the term (Ie, '2023-3')")
     async def oaths(self, ctx:commands.Context, type:Literal["Mayor's Office", "City Council"], term_id:str) -> None:
         overwrites = {
             ctx.guild.get_role(851212299745230898): discord.PermissionOverwrite(send_messages=True),
@@ -156,6 +157,7 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
     @commands.hybrid_command(name="seal", description="Updates the seal of the city")
     @commands.guild_only()
     @commands.check_any(commands.is_owner(), commands.has_any_role(987139446971432971, 646551227626160139, 763471106618556416))
+    @app_commands.describe(file="The PNG file to use as the seal")
     async def seal(self, ctx:commands.Context, file:discord.Attachment) -> None:
         if file.filename.endswith(".png"):
             await ctx.guild.edit(icon=file.fp.read())
