@@ -30,21 +30,17 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
             raise commands.UserInputError("This command can only be used in a council session channel.")
         pass
 
-    @commands.command(name='transcript-display')
+    @commands.hybrid_command(name='bulletin', description='Post a bulletin of a council session')
     @commands.guild_only()
-    @commands.is_owner()
-    async def transcript_display(self, ctx: commands.Context) -> None:
-        channel = ctx.bot.get_channel(1054420793913770025)
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-1-transcript.html", filename=f"council-session-1-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-2-transcript.html", filename=f"council-session-2-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-3-transcript.html", filename=f"council-session-3-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-4-transcript.html", filename=f"council-session-4-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-5-transcript.html", filename=f"council-session-5-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-6-transcript.html", filename=f"council-session-6-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-7-transcript.html", filename=f"council-session-7-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-8-transcript.html", filename=f"council-session-8-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-9-transcript.html", filename=f"council-session-9-transcript.html"))
-        await channel.send(file=discord.File("/home/pi/Documents/Room-Sealer/transcripts/council-session-10-transcript.html", filename=f"council-session-10-transcript.html"))
+    @commands.has_role(763471193524535336)
+    @app_commands.describe(bulletin_number="The number of the session (1st, 2nd, 3rd, etc.)", bulletin_link="The link to the bulletin")
+    async def bulletin(self, ctx: commands.Context, bulletin_number, bulletin_link) -> None:
+        channel = ctx.bot.get_channel(646541531523710996)
+        if ctx.channel == 1005534919117774898:
+            await channel.send(f'## <:NewRedwoodSeal:1068175383729537065> | {bulletin_number} SESSION BULLETIN \n\n{bulletin_link} \n\n@here')
+            await ctx.send('Bulletin posted!', ephemeral=True)
+        else:
+            raise commands.UserInputError("This command can only be used in the clerk channel.")
         pass
 
     pass
