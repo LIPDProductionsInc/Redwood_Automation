@@ -95,7 +95,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 overwrites = {
                     ctx.guild.get_role(763471193524535336): discord.PermissionOverwrite(send_messages=True)
                 }
-                await ctx.channel.edit(category=ctx.guild.get_channel(761730715024097311), reason="Session Ended", overwrites=overwrites, position=0)
+                await ctx.channel.edit(category=ctx.guild.get_channel(761730715024097311), reason="Session Ended", sync_permissions=True, overwrites=overwrites, position=0)
                 await channel.send(f"<@&763471193524535336>\n\nHi, the session in {ctx.channel.mention} has been adjourned and is awaiting transcribing!")
             else:
                 if ctx.interaction == None:
