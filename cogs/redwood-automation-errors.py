@@ -114,12 +114,12 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(f':x: | This command can only be used by the Press Secretary\'s Office.', ephemeral=True)
             else:
                 await ctx.send(f':x: | This command can only be used by {error.missing_roles}', ephemeral=True)
-            
+        
         elif isinstance(error, ZeroDivisionError):
             await ctx.send('Cannot divide by zero!')
             
         elif isinstance(error, AttributeError):
-            await ctx.send(f':x: | AttributeError: {error}')
+            await ctx.send(f':x: | AttributeError: {error}', ephemeral=True)
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             channel = ctx.bot.get_channel(784368117299150849)
@@ -225,23 +225,26 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(error, ephemeral=True)
             
         elif isinstance(error, commands.CheckFailure):
-            await ctx.send(':x: | Error not captured')
-            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-            channel = ctx.bot.get_channel(784368117299150849)
-            embed = discord.Embed(
-                type='rich',
-                colour = discord.Colour.red()
-            )
-            embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
-            embed.add_field(name='Check Failure Error', value=f'{error}', inline=False)
-            embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
-            embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
-            embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
-            embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
-            embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
-            embed.timestamp = datetime.datetime.now()
-            await channel.send(embed=embed)
+            if ctx.command.qualified_name == 'transcript':
+                await ctx.send('Only city clerks can create transcripts.', ephemeral=True)
+            else:
+                await ctx.send(':x: | Error not captured', ephemeral=True)
+                print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                channel = ctx.bot.get_channel(784368117299150849)
+                embed = discord.Embed(
+                    type='rich',
+                    colour = discord.Colour.red()
+                )
+                embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
+                embed.add_field(name='Check Failure Error', value=f'{error}', inline=False)
+                embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
+                embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
+                embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
+                embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
+                embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
+                embed.timestamp = datetime.datetime.now()
+                await channel.send(embed=embed)
 
         elif isinstance(error, commands.UserInputError):
             if ctx.command.qualified_name == 'floor':
