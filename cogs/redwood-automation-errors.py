@@ -44,6 +44,8 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
         if isinstance(error, ignored):
             if ctx.message.content.startswith('??') or ctx.message.content.startswith('!!') or ctx.message.content.startswith('?*') or ctx.message.content.startswith('!*'):
                 return
+            elif ctx.message.content.startswith('?mute') or ctx.message.content.startswith('?role'):
+                await ctx.send('Why are you trying to trigger multiple bots? Use slash commands instead so you don\'t wake me up for no reason.')
             else:
                 print('Unknown command sent')
                 await ctx.send(':x: | I do not know that command. `!help` has a list of commands that can be used.')
@@ -223,6 +225,20 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(error, ephemeral=True)
             else:
                 await ctx.send(error, ephemeral=True)
+                channel = ctx.bot.get_channel(784368117299150849)
+                embed = discord.Embed(
+                    type='rich',
+                    colour = discord.Colour.red()
+                )
+                embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
+                embed.add_field(name='Bad Argument Error', value=f'{error}', inline=False)
+                embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
+                embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
+                embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
+                embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
+                embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
+                embed.timestamp = datetime.datetime.now()
+                await channel.send(embed=embed)
             
         elif isinstance(error, commands.CheckFailure):
             if ctx.command.qualified_name == 'transcript':
@@ -280,9 +296,23 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             elif ctx.command.qualified_name == 'transcript':
                 await ctx.send(error, ephemeral=True)
             else:
-                await ctx.send(':x: | UserInputError: {}'.format(error))
+                await ctx.send(':x: | UserInputError: {}'.format(error), ephemeral=True)
                 print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
                 traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                channel = ctx.bot.get_channel(784368117299150849)
+                embed = discord.Embed(
+                    type='rich',
+                    colour = discord.Colour.red()
+                )
+                embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
+                embed.add_field(name='User Input Error', value=f'{error}', inline=False)
+                embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
+                embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
+                embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
+                embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
+                embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
+                embed.timestamp = datetime.datetime.now()
+                await channel.send(embed=embed)
 
         elif isinstance(error, commands.CheckAnyFailure):
             if ctx.command.qualified_name == 'seal':
@@ -303,6 +333,23 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
                 embed.timestamp = datetime.datetime.now()
                 await channel.send(embed=embed)
+
+        elif isinstance(error, commands.CommandInvokeError):
+            channel = ctx.bot.get_channel(784368117299150849)
+            embed = discord.Embed(
+                type='rich',
+                colour = discord.Colour.red()
+            )
+            embed.set_author(name='New Error', icon_url=str(ctx.bot.user.avatar))
+            embed.add_field(name='Command Invoke Error', value=f'{error}', inline=False)
+            embed.add_field(name='Command Ran', value=f'{ctx.command}', inline=False)
+            embed.add_field(name='Guild', value=f'{ctx.guild}', inline=True)
+            embed.add_field(name='Channel', value=f'{ctx.channel}', inline=True)
+            embed.add_field(name='Message', value=f'{ctx.message.content}', inline=True)
+            embed.set_footer(text=f'User ID: {ctx.author.id}', icon_url=str(ctx.author.avatar))
+            embed.timestamp = datetime.datetime.now()
+            await channel.send(embed=embed)
+            await ctx.send(f"{error}", ephemeral=True)
 
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
