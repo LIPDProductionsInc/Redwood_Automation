@@ -70,9 +70,16 @@ class EventsCog(commands.Cog, name="Events Cog"):
                         if payload.emoji.name == '✅':
                             role = guild.get_role(762321175900454933)
                             await member.add_roles(role)
-                            channel = self.bot.get_channel(646550331991523328)
-                            await channel.send(f"{member.mention}: Your request has been approved. You now have the Business Representative role.")
-                            #DM here
+                            channel = self.bot.get_channel(1005535705180672081)
+                            await channel.send(f"Business Representative role has been given to {member.mention}.")
+                            await member.send("""**REDWOOD OFFICE OF COMMERCE RELATIONS**\n*CITY OF REDWOOD*\n\nYou have requested the \"Business Representative\" role in the city of Redwood Discord. This role will gain you access to Business announcements and communications channels specifically for Redwood Businesses, in addition to the support of Commerce Relations. 
+
+To better track economic activity, we encourage ALL businesses to register with the City Of Redwood, which gains the Business additional perks such as being able to post in the Business Advertisements channel. You can find more information in the Business Announcements channel as well as view the attached resources: 
+
+https://docs.google.com/forms/d/1DI9AvTgvlr8pgijRtM7fwvWYNt3eopFcK_2rVUvVX8s/edit
+https://docs.google.com/document/d/1Fd8uEPCGp7Zhs8N54tgd_Mfb2I4Zy2amIBWefHlEQf8/edit?usp=sharing
+
+If you have any questions or concerns feel free to reach out to an OCR Representative!\n\nThank you""")
                             pass
                         if payload.emoji.name == '❌':
                             await member.send("Your request has been denied.")
