@@ -2,8 +2,11 @@ import discord
 import asyncio
 import datetime
 import os
+import typing
 
+from discord import app_commands
 from discord.ext import commands
+from typing import Literal
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -15,7 +18,8 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.cooldown(1, 3, commands.BucketType.user)
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
-    async def ban_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None):
+    @app_commands.describe(member="The member to ban", reason="The reason for the ban", save_messages="Whether or not to save messages from the user")
+    async def ban_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None, save_messages:Literal[True,False]=True):
         if member == None and reason == None:
             embed=discord.Embed(
                 title='**Command: Ban**',
@@ -27,12 +31,15 @@ class AdminCog(commands.Cog, name="Admin Cog"):
 **Usage:**
 !ban <user> <reason>
 **Example:**
-!ban @RedwoodDeli spamming
+!ban @FrostEpresso spamming
 '''
             )
         else:
             #channel = ctx.bot.get_channel(os.getenv("LogChannel"))
-            await member.ban(reason=reason)
+            if save_messages == True:
+                await member.ban(reason=reason, delete_message_days=0)
+            else:
+                await member.ban(reason=reason)
             embed=discord.Embed(
                 colour=discord.Color.green(),
                 description=f''':white_check_mark: ***{member} was banned*** | {reason}'''
@@ -53,6 +60,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.cooldown(1, 3, commands.BucketType.user)
     @commands.guild_only()
     @commands.has_permissions(kick_members=True)
+    @app_commands.describe(member="The member to kick", reason="The reason for kicking the member")
     async def kick_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None):
         if member == None and reason == None:
             embed=discord.Embed(
@@ -62,7 +70,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
 **Description:** Kick a member.
 **Cooldown:** 3 seconds
 **Usage:** !kick <user> <reason>
-**Example:** !kick @RedwoodDeli Spamming'''
+**Example:** !kick @FrostEpresso Spamming'''
             )
             await ctx.send(embed=embed)
         else:
@@ -88,6 +96,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.cooldown(1, 3, commands.BucketType.user)
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
+    @app_commands.describe(member="The member to unban")
     async def unban_command(self, ctx: commands.Context, *, member: discord.User = None):
         if member == None:
             embed=discord.Embed(
@@ -97,7 +106,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
 **Description:** Unban a member
 **Cooldown:** 3 seconds
 **Usage:** !unban <user>
-**Example:** !unban @RedwoodDeli'''
+**Example:** !unban @FrostEpresso'''
             )
             await ctx.send(embed=embed)
         else:
