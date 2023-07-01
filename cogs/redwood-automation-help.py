@@ -32,7 +32,7 @@ class HelpCog(commands.Cog, name="Help Commands"):
             if discord.utils.get(ctx.author.roles, id=763471106618556416):
                 embed.add_field(name="Press Office Commands", value="`seal`, `tweet`", inline=False)
             if discord.utils.get(ctx.author.roles, id=763471193524535336):
-                embed.add_field(name="City Clerk Commands", value="`transcript`", inline=False)
+                embed.add_field(name="City Clerk Commands", value="`transcript`, `bulletin`", inline=False)
             embed.add_field(name="Commands", value="`help`, `ping`, `serverinfo`, `userinfo`, `avatar`, `council`, `legal-office`, `complaint`, `feedback`, `polls`", inline=False)
             if ctx.author.guild_permissions.moderate_members:
                 embed.add_field(name="Moderation", value="`ban`, `kick`, `unban`", inline=False)
