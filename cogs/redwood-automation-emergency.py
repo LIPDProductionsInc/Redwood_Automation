@@ -117,8 +117,9 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             await channel2.send("@everyone", embed=embed)
         else:
             raise AttributeError(f"{level} is not a valid attribute for level.")
-        await channel.send(embed=embed)
+        message = await channel.send(embed=embed)
         await ctx.send("Issued!", ephemeral=True)
+        await message.publish()
         pass
 
     @commands.hybrid_command(name="emergency-committee", description="View the current members of the Emergency Committee.", alaises=["reec"])
