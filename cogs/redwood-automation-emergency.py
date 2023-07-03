@@ -114,7 +114,8 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             embed.set_thumbnail(url=ctx.bot.user.avatar)
             embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
             embed.timestamp = datetime.datetime.now()
-            await channel2.send("@everyone", embed=embed)
+            message2 = await channel2.send("@everyone", embed=embed)
+            await message2.publish()
         else:
             raise AttributeError(f"{level} is not a valid attribute for level.")
         message = await channel.send(embed=embed)
