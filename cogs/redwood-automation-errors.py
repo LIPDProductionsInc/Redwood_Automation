@@ -243,6 +243,8 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
         elif isinstance(error, commands.CheckFailure):
             if ctx.command.qualified_name == 'transcript':
                 await ctx.send('Only city clerks can create transcripts.', ephemeral=True)
+            elif ctx.command.qualified_name == 'announce':
+                await ctx.send('You do not have permission to announce.', ephemeral=True)
             else:
                 await ctx.send(':x: | Error not captured', ephemeral=True)
                 print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)

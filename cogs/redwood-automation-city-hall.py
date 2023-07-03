@@ -1,6 +1,7 @@
 import discord
 import datetime
 
+from discord import app_commands
 from discord.ext import commands
 
 class CityHallCog(commands.Cog, name="City Hall Related Commands"):
@@ -35,6 +36,20 @@ class CityHallCog(commands.Cog, name="City Hall Related Commands"):
         elif isinstance(ctx.author, discord.Member) and ctx.author.get_role(646549322682466305):
             embed.add_field(name="Mayor:", value="Council Board: https://trello.com/b/gVPTVd0r \nRecords Board: https://trello.com/b/g06YwcHJ \n Mayor Office Board: https://trello.com/b/pK66sdV7", inline=False)
         await ctx.send(embed=embed, ephemeral=True)
+        pass
+
+    @app_commands.command(name="announce", description="Send a message to the #announcements channel, with the option to auto-publish.")
+    @commands.guild_only()
+    #@commands.check_any(commands.has_any_role(763470466269577216))
+    @app_commands.describe(message="The message to send to #announcements.", publish="Whether or not to publish the message.")
+    async def _publish(self, interaction: discord.Interaction, message: str, publish: bool):
+        channel = self.bot.get_channel(646541531523710996)
+        if channel.permissions_for(interaction.user).send_messages:
+            message = await channel.send(message)
+            if publish:
+                await message.publish()
+        else:
+            raise commands.MissingPermissions(["send_messages"])
         pass
 
     pass
