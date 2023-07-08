@@ -21,7 +21,7 @@ class CityHallCog(commands.Cog, name="City Hall Related Commands"):
         embed.timestamp = datetime.datetime.now()
         if isinstance(ctx.author, discord.Member) and ctx.author.get_role(763471193524535336):
             embed.add_field(name="City Clerk:", value="https://docs.google.com/forms/d/1nGY6J8sF0xyqxW-nZBa9bnvydxnmO25KedYAXmG4_fI/edit \nhttps://docs.google.com/document/d/1Or8zmjojgLhp_E4JgybehFBhzsIy0eh1NbfzciPAWsc/edit \nhttps://docs.google.com/document/d/1V9T3kTvkNAhcc05boIkBu7gLN-6lwwxIvvx30x4j67k/edit?usp=sharing", inline=False)
-        elif isinstance(ctx.author, discord.Member) and ctx.author.get_role(1004462014044831845):
+        elif isinstance(ctx.author, discord.Member) and ctx.author.get_role(1004462014044831845) or ctx.author.get_role(1005948844791574568):
             embed.add_field(name="Police Department:", value="Criminal Code: https://trello.com/b/EGN3OQzQ/firestone-criminal-code-r \nTraffic Regulations: https://trello.com/b/z1e04kAy/traffic-regulations-firestone \nCounty & Municipal Guide: https://trello.com/b/UhRYTqfo/firestone-county-municipal-legal-guide \nMedical Certs: https://trello.com/b/XnYh2AN1/state-registry-of-health \nWarrants: https://trello.com/b/KHYhrBju/district-court-of-firestone \nHandicap Permits: https://trello.com/b/vR54Te0o/fdot-handicap-permits-board \nHandbook: https://docs.google.com/document/d/18K-IHoT6MStN6b_kb7RSBGEpxMuSYgepN21Fw4TFtR0/edit", inline=False)
         #elif isinstance(ctx.author, discord.Member) and ctx.author.get_role(763471106618556416):
         #    embed.add_field(name="Press Secretary:", value="", inline=False)
