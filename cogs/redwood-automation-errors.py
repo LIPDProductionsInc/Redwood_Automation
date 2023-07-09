@@ -78,7 +78,10 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             await ctx.send(':x: | My perms got disabled. Please tag someone who can help! (Missing {error.missing_perms})')
             
         elif isinstance(error, commands.MissingPermissions):
-            await ctx.send(f':x: | You need the {error.missing_perms} permission to run this command!')
+            if ctx.command.qualified_name == 'city-ban' or ctx.command.qualified_name == 'city-unban':
+                await ctx.send(':x: | You do not have permission to ban in either the City of Redwood\'s Discord server or RPD\'s Discord server.')
+            else:
+                await ctx.send(f':x: | You need the {error.missing_perms} permission to run this command!')
             
         elif isinstance(error, commands.MissingRole):
             if ctx.command.qualified_name == 'send':
@@ -168,7 +171,7 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             
         elif isinstance(error, discord.HTTPException):
-            if error.status == 403 and error.code == 50013 and ctx.command.qualified_name == 'ban' or ctx.command.qualified_name == 'kick':
+            if error.status == 403 and error.code == 50013 and ctx.command.qualified_name == 'ban' or ctx.command.qualified_name == 'kick' or ctx.command.qualified_name == 'city-ban':
                 prefix = await self.bot.get_prefix(ctx.message)
                 await ctx.send(f'{ctx.author.mention} Yeah no, I ain\'t doing {prefix}{ctx.command.qualified_name} on {ctx.message.mentions[0].mention}.')
             else:
