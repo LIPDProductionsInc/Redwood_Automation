@@ -1,4 +1,5 @@
 import discord
+import asyncio
 import datetime
 import typing
 
@@ -103,7 +104,12 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             embed.set_thumbnail(url=ctx.bot.user.avatar)
             embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
             embed.timestamp = datetime.datetime.now()
-            await channel2.send("@everyone", embed=embed)
+            message2 = await channel2.send("@everyone", embed=embed)
+            await message2.publish()
+            embed.set_field_at(0, name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
+            channel3 = ctx.bot.get_channel(1127687709557801091)
+            message3 = await channel3.send("@everyone", embed=embed)
+            await message3.publish()
         elif level == "State of Emergency":
             channel2 = ctx.bot.get_channel(646541531523710996)
             embed = discord.Embed(
@@ -116,11 +122,23 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             embed.timestamp = datetime.datetime.now()
             message2 = await channel2.send("@everyone", embed=embed)
             await message2.publish()
+            embed.set_field_at(0, name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
+            channel3 = ctx.bot.get_channel(1127687709557801091)
+            message3 = await channel3.send("@everyone", embed=embed)
+            await message3.publish()
         else:
             raise AttributeError(f"{level} is not a valid attribute for level.")
         message = await channel.send(embed=embed)
+        if level != "State of Emergency" and level != "Major Weather Event (City Emergency)" and level != "Normal Operations":
+            message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2)."
+            embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
+        elif level == "Normal Operations":
+            asyncio.sleep(0.01)
+        channel3 = ctx.bot.get_channel(1127687709557801091)
+        message3 = await channel3.send(embed=embed)
         await ctx.send("Issued!", ephemeral=True)
         await message.publish()
+        await message3.publish()
         pass
 
     @commands.hybrid_command(name="emergency-committee", description="View the current members of the Emergency Committee.", alaises=["reec"])
