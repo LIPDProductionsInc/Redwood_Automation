@@ -128,7 +128,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             await message3.publish()
         else:
             raise AttributeError(f"{level} is not a valid attribute for level.")
-        message = await channel.send(embed=embed)
+        txtmessage = await channel.send(embed=embed)
         if level != "State of Emergency" and level != "Major Weather Event (City Emergency)" and level != "Normal Operations":
             message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2)."
             embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
@@ -137,7 +137,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         channel3 = ctx.bot.get_channel(1127687709557801091)
         message3 = await channel3.send(embed=embed)
         await ctx.send("Issued!", ephemeral=True)
-        await message.publish()
+        await txtmessage.publish()
         await message3.publish()
         pass
 
