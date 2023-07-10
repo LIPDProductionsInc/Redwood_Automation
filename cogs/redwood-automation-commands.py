@@ -2,6 +2,7 @@ import discord
 import datetime
 
 from discord.ext import commands
+from discord import app_commands
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -46,6 +47,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
     @commands.hybrid_command(name="userinfo", description="Get information about a user.", aliases=["whois"])
     @commands.guild_only()
     async def userinfo_command(self, ctx: commands.Context, member: discord.Member = None):
+    @app_commands.describe(member="The user to get information about.")
         if member is None:
             member = ctx.author
             pass
@@ -81,6 +83,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
     @commands.hybrid_command(name="avatar", description="Get the avatar of a user.", aliases=["pfp", "av"])
     @commands.guild_only()
     async def avatar_command(self, ctx: commands.Context, member: discord.Member = None):
+    @app_commands.describe(member="The user to get the avatar of.")
         if member is None:
             member = ctx.author
             pass
