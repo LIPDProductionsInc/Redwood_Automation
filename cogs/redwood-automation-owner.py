@@ -261,24 +261,12 @@ Latency: **{round(self.bot.latency * 1000)}**ms
 
     @commands.hybrid_command(name='test', hidden=True)
     @commands.is_owner()
-    async def _test(self, ctx, roblox_id: int):
-        def group_check(role):
-            fs_group_ids = [14725251, 14089278, 4431799, 11324038, 2805393, 2805388, 5684663, 3411434, 2890690, 2842177, 2826521, 2825030, 2811838, 2809133, 2808791, 2807789, 2803369, 2803367, 2803372, 2803364]
-            blocked_roles = ["Guest", "Firestone Citizen"]
-            print(role.group.id in fs_group_ids, role.group.id, role.group.name)
-            print(role.name in blocked_roles, role.name)
-            if role.group.id in fs_group_ids and role.name not in blocked_roles:
-                return True
-            else:
-                return False
-            
-        user = await client.get_user(roblox_id)
-        groups = await user.get_group_roles()
-
-        for group in groups:
-            if group_check(group):
-                print(group.name)
-        await ctx.send('Sent')
+    async def _test(self, ctx):
+        channel = ctx.bot.get_channel(1040251423155298364)
+        guild = ctx.bot.get_guild(646540220539338773)
+        role = guild.get_role(1117957335919378494)
+        await channel.set_permissions(role, manage_permissions=True)
+        await channel.send('Done', ephemeral=True)
         pass
 
     @commands.command(name='verify', hidden=True)
