@@ -14,7 +14,10 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
     @commands.command(name="eas-init", hidden=True)
     @commands.check_any(commands.is_owner(), commands.has_role(1038941326047191161))
     async def eas_init(self, ctx: commands.Context) -> None:
-        channel = ctx.bot.get_channel(1050019636231536690)
+        if ctx.guild.id == 646540220539338773:
+            channel = ctx.bot.get_channel(1050019636231536690)
+        elif ctx.guild.id == 1005182438265335901:
+            channel = ctx.bot.get_channel(1127687709557801091)
         embed = discord.Embed(
             title="Redwood City Emergency Alert System",
             colour=discord.Color.dark_blue(),
@@ -22,7 +25,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         )
         embed.add_field(name="Levels of Emergency", value=":green_square: | (Level 1) | Normal Operations\n:white_large_square: | (Level 2) | City Holiday (Reduced Operations)\n:yellow_square: | (Level 3) | Notices and Weather Advisories\n:orange_square: | (Level 4) | Weather Watches, Warnings, and Minor Emergencies\n:red_square: | (Level 5) | Major Weather Event and City Emergencies", inline=False)
         embed.set_thumbnail(url=ctx.bot.user.avatar)
-        embed.set_footer(text="The Redwood City Emergency Alert System is maintained by the Redwood Executive Emergency Committee. They are responsible for issuing alerts as needed.")
+        embed.set_footer(text="The Redwood City Emergency Alert System is maintained by the Redwood Executive Emergency Committee. They are responsible for issuing alerts as needed. Tests are conducted by the IT Department.")
         await channel.send(embed=embed)
         pass
 
