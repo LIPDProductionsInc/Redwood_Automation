@@ -40,7 +40,7 @@ class CityHallCog(commands.Cog, name="City Hall Related Commands"):
 
     @app_commands.command(name="announce", description="Send a message to the #announcements channel, with the option to auto-publish.")
     @commands.guild_only()
-    #@commands.check_any(commands.has_any_role(763470466269577216))
+    @commands.check_any(commands.has_any_role(763470466269577216, 673008336010084378), commands.is_owner())
     @app_commands.describe(message="The message to send to #announcements.", publish="Whether or not to publish the message.")
     async def _publish(self, interaction: discord.Interaction, message: str, publish: bool):
         channel = self.bot.get_channel(646541531523710996)
