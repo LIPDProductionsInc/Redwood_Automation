@@ -5,7 +5,7 @@ from discord import app_commands
 from discord.ext import commands
 
 class VoteOptions(discord.ui.Select):
-    def __init__(self, message: discord.Message):
+    def __init__(self, message: discord.Message) -> None:
         self.message = message
         options = [
             discord.SelectOption(label="Amendment", value="amendment."),
@@ -27,7 +27,7 @@ class VoteOptions(discord.ui.Select):
         await self.message.reply("<@&646549329493884929>", embed=embed)
 
 class VoteView(discord.ui.View):
-    def __init__(self, message: discord.Message):
+    def __init__(self, message: discord.Message) -> None:
         super().__init__()
         self.add_item(VoteOptions(message))
 

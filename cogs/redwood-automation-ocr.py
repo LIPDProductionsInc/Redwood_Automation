@@ -11,7 +11,7 @@ class RedwoodAutomationOCR(commands.Cog, name="Office of Commerce Relations Comm
     @commands.hybrid_command(name="business-representative", description="Register as a business representative with the Office of Commerce Relations.")
     @commands.guild_only()
     @app_commands.describe(permit_link="The DOCM Trello link for your business.")
-    async def business_representative(self, ctx, *, permit_link: str):
+    async def business_representative(self, ctx:commands.Context, *, permit_link: str) -> None:
         if permit_link.startswith("https://trello.com/c/"):
             channel = self.bot.get_channel(1005535705180672081)
             embed = discord.Embed(

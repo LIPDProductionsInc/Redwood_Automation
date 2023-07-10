@@ -14,21 +14,21 @@ load_dotenv()
 client = Client(os.getenv("RobloxToken"))
 
 class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
-    def __init__(self, bot: commands.Bot) -> None:
+    def __init__(self, bot:commands.Bot) -> None:
         self.bot: commands.Bot = bot
 
     group = app_commands.Group(name='get', description="Get commands")
 
     @commands.command(name='roblox-connect', hidden=True)
     @commands.is_owner()
-    async def _test(self, ctx):
+    async def _test(self, ctx:commands.Context) -> None:
         user = await client.get_authenticated_user()
         await ctx.send(f'Logged in as `{user.name}`:`{user.id}`')
         pass
 
     @group.command(name='departments', description="Get the departments the user is in")
     @app_commands.describe(roblox_id="The Roblox ID of the user")
-    async def departments_command(self, interaction: discord.Interaction, roblox_id: int):
+    async def departments_command(self, interaction: discord.Interaction, roblox_id: int) -> None:
         def group_check(user_role):
             fs_group_ids = [14725251, 14089278, 4431799, 11324038, 2805393, 2805388, 5684663, 3411434, 2890690, 2842177, 2826521, 2825030, 2811838, 2809133, 2808791, 2807789, 2803369, 2803367, 2803372, 2803364, 15301612]
             blocked_roles = ["Guest", "Firestone Citizen"]
@@ -90,7 +90,7 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
 
     @group.command(name="certifications", description="Shows a user's certifications")
     @app_commands.describe(roblox_id="The user's Roblox ID")
-    async def certifications(self, interaction: discord.Interaction, roblox_id: int):
+    async def certifications(self, interaction: discord.Interaction, roblox_id: int) -> None:
         user = await client.get_user(roblox_id)
         roles = await user.get_group_roles()
         ffa = "None Obtainable"
@@ -117,5 +117,5 @@ class RobloxCommandsCog(commands.Cog, name="ROBLOX Related Commands"):
 
     pass
 
-async def setup(bot: commands.Bot):
+async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(RobloxCommandsCog(bot))

@@ -8,7 +8,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
         self.bot = bot
     
     @commands.Cog.listener()
-    async def on_message_edit(self, before, after):
+    async def on_message_edit(self, before, after) -> None:
         if before.content != after.content:
             if type(before.channel) != discord.DMChannel and type(after.channel) != discord.DMChannel:
                 if before.channel.name.startswith('council-session') and not before.channel.name == 'council-session-test' or 'oath' in before.channel.name:
@@ -33,7 +33,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
         pass
 
     @commands.Cog.listener()
-    async def on_message_delete(self, message):
+    async def on_message_delete(self, message) -> None:
         if message.channel.name.startswith('council-session') and not message.channel.name == 'council-session-test' or 'oath' in message.channel.name:
             channel = self.bot.get_channel(1040322534454861904)
             link = "https://discordapp.com/channels/{}/{}/{}".format(message.guild.id, message.channel.id, message.id)
@@ -55,7 +55,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
         pass
 
     @commands.Cog.listener()
-    async def on_raw_reaction_add(self, payload):
+    async def on_raw_reaction_add(self, payload) -> None:
         if payload.channel_id == 1005535705180672081:
             for role in payload.member.roles:
                 if role.id == 941858937836302377:
@@ -92,5 +92,5 @@ If you have any questions or concerns feel free to reach out to an OCR Represent
 
     pass
 
-async def setup(bot):
+async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(EventsCog(bot))

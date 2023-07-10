@@ -30,7 +30,7 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
         required=True
     )
 
-    async def on_submit(self, interaction: discord.Interaction):
+    async def on_submit(self, interaction: discord.Interaction) -> None:
         channel = self.bot.get_channel(1118048392698937376)
         embed = discord.Embed(
             title="City Hall Ticket Submission",
@@ -45,7 +45,7 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
         await channel.send(embed=embed)
         await interaction.response.send_message("Your ticket has been submitted!", ephemeral=True)
 
-    async def on_error(self, interaction: discord.Interaction, error):
+    async def on_error(self, interaction: discord.Interaction, error) -> None:
         await interaction.response.send_message("An error occurred while processing your ticket. Please try again later.", ephemeral=True)
         print('Ignoring exception in modal CityHallTicketModal:', file=sys.stderr)
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
@@ -54,17 +54,17 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
     pass
 
 class RedwoodAutomationITCog(commands.Cog, name="IT Commands"):
-    def __init__(self, bot):
+    def __init__(self, bot) -> None:
         self.bot = bot
         
     @app_commands.command(name="ticket", description="Submit a ticket to the IT department")
     @app_commands.guild_only()
     @app_commands.checks.has_any_role(646549330479546379, 646549329493884929, 763470466269577216, 940718179402006590, 1004462014044831845)
-    async def ticket(self, interaction: discord.Interaction):
+    async def ticket(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_modal(RedwoodAutomationTicketModal())
         pass
 
     pass
 
-async def setup(bot):
+async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(RedwoodAutomationITCog(bot))

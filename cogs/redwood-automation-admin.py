@@ -19,7 +19,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     @app_commands.describe(member="The member to ban", reason="The reason for the ban", save_messages="Whether or not to save messages from the user")
-    async def ban_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None, save_messages:Literal["True","False"]="True"):
+    async def ban_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None, save_messages:Literal["True","False"]="True") -> None:
         if member == None and reason == None:
             embed=discord.Embed(
                 title='**Command: Ban**',
@@ -61,7 +61,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     @app_commands.describe(member="The member to ban", reason="The reason for the ban", save_messages="Whether or not to save messages from the user")
-    async def city_ban_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None, save_messages:Literal["True","False"]="True"):
+    async def city_ban_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None, save_messages:Literal["True","False"]="True") -> None:
         if member == None and reason == None:
             embed=discord.Embed(
                 title='**Command: City Ban**',
@@ -110,7 +110,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.guild_only()
     @commands.has_permissions(kick_members=True)
     @app_commands.describe(member="The member to kick", reason="The reason for kicking the member")
-    async def kick_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None):
+    async def kick_command(self, ctx: commands.Context, member: discord.Member = None, *, reason: str = None) -> None:
         if member == None and reason == None:
             embed=discord.Embed(
                 title='**Command: !kick**',
@@ -146,7 +146,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     @app_commands.describe(member="The member to unban")
-    async def unban_command(self, ctx: commands.Context, *, member: discord.User = None):
+    async def unban_command(self, ctx: commands.Context, *, member: discord.User = None) -> None:
         if member == None:
             embed=discord.Embed(
                 title='**Command: !unban**',
@@ -182,7 +182,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     @app_commands.describe(member="The member to unban")
-    async def city_unban_command(self, ctx: commands.Context, *, member: discord.User = None):
+    async def city_unban_command(self, ctx: commands.Context, *, member: discord.User = None) -> None:
         if member == None:
             embed=discord.Embed(
                 title='**Command: !city-unban**',

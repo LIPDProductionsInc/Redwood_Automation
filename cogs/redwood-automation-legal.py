@@ -51,7 +51,7 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form"):
         min_length=0
     )
 
-    async def on_submit(self, interaction: discord.Interaction):
+    async def on_submit(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_message("Thank you for your complaint! It has been sent for review. It can be seen by the Mayor, Deputy Mayor, RW Chief of Staff, City Attorneys Office, District Attorney, County Executive, and the Founder.", ephemeral=True)
         channel = interaction.client.get_channel(1034315223856840735)
         embed = discord.Embed(
@@ -65,7 +65,7 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form"):
         await channel.send(embed=embed)
         pass
 
-    async def on_error(self, interaction: discord.Interaction, error):
+    async def on_error(self, interaction: discord.Interaction, error) -> None:
         await interaction.response.send_message("An error occurred while processing your complaint. Please try again later.", ephemeral=True)
         print('Ignoring exception in modal FeedbackModal:', file=sys.stderr)
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
@@ -101,7 +101,7 @@ class RecommendationModal(discord.ui.Modal, title="Recommendation Form"):
         max_length=2000
     )
 
-    async def on_submit(self, interaction: discord.Interaction):
+    async def on_submit(self, interaction: discord.Interaction) -> None:
         submission_channel = 0
 
         # Some variables for later
@@ -128,7 +128,7 @@ class RecommendationModal(discord.ui.Modal, title="Recommendation Form"):
         # Check if bot should DM user or post it to channel instead
         await interaction.followup.send("Press \"Confirm\" when finished", view=RecommendationConfirmView((legislation_link, legislation_review, legislation_recommendation)), ephemeral=True)
 
-    async def on_error(self, interaction: discord.Interaction, error):
+    async def on_error(self, interaction: discord.Interaction, error) -> None:
         # Handle for input errors
         if type(error) == commands.UserInputError:
             await interaction.followup.send(f"User input error occured. Please correct the following: `{error}`", ephemeral=True)
@@ -139,7 +139,7 @@ class RecommendationModal(discord.ui.Modal, title="Recommendation Form"):
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 class RecommendationConfirmView(discord.ui.View):
-    def __init__(self, text_inputs: tuple):
+    def __init__(self, text_inputs: tuple) -> None:
         super().__init__()
 
         self.link = text_inputs[0]
@@ -156,7 +156,7 @@ class RecommendationConfirmView(discord.ui.View):
         ],
         placeholder="Destination"
     )
-    async def select_channels(self, interaction: discord.Interaction, select: discord.ui.Select):
+    async def select_channels(self, interaction: discord.Interaction, select: discord.ui.Select) -> None:
         council_channels = [646552474265845780]
         legal_channels = [873744876079026218]
 
@@ -181,7 +181,7 @@ class RecommendationConfirmView(discord.ui.View):
         label="Confirm",
         disabled=True
     )
-    async def confirmation_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def confirmation_button(self, interaction: discord.Interaction, button: discord.ui.Button) -> None:
         if self.destination_channels == []:
             await interaction.response.send_message(content="Select a destination!", ephemeral=True)
 
@@ -250,11 +250,11 @@ class RecommendationConfirmView(discord.ui.View):
         self.stop()
 
 class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
-    def __init__(self, bot):
+    def __init__(self, bot) -> None:
         self.bot = bot
 
     @commands.hybrid_command(name="legal-office", description="View the current members of the City Attorney's Office.")
-    async def legal_office(self, ctx):
+    async def legal_office(self, ctx: commands.Context) -> None:
         city_attorney = 646549330479546379
         admin = 763470466269577216
         moderator = 646554162405834762
@@ -276,15 +276,15 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
 
     @app_commands.command(name="complaint", description="Submit a complaint against a member of the Redwood City Government.")
     @app_commands.guild_only()
-    async def complaint(self, interaction: discord.Interaction):
+    async def complaint(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_modal(ComplaintModal())
         pass
 
     @app_commands.command(name="recommend-changes", description="Recommend changes to a piece of legislation to the Council")
     @app_commands.guild_only()
     @app_commands.checks.has_role(646549330479546379)
-    async def recommend_changes(self, interaction: discord.Interaction):
+    async def recommend_changes(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_modal(RecommendationModal())
 
-async def setup(bot):
+async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(LegalOfficeCog(bot))

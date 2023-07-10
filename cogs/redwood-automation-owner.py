@@ -18,13 +18,13 @@ client = Client(os.getenv("RobloxToken"))
 
 class OwnerCog(commands.Cog, name="Owner Commands"):
 
-    def __init__(self, bot):
+    def __init__(self, bot) -> None:
         self.bot = bot
     
     # Hidden means it won't show up on the default help.
     @commands.command(name='load', hidden=True)
     @commands.is_owner()
-    async def _load(self, ctx, *, cog: str):
+    async def _load(self, ctx:commands.Context, *, cog:str) -> None:
         await ctx.send(f'**`Loading Cog: {cog}...`**')
         """Command which Loads a Module.
         Remember to use dot path. e.g: cogs.owner"""
@@ -46,7 +46,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
 
     @commands.command(name='unload', hidden=True)
     @commands.is_owner()
-    async def _unload(self, ctx, *, cog: str):
+    async def _unload(self, ctx:commands.Context, *, cog:str) -> None:
         await ctx.send(f'**`Unloading Cog: {cog}...`**')
         await asyncio.sleep(2)
         """Command which Unloads a Module.
@@ -69,7 +69,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
 
     @commands.command(name='reload', hidden=True)
     @commands.is_owner()
-    async def _reload(self, ctx, *, cog: str):
+    async def _reload(self, ctx:commands.Context, *, cog:str) -> None:
         """Command which Reloads a Module.
         Remember to use dot path. e.g: cogs.owner"""
         print('Reloading cog...')
@@ -96,7 +96,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
 
     @commands.command(name='sync', hidden=True)
     @commands.is_owner()
-    async def _sync(self, ctx) -> None:
+    async def _sync(self, ctx:commands.Context) -> None:
         await ctx.send('`Syncing Slash commands...`')
         print('Syncing slash commands')
         synced = await ctx.bot.tree.sync()
@@ -107,7 +107,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
     
     @commands.command(name='eval', hidden=True)
     @commands.is_owner()
-    async def _eval(self, ctx, *, body: str):
+    async def _eval(self, ctx:commands.Context, *, body:str) -> None:
         """Evaluates a code"""
 
         env = {
@@ -158,7 +158,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
     
     @commands.command(name='rules', hidden=True)
     @commands.is_owner()
-    async def _rules(self, ctx):
+    async def _rules(self, ctx:commands.Context) -> None:
         channel = self.bot.get_channel(646541638763544586)
         await ctx.message.delete()
         embed = discord.Embed(
@@ -181,7 +181,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
 
     @commands.command(name='info', hidden=True)
     @commands.is_owner()
-    async def _info(self, ctx):
+    async def _info(self, ctx:commands.Context) -> None:
         channel = self.bot.get_channel(646541638763544586)
         await ctx.message.delete()
         embed = discord.Embed(
@@ -200,14 +200,14 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
     
     @commands.command(name='edit', hidden=True)
     @commands.is_owner()
-    async def _edit(self, ctx, id, content):
+    async def _edit(self, ctx:commands.Context, id:int, content:str) -> None:
         message = await ctx.fetch_message(id)
         await message.edit(content=content)
         pass
 
     @commands.command(name='edit-specific', hidden=True)
     @commands.is_owner()
-    async def _edit_specific(self, ctx, type = None):
+    async def _edit_specific(self, ctx:commands.Context, type:str = None) -> None:
         if type == None:
             await ctx.send('Please specify a type', ephemeral=True)
         elif type == 'role-request':
@@ -228,7 +228,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
     
     @commands.command(name='stats', hidden=True)
     @commands.is_owner()
-    async def _stats(self, ctx):
+    async def _stats(self, ctx:commands.Context) -> None:
         embed = discord.Embed(
             title='Redwood Automation',
             type='rich',
@@ -254,14 +254,14 @@ Latency: **{round(self.bot.latency * 1000)}**ms
 
     @commands.command(name='restart', hidden=True)
     @commands.is_owner()
-    async def _restart(self, ctx):
+    async def _restart(self, ctx:commands.Context) -> None:
         await ctx.send('Restarting...')
         await self.bot.logout()
         pass
 
     @commands.hybrid_command(name='test', hidden=True)
     @commands.is_owner()
-    async def _test(self, ctx, member: discord.Member):
+    async def _test(self, ctx:commands.Context, member: discord.Member) -> None:
         channel = ctx.bot.get_channel(1040251423155298364)
         guild = ctx.bot.get_guild(646540220539338773)
         member = guild.get_member(member.id)
@@ -271,7 +271,7 @@ Latency: **{round(self.bot.latency * 1000)}**ms
 
     @commands.command(name='verify', hidden=True)
     @commands.is_owner()
-    async def _verify(self, ctx):
+    async def _verify(self, ctx:commands.Context) -> None:
         embed = discord.Embed(
             title='Verification Needed',
             type='rich',
@@ -285,7 +285,7 @@ Latency: **{round(self.bot.latency * 1000)}**ms
 
     @commands.command(name='role-request', hidden=True)
     @commands.is_owner()
-    async def _rolerequest(self, ctx):
+    async def _rolerequest(self, ctx:commands.Context) -> None:
         request_role = """
 The following roles can be requested:
 - <@&762321175900454933>
@@ -318,5 +318,5 @@ The roles that are requestable are listed below and require you to ping <@&64655
 
     pass
 
-async def setup(bot):
+async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(OwnerCog(bot))

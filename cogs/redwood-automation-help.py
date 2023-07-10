@@ -9,7 +9,7 @@ class HelpCog(commands.Cog, name="Help Commands"):
         self.bot = bot
 
     @commands.hybrid_command(name="help")
-    async def help(self, ctx, *, command: str = None):
+    async def help(self, ctx:commands.Context, *, command:str = None) -> None:
         """Shows help about a command or the bot"""
         if command is None:
             embed = discord.Embed(
@@ -64,7 +64,7 @@ class HelpCog(commands.Cog, name="Help Commands"):
 
     @commands.command(name="beta-help", description="Shows help about a command or the bot (Beta version)", aliases=["help-beta"], hidden=True)
     @commands.is_owner()
-    async def help_beta(self, ctx, *, command: str = None):
+    async def help_beta(self, ctx:commands.Context, *, command:str = None) -> None:
         if command is None:
             embed = discord.Embed(title="Help", description="Here's a list of all my commands:", colour=discord.Colour.dark_blue())
             for cog in self.bot.cogs:
@@ -97,5 +97,5 @@ class HelpCog(commands.Cog, name="Help Commands"):
 
     pass
 
-async def setup(bot):
+async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(HelpCog(bot))

@@ -12,7 +12,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
     
     @commands.hybrid_command(name="ping", description="Ping the bot.")
     @commands.guild_only()
-    async def ping_command(self, ctx: commands.Context):
+    async def ping_command(self, ctx: commands.Context) -> None:
         embed = discord.Embed(
             colour=discord.Color.green(),
             description=f''':ping_pong: ***Pong!***
@@ -31,7 +31,7 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
 
     @commands.hybrid_command(name="serverinfo", description="Get information about the server.")
     @commands.guild_only()
-    async def serverinfo_command(self, ctx: commands.Context):
+    async def serverinfo_command(self, ctx: commands.Context) -> None:
         embed = discord.Embed(
             title=ctx.guild.name,
             colour=discord.Color.dark_blue()
@@ -46,8 +46,8 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
 
     @commands.hybrid_command(name="userinfo", description="Get information about a user.", aliases=["whois"])
     @commands.guild_only()
-    async def userinfo_command(self, ctx: commands.Context, member: discord.Member = None):
     @app_commands.describe(member="The user to get information about.")
+    async def userinfo_command(self, ctx: commands.Context, member: discord.Member = None) -> None:
         if member is None:
             member = ctx.author
             pass
@@ -82,8 +82,8 @@ class CommandsCog(commands.Cog, name="Commands Cog"):
 
     @commands.hybrid_command(name="avatar", description="Get the avatar of a user.", aliases=["pfp", "av"])
     @commands.guild_only()
-    async def avatar_command(self, ctx: commands.Context, member: discord.Member = None):
     @app_commands.describe(member="The user to get the avatar of.")
+    async def avatar_command(self, ctx: commands.Context, member: discord.Member = None) -> None:
         if member is None:
             member = ctx.author
             pass

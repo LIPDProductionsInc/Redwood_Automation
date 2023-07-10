@@ -44,8 +44,8 @@ initial_extensions = ['cogs.redwood-automation-admin',
                       ]
 
 @bot.event
-async def on_ready():
-    print(f'Successfully logged in as {bot.user}, Running Verison 0.0.2.0'.format(bot))
+async def on_ready() -> None:
+    print(f'Successfully logged in as {bot.user}, Running Verison 0.0.2.5'.format(bot))
     activity = discord.Activity(name='the city | !help', type=discord.ActivityType.watching)
     await bot.change_presence(activity=activity)
     await asyncio.sleep(1)
@@ -60,7 +60,7 @@ async def on_ready():
     print(bot.cogs)
 
 @bot.event
-async def on_user_update(before, after):
+async def on_user_update(before, after) -> None:
     try:
         if after.id == bot.owner.id and before.name != after.name:
             bot.owner = bot.get_user(bot.owner.id)
@@ -68,7 +68,7 @@ async def on_user_update(before, after):
         pass
 
 
-async def main():
+async def main() -> None:
     discord.utils.setup_logging(level=40)
     async with bot:
         await bot.start(os.getenv("BotToken"))

@@ -12,16 +12,16 @@ from roblox import InternalServerError
 
 class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
 
-    def __init__(self, bot):
+    def __init__(self, bot) -> None:
         self.bot = bot
     
-    def cog_load(self):
+    def cog_load(self) -> None:
         tree = self.bot.tree
         self._old_tree_error = tree.on_error
         tree.on_error = self.on_app_command_error
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(self, ctx:commands.Context, error) -> None:
         """The event triggered when an error is raised while invoking a command.
         Parameters
         ------------
@@ -365,7 +365,7 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
     @commands.command(name='repeat', aliases=['mimic', 'copy'], hidden=True)
-    async def do_repeat(self, ctx, *, inp: str):
+    async def do_repeat(self, ctx:commands.Context, *, inp: str) -> None:
         """A simple command which repeats your input!
         Parameters
         ------------
@@ -375,7 +375,7 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
         await ctx.send(inp)
 
     @do_repeat.error
-    async def do_repeat_handler(self, ctx, error):
+    async def do_repeat_handler(self, ctx:commands.Context, error) -> None:
         """A local Error Handler for our command do_repeat.
         This will only listen for errors in do_repeat.
         The global on_command_error will still be invoked after.
@@ -386,5 +386,5 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send("You forgot to give me input to repeat!")
 
 
-async def setup(bot):
+async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(CommandErrorHandler(bot))
