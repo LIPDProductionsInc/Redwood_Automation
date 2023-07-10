@@ -261,12 +261,12 @@ Latency: **{round(self.bot.latency * 1000)}**ms
 
     @commands.hybrid_command(name='test', hidden=True)
     @commands.is_owner()
-    async def _test(self, ctx):
+    async def _test(self, ctx, member: discord.Member):
         channel = ctx.bot.get_channel(1040251423155298364)
         guild = ctx.bot.get_guild(646540220539338773)
-        role = guild.get_role(1117957335919378494)
-        await channel.set_permissions(role, manage_permissions=True)
-        await channel.send('Done', ephemeral=True)
+        member = guild.get_member(member.id)
+        await channel.set_permissions(member, view_channel=True)
+        await ctx.send('Done', ephemeral=True)
         pass
 
     @commands.command(name='verify', hidden=True)
