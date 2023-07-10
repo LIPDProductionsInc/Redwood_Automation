@@ -11,7 +11,7 @@ class CityHallCog(commands.Cog, name="City Hall Related Commands"):
     @commands.hybrid_command(name="documents", description="Get the required documents for your role.")
     @commands.guild_only()
     @commands.check_any(commands.has_any_role(763471193524535336, 1004462014044831845, 763471106618556416, 940718179402006590, 673008336010084378, 646549329493884929, 646551227626160139, 646549322682466305))
-    async def _documents(self, ctx: commands.Context):
+    async def _documents(self, ctx: commands.Context) -> None:
         embed = discord.Embed(
             title=f"List of Documents for {ctx.author.display_name}",
             colour=discord.Color.dark_blue()
@@ -42,7 +42,7 @@ class CityHallCog(commands.Cog, name="City Hall Related Commands"):
     @commands.guild_only()
     @commands.check_any(commands.has_any_role(763470466269577216, 673008336010084378), commands.is_owner())
     @app_commands.describe(message="The message to send to #announcements.", publish="Whether or not to publish the message.")
-    async def _publish(self, interaction: discord.Interaction, message: str, publish: bool):
+    async def _publish(self, interaction: discord.Interaction, message: str, publish: bool) -> None:
         channel = self.bot.get_channel(646541531523710996)
         if channel.permissions_for(interaction.user).send_messages:
             message = await channel.send(message)
