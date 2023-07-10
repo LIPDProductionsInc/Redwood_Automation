@@ -97,6 +97,10 @@ class AdminCog(commands.Cog, name="Admin Cog"):
                 #await channel.send(embed=embed2)
                 pass
             else:
+                if not redwood_guild.get_member(ctx.author.id).guild_permissions.ban_members:
+                    print("No perms in Redwood")
+                else:
+                    print("No perms in RPD")
                 raise commands.MissingPermissions(["ban_members"])
             pass
         pass
