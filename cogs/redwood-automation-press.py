@@ -11,6 +11,7 @@ class PressCog(commands.Cog, name="Press Commands"):
     @commands.guild_only()
     @commands.check_any(commands.is_owner(), commands.has_role(763471106618556416))
     async def tweet(self, ctx, tweet_url: str):
+    @app_commands.describe(tweet_url="The URL of the tweet to repost")
         if tweet_url.startswith("https://twitter.com/"):
             channel = self.bot.get_channel(761960138600349707)
             await channel.send(tweet_url)
