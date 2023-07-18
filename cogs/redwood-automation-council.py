@@ -212,14 +212,22 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             channel = self.bot.get_channel(762320251441774632)
             if ctx.channel.name.startswith("council-session"):
                 if trello_link.startswith("https://trello.com/c/"):
-                    await channel.send(f"{trello_link} \n\n <@&646549322682466305>")
                     await ctx.send("The bill has been sent to the mayor for signature.")
+                    if len(ctx.guild.get_role(946519350481944596).members) > 0:
+                        ping = "<@&946519350481944596>"
+                    else:
+                        ping = "<@&646549322682466305>"
+                    await channel.send(f"{trello_link} \n\n{ping}")
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
             elif ctx.channel.id == 646552474265845780:
                 if trello_link.startswith("https://trello.com/c/"):
-                    await channel.send(f"{trello_link} \n\n<@&646549322682466305>")
                     await ctx.send("Proposal sent to the mayor for signature.", ephemeral=True)
+                    if len(ctx.guild.get_role(946519350481944596).members) > 0:
+                        ping = "<@&946519350481944596>"
+                    else:
+                        ping = "<@&646549322682466305>"
+                    await channel.send(f"{trello_link} \n\n{ping}")
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
             else:
