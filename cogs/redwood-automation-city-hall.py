@@ -59,7 +59,7 @@ class CityHallCog(commands.Cog, name="City Hall Related Commands"):
         date = date.split("/")
         time = time.split(":")
         date = datetime.datetime(int(date[2]), int(date[0]), int(date[1]), int(time[0]), int(time[1]))
-        await interaction.response.send_message(f"Epoch time: {int(date.timestamp())}")
+        await ctx.send(f"Epoch time: {int(date.timestamp())}")
         pass
 
     pass
