@@ -220,7 +220,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                     await ctx.send("The bill has been sent to the mayor's office for signature.")
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
-            elif ctx.channel.id == 646552474265845780:
+            elif ctx.channel.id == 851985129232793630:
                 if trello_link.startswith("https://trello.com/c/"):
                     if len(ctx.guild.get_role(946519350481944596).members) > 0:
                         ping = "<@&946519350481944596>"
@@ -231,7 +231,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
             else:
-                raise commands.UserInputError("This command can only be used in <#646552474265845780> or a council session channel.")
+                raise commands.UserInputError("This command can only be used in <#851985129232793630> or a council session channel.")
                 pass
         elif location == "Docket":
             if discord.utils.get(ctx.author.roles, id=646549330479546379):
