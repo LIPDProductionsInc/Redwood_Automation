@@ -248,6 +248,9 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send('Only city clerks can create transcripts.', ephemeral=True)
             elif ctx.command.qualified_name == 'announce':
                 await ctx.send('You do not have permission to announce.', ephemeral=True)
+            elif ctx.command.qualified_name == 'issue':
+                if ctx.guild.id == 1005182438265335901:
+                    await ctx.send('This command cannot be used in this server.', ephemeral=True)
             else:
                 await ctx.send(':x: | Error not captured', ephemeral=True)
                 print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
