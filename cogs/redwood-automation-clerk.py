@@ -11,7 +11,7 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
 
     @commands.hybrid_command(name='transcript', description='Get a transcript of the session')
     @commands.guild_only()
-    @commands.check_any(commands.is_owner(), commands.has_role(763471193524535336))
+    @commands.check_any(commands.is_owner(), commands.has_any_role(763471193524535336, 646549322682466305))
     #@commands.has_role(763471193524535336)
     async def transcript(self, ctx: commands.Context) -> None:
         channel = ctx.bot.get_channel(1054420793913770025)
