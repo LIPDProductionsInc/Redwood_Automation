@@ -207,6 +207,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.describe(trello_link="The link to the Trello card for the proposal.", location="The location to send the proposal to.")
     async def send(self, ctx:commands.Context, location: Literal["Mayor", "Docket"], trello_link:str) -> None:
         if location == "Mayor":
+            if ctx.interaction == None:
+                await ctx.message.delete()
             channel = self.bot.get_channel(762320251441774632)
             if ctx.channel.name.startswith("council-session"):
                 if trello_link.startswith("https://trello.com/c/"):
@@ -215,8 +217,6 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
             elif ctx.channel.id == 646552474265845780:
-                if ctx.interaction == None:
-                    await ctx.message.delete()
                 if trello_link.startswith("https://trello.com/c/"):
                     await channel.send(f"{trello_link} \n\n<@&646549322682466305>")
                     await ctx.send("Proposal sent to the mayor for signature.", ephemeral=True)
