@@ -55,7 +55,7 @@ class CityHallCog(commands.Cog, name="City Hall Related Commands"):
     @commands.hybrid_command(name="epoch", description="Transform a date and time into Epoch time.")
     @commands.guild_only()
     @app_commands.describe(date="The date to convert.", time="The time to convert.")
-    async def _epoch(self, interaction: discord.Interaction, date: str, time: str):
+    async def _epoch(self, ctx: commands.Context, date: str, time: str):
         date = date.split("/")
         time = time.split(":")
         date = datetime.datetime(int(date[2]), int(date[0]), int(date[1]), int(time[0]), int(time[1]))
