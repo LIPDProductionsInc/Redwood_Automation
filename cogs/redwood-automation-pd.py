@@ -21,15 +21,16 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
     @app_commands.describe(status="Open or Close applications")
     async def applications(self, ctx: commands.Context, status: Literal["Open", "Transfer Only" "Close", "Init"]) -> None:
         if ctx.guild.id == 1005182438265335901:
+            channel = ctx.bot.get_channel(1026530495569346590)
+            city_channel = ctx.bot.get_channel(646541531523710996)
             if status == "Open":
-                channel = ctx.bot.get_channel(1026530495569346590)
-                city_channel = ctx.bot.get_channel(646541531523710996)
                 embed = discord.Embed(
                     title="Redwood Police Department Applications are OPEN!",
                     colour=discord.Color(0x007713),
                     type="rich",
                     description=open_description
                 )
+                embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1041839113000726558/1142198375291289640/RPD_Seal.png")
                 embed.set_footer(text="As a reminder, a valid POST certification is required")
                 await channel.send(embed=embed)
                 message = await city_channel.send(embed=embed)
