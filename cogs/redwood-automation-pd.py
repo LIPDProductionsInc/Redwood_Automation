@@ -14,6 +14,16 @@ Join our ranks and become a part of a team that values diversity, teamwork, and 
 
 transfer_description = "Attention law enforcement professionals! Exciting news: transfer applications are now open for those seeking to bring their skills and dedication to the Redwood Police Department. Take the next step in your career journey and become an integral part of our dynamic team. Apply today and be a force for positive change in our community. Your experience matters - let's make a difference together at RPD!"
 
+init_description = """Greetings, citizens and visitors alike. We are honored to extend a warm welcome to you within the confines of our law enforcement community. The Redwood Police Department is committed to serving and safeguarding our vibrant city with utmost dedication and professionalism.
+
+As the guardians of peace, safety, and justice, our officers and staff uphold the values of integrity, compassion, and excellence in every facet of their duties. With a shared mission to protect and support, we stand vigilant against adversity and are dedicated to fostering a secure environment where all can thrive.
+
+Whether you're here seeking assistance, reporting a concern, or simply engaging with our community outreach initiatives, know that your presence matters to us. We embrace collaboration, communication, and community involvement as cornerstones of our approach to policing.
+
+Join us in creating a harmonious and secure Redwood where every individual can enjoy the benefits of living in a place where safety and unity prevail. Together, we shape the future, one step at a time.
+
+Once again, welcome to the Redwood Police Department. We stand ready to serve, protect, and make a positive impact, side by side with you."""
+
 class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
     def __init__(self, bot) -> None:
         self.bot = bot
@@ -60,6 +70,35 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
                 message = await city_channel.send(embed=embed2)
                 await message.publish()
                 await ctx.send("Transfer Applications opened. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
+            elif status == "Close":
+                embed = discord.Embed(
+                    title="Redwood Police Department General Applications",
+                    colour=discord.Color(0x920707),
+                    type="rich",
+                    description="The Redwood Police Department regrets to inform you that our application process is currently closed. Please keep an eye on this channel for updates on when we have opened them up once again."
+                )
+                embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1041839113000726558/1142198375291289640/RPD_Seal.png")
+                embed.set_image(url="https://cdn.discordapp.com/attachments/1047644039870152794/1140329049303040050/Screenshot_143.png")
+                await channel.send(embed=embed)
+                message = await city_channel.send(embed=embed)
+                await message.publish()
+                await ctx.send("Closed applications. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
+            elif status == "Init":
+                embed = discord.Embed(
+                    title="The Redwood Police Department",
+                    colour=discord.Color(0x004272),
+                    type="rich",
+                    description=init_description
+                )
+                embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1041839113000726558/1142198375291289640/RPD_Seal.png")
+                embed.set_image(url="https://cdn.discordapp.com/attachments/561690984803598346/1135257342158585978/image.png")
+                await channel.send(embed=embed)
+                await ctx.send("Initialized.")
+            else:
+                raise commands.BadArgument("Invalid status.")
+        else:
+            raise commands.UserInputError("This command can only be used in the RPD server.")
+        pass
 
     pass
 
