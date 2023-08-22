@@ -34,7 +34,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
     @app_commands.describe(level="The level of the alert to issue", message="The message to send with the alert (If not normal/holiday)")
     async def issue(self, interaction: discord.Interaction, level: Literal["Normal Operations", "City Holiday", "City Notice", "Weather Watch", "Weather Warning", "Minor Emergency", "Major Weather Event (City Emergency)", "State of Emergency"], *, message: str = None) -> None:
         await interaction.response.defer(ephemeral = True)
-        ctx = await bot.get_context(interaction)
+        ctx = await self.bot.get_context(interaction)
         channel = ctx.bot.get_channel(1050019636231536690)
         if level == "Normal Operations":
             embed = discord.Embed(
