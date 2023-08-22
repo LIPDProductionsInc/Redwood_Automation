@@ -32,121 +32,118 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
     @commands.hybrid_command(name="issue", description="Issues an alert or return to normal operations")
     @commands.check_any(commands.is_owner(), commands.has_role(1038941326047191161))
     @app_commands.describe(level="The level of the alert to issue", message="The message to send with the alert (If not normal/holiday)")
-    async def issue(self, ctx: commands.Context, level: Literal["Normal Operations", "City Holiday", "City Notice", "Weather Watch", "Weather Warning", "Minor Emergency", "Major Weather Event (City Emergency)", "State of Emergency"],interaction: discord.Interaction, *, message: str = None) -> None:
+    async def issue(self, interaction: discord.Interaction, level: Literal["Normal Operations", "City Holiday", "City Notice", "Weather Watch", "Weather Warning", "Minor Emergency", "Major Weather Event (City Emergency)", "State of Emergency"], *, message: str = None) -> None:
         await interaction.response.defer(ephemeral = True)
-        if ctx.author.id != 222766150767869952:
-            await interaction.followup.send("Changes were made that need to be tested by the IT Department. Please ping the bot owner to remove the city emergency so testing can be done.")
-        else:
-            channel = ctx.bot.get_channel(1050019636231536690)
-            if level == "Normal Operations":
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.green()
-                )
-                embed.add_field(name=":green_square: | Normal Operations", value="The City of Redwood City is currently operating under normal conditions. There are no emergencies or incidents that are currently affecting the city.", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text="Issued:")
-                embed.timestamp = datetime.datetime.now()
-            elif level == "City Holiday":
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.light_grey()
-                )
-                embed.add_field(name=":white_large_square: | City Holiday", value="The City of Redwood City is currently on a city holiday. Non-essential city services are closed for the day. Essential services will remain open.", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-            elif level == "City Notice":
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.gold()
-                )
-                embed.add_field(name=":yellow_square: | City Notice", value=message, inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-            elif level == "Weather Advisory":
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.gold()
-                )
-                embed.add_field(name=":yellow_square: | Weather Advisory", value=f"The Stapleton County Weather Service has issued a Weather Advisory for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-            elif level == "Weather Watch":
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.orange()
-                )
-                embed.add_field(name=":orange_square: | Weather Watch", value=f"The Stapleton County Weather Service has issued a Weather Watch for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-            elif level == "Weather Warning":
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.orange()
-                )
-                embed.add_field(name=":orange_square: | Weather Warning", value=f"The Stapleton County Weather Service has issued a Weather Warning for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-            elif level == "Minor Emergency":
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.orange()
-                )
-                embed.add_field(name=":orange_square: | Minor Emergency", value=f"There is currently an emergency event in progress in the City of Redwood. A City Emergency has **not** been declared at this time. Details can be found below:\n\n{message}", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-            elif level == "Major Weather Event (City Emergency)":
-                channel2 = ctx.bot.get_channel(646541531523710996)
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.red()
-                )
-                embed.add_field(name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-                message2 = await channel2.send("@everyone", embed=embed)
-                await message2.publish()
-                embed.set_field_at(0, name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
-                channel3 = ctx.bot.get_channel(1127687709557801091)
-                message3 = await channel3.send("@everyone", embed=embed)
-                await message3.publish()
-            elif level == "State of Emergency":
-                channel2 = ctx.bot.get_channel(646541531523710996)
-                embed = discord.Embed(
-                    title="Redwood City Emergency Alert System",
-                    colour=discord.Color.red()
-                )
-                embed.add_field(name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
-                embed.set_thumbnail(url=ctx.bot.user.avatar)
-                embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
-                embed.timestamp = datetime.datetime.now()
-                message2 = await channel2.send("@everyone", embed=embed)
-                await message2.publish()
-                embed.set_field_at(0, name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
-                channel3 = ctx.bot.get_channel(1127687709557801091)
-                message3 = await channel3.send("@everyone", embed=embed)
-                await message3.publish()
-            else:
-                raise AttributeError(f"{level} is not a valid attribute for level.")
-            txtmessage = await channel.send(embed=embed)
-            if level != "State of Emergency" and level != "Major Weather Event (City Emergency)" and level != "Normal Operations":
-                message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2)."
-                embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
-            elif level == "Normal Operations":
-                asyncio.sleep(0.01)
+        ctx = await self.bot.get_context(interaction)
+        channel = ctx.bot.get_channel(1050019636231536690)
+        if level == "Normal Operations":
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.green()
+            )
+            embed.add_field(name=":green_square: | Normal Operations", value="The City of Redwood City is currently operating under normal conditions. There are no emergencies or incidents that are currently affecting the city.", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text="Issued:")
+            embed.timestamp = datetime.datetime.now()
+        elif level == "City Holiday":
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.light_grey()
+            )
+            embed.add_field(name=":white_large_square: | City Holiday", value="The City of Redwood City is currently on a city holiday. Non-essential city services are closed for the day. Essential services will remain open.", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+        elif level == "City Notice":
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.gold()
+            )
+            embed.add_field(name=":yellow_square: | City Notice", value=message, inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+        elif level == "Weather Advisory":
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.gold()
+            )
+            embed.add_field(name=":yellow_square: | Weather Advisory", value=f"The Stapleton County Weather Service has issued a Weather Advisory for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+        elif level == "Weather Watch":
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.orange()
+            )
+            embed.add_field(name=":orange_square: | Weather Watch", value=f"The Stapleton County Weather Service has issued a Weather Watch for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+        elif level == "Weather Warning":
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.orange()
+            )
+            embed.add_field(name=":orange_square: | Weather Warning", value=f"The Stapleton County Weather Service has issued a Weather Warning for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+        elif level == "Minor Emergency":
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.orange()
+            )
+            embed.add_field(name=":orange_square: | Minor Emergency", value=f"There is currently an emergency event in progress in the City of Redwood. A City Emergency has **not** been declared at this time. Details can be found below:\n\n{message}", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+        elif level == "Major Weather Event (City Emergency)":
+            channel2 = ctx.bot.get_channel(646541531523710996)
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.red()
+            )
+            embed.add_field(name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+            message2 = await channel2.send("@everyone", embed=embed)
+            await message2.publish()
+            embed.set_field_at(0, name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
             channel3 = ctx.bot.get_channel(1127687709557801091)
-            message3 = await channel3.send(embed=embed)
-            await interaction.followup.send("Issued!", ephemeral=True)
-            await txtmessage.publish()
+            message3 = await channel3.send("@everyone", embed=embed)
             await message3.publish()
-            pass
+        elif level == "State of Emergency":
+            channel2 = ctx.bot.get_channel(646541531523710996)
+            embed = discord.Embed(
+                title="Redwood City Emergency Alert System",
+                colour=discord.Color.red()
+            )
+            embed.add_field(name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}", inline=False)
+            embed.set_thumbnail(url=ctx.bot.user.avatar)
+            embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
+            embed.timestamp = datetime.datetime.now()
+            message2 = await channel2.send("@everyone", embed=embed)
+            await message2.publish()
+            embed.set_field_at(0, name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
+            channel3 = ctx.bot.get_channel(1127687709557801091)
+            message3 = await channel3.send("@everyone", embed=embed)
+            await message3.publish()
+        else:
+            raise AttributeError(f"{level} is not a valid attribute for level.")
+        txtmessage = await channel.send(embed=embed)
+        if level != "State of Emergency" and level != "Major Weather Event (City Emergency)" and level != "Normal Operations":
+            message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2)."
+            embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
+        elif level == "Normal Operations":
+            asyncio.sleep(0.01)
+        channel3 = ctx.bot.get_channel(1127687709557801091)
+        message3 = await channel3.send(embed=embed)
+        await interaction.followup.send("Issued!", ephemeral=True)
+        await txtmessage.publish()
+        await message3.publish()
         pass
 
     @commands.hybrid_command(name="emergency-committee", description="View the current members of the Emergency Committee.", alaises=["reec"])
