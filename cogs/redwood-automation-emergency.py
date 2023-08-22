@@ -32,9 +32,10 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
     @commands.hybrid_command(name="issue", description="Issues an alert or return to normal operations")
     @commands.check_any(commands.is_owner(), commands.has_role(1038941326047191161))
     @app_commands.describe(level="The level of the alert to issue", message="The message to send with the alert (If not normal/holiday)")
-    async def issue(self, ctx: commands.Context, level: Literal["Normal Operations", "City Holiday", "City Notice", "Weather Watch", "Weather Warning", "Minor Emergency", "Major Weather Event (City Emergency)", "State of Emergency"], *, message: str = None) -> None:
+    async def issue(self, ctx: commands.Context, level: Literal["Normal Operations", "City Holiday", "City Notice", "Weather Watch", "Weather Warning", "Minor Emergency", "Major Weather Event (City Emergency)", "State of Emergency"],interaction: discord.Interaction, *, message: str = None) -> None:
+        await interaction.response.defer(ephemeral = True)
         if ctx.author.id != 222766150767869952:
-            await ctx.send("Changes were made that need to be tested by the IT Department. Please ping the bot owner to remove the city emergency so testing can be done.")
+            await interaction.followup.send("Changes were made that need to be tested by the IT Department. Please ping the bot owner to remove the city emergency so testing can be done.")
         else:
             channel = ctx.bot.get_channel(1050019636231536690)
             if level == "Normal Operations":
@@ -142,7 +143,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
                 asyncio.sleep(0.01)
             channel3 = ctx.bot.get_channel(1127687709557801091)
             message3 = await channel3.send(embed=embed)
-            await ctx.send("Issued!", ephemeral=True)
+            await interaction.followup.send("Issued!", ephemeral=True)
             await txtmessage.publish()
             await message3.publish()
             pass
