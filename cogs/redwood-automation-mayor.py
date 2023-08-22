@@ -159,12 +159,15 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
     @commands.check_any(commands.is_owner(), commands.has_any_role(987139446971432971, 646551227626160139, 763471106618556416))
     @app_commands.describe(file="The PNG file to use as the seal")
     async def seal(self, ctx:commands.Context, file:discord.Attachment) -> None:
-        if file.filename.endswith(".png"):
-            await ctx.guild.edit(icon=file.fp.read())
-            await ctx.bot.user.edit(avatar=file.fp.read())
-            await ctx.send("Seal updated!", ephemeral=True)
+        if ctx.guild.id == 646540220539338773:
+            if file.filename.endswith(".png"):
+                await ctx.guild.edit(icon=file.fp.read())
+                await ctx.bot.user.edit(avatar=file.fp.read())
+                await ctx.send("Seal updated!", ephemeral=True)
+            else:
+                raise commands.BadArgument("That is not a PNG file!")
         else:
-            raise commands.BadArgument("That is not a PNG file!")
+            raise commands.UserInputError("This command can only be used in the City of Redwood!")
         pass
 
     @commands.hybrid_command(name="polls", description="Provides a link to approval polls")
