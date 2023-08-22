@@ -226,6 +226,8 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(error, ephemeral=True)
             elif ctx.command.qualified_name == "tweet":
                 await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == "applications":
+                await ctx.send(error, ephemeral=True)
             else:
                 await ctx.send(error, ephemeral=True)
                 channel = ctx.bot.get_channel(784368117299150849)
@@ -302,6 +304,10 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             elif ctx.command.qualified_name == 'rpsls':
                 await ctx.send(error, ephemeral=True)
             elif ctx.command.qualified_name == 'transcript':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'seal':
+                await ctx.send(error, ephemeral=True)
+            elif ctx.command.qualified_name == 'applications':
                 await ctx.send(error, ephemeral=True)
             else:
                 await ctx.send(':x: | UserInputError: {}'.format(error), ephemeral=True)
