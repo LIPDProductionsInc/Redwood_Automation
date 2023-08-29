@@ -248,7 +248,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 else:
                     raise commands.UserInputError("This command can only be used in <#646552474265845780>.")
             else:
-                raise commands.MissingRole(missing_role=646549330479546379)
+                await ctx.send("Wrong location to send the proposal to. Send to the Mayor, it's already on the docket.", ephemeral=True)
         else:
             raise commands.BadArgument("The location provided needs to be either Mayor or Docket.")
             pass
