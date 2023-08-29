@@ -280,8 +280,9 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
         await interaction.response.send_modal(ComplaintModal())
         pass
 
-    @app_commands.command(name="recommend-changes", description="Recommend changes to a piece of legislation to the Council", guild_ids=[646540220539338773])
+    @app_commands.command(name="recommend-changes", description="Recommend changes to a piece of legislation to the Council")
     @app_commands.guild_only()
+    @app_commands.guilds(646540220539338773)
     @app_commands.checks.has_role(646549330479546379)
     async def recommend_changes(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_modal(RecommendationModal())

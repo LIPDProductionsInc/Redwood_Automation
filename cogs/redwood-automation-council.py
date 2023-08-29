@@ -30,6 +30,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.", guild_ids=[646540220539338773])
     @app_commands.guild_only()
+    @app_commands.guilds(646540220539338773)
     @app_commands.checks.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
     @app_commands.describe(first="True or False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.", debate = "Is the floor open or closed for debate?")
     async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str, debate:Literal["Open", "Closed"]) -> None:
