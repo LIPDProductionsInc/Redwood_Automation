@@ -100,8 +100,8 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         await ctx.send('`Syncing Slash commands...`')
         print('Syncing slash commands')
         synced = await ctx.bot.tree.sync()
-        city_synced = await ctx.bot.tree.sync(guild=646540220539338773)
-        pd_synced = await ctx.bot.tree.sync(guild=1005182438265335901)
+        city_synced = await ctx.bot.tree.sync(guild=discord.Object(646540220539338773))
+        pd_synced = await ctx.bot.tree.sync(guild=discord.Object(1005182438265335901))
         await ctx.send(f"`Synced {len(synced)} commands globally, {len(city_synced)} commands in the City of Redwood guild, and {len(pd_synced)} commands in the Redwood Police Department guild`")
         print(f"Synced {len(synced)} commands globally, {len(city_synced)} commands in the City of Redwood guild, and {len(pd_synced)} commands in the Redwood Police Department guild")
         return
