@@ -59,7 +59,7 @@ class RedwoodAutomationITCog(commands.Cog, name="IT Commands"):
         
     @app_commands.command(name="ticket", description="Submit a ticket to the IT department")
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role(646549330479546379, 646549329493884929, 763470466269577216, 940718179402006590, 1004462014044831845)
+    @app_commands.checks.has_any_role(646549330479546379, 646549329493884929, 763470466269577216, 940718179402006590, 1004462014044831845, 1005948844791574568, 1026669528534499399)
     async def ticket(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_modal(RedwoodAutomationTicketModal())
         pass
