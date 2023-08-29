@@ -28,7 +28,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         await ctx.send(embed=embed)
         pass
 
-    @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.", guild_ids=[646540220539338773])
+    @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.")
     @app_commands.guild_only()
     @app_commands.guilds(646540220539338773)
     @app_commands.checks.has_any_role(646549322682466305, 646551227626160139, 673008336010084378)
