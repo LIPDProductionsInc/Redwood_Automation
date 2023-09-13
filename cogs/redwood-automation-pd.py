@@ -2,9 +2,20 @@ import discord
 import datetime
 import typing
 
-from discord.ext import commands
+from discord.ext import commands, menus
 from discord import app_commands
+from datetime import timedelta
 from typing import Literal
+
+class MDTEmbedPageSource(menus.ListPageSource):
+    async def format_page(self, menu, embed):
+        embed.type = 'rich'
+        embed.set_author(name="Redwood Police Department Mobile Data Terminal", icon_url="https://cdn.discordapp.com/attachments/1041839113000726558/1142198375291289640/RPD_Seal.png")
+        embed.colour = discord.Color(0x4C128E)
+        embed.timestamp=datetime.datetime.now() + timedelta(hours=1)
+        owner = discord.utils.get(menu.ctx.guild.members, id=menu.ctx.bot.owner_id)
+        return embed.set_footer(text=f"Developed by {owner}")
+    pass
 
 #Descriptions
 
@@ -98,6 +109,35 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
                 raise commands.BadArgument("Invalid status.")
         else:
             raise commands.UserInputError("This command can only be used in the RPD server.")
+        pass
+
+    @commands.hybrid_command(name="mdt", description="Get the MDT")
+    @commands.guild_only()
+    async def mdt(self, ctx: commands.Context) -> None:
+        embeds = [
+            discord.Embed(
+                title="Trello Boards",
+                type="rich",
+                description="**[Criminal Code](https://trello.com/b/EGN3OQzQ/firestone-criminal-code)\n[Traffic Violations Guide](https://trello.com/b/z1e04kAy/firestone-traffic-violations)\n[District Court (For Warrants)](https://trello.com/b/KHYhrBju/district-court-of-firestone)"
+            ),
+            discord.Embed(
+                title="V2 Callout Map",
+                type="rich",
+                image="https://cdn.discordapp.com/attachments/362265369676873728/393423933249945600/unknown.png"
+            ),
+            discord.Embed(
+                title="V2 Road Name Map",
+                type="rich",
+                image="https://media.discordapp.net/attachments/323521773222232065/919633288627355698/FS_MAP.png"
+            ),
+            discord.Embed(
+                title="Databases",
+                type="rich",
+                description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o/fdot-handicap-permits-board)\n[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr/firestone-firearms-commission)"
+            )
+        ]
+        menu = menus.MenuPages(source=MDTEmbedPageSource(embeds, per_page=1))
+        await menu.start(ctx)
         pass
 
     pass
