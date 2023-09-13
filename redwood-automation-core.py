@@ -41,7 +41,9 @@ initial_extensions = ['cogs.redwood-automation-admin',
                       'cogs.redwood-automation-mayor',
                       'cogs.redwood-automation-ocr',
                       'cogs.redwood-automation-owner',
-                      'cogs.redwood-automation-roblox'
+                      'cogs.redwood-automation-pd',
+                      'cogs.redwood-automation-roblox',
+                      'cogs.redwood-automation-store',
                       ]
 
 @bot.event
