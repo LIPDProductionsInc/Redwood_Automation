@@ -122,14 +122,12 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             ),
             discord.Embed(
                 title="V2 Callout Map",
-                type="rich",
-                image="https://cdn.discordapp.com/attachments/362265369676873728/393423933249945600/unknown.png"
-            ),
+                type="rich"
+            ).set_image(url="https://cdn.discordapp.com/attachments/362265369676873728/393423933249945600/unknown.png"),
             discord.Embed(
                 title="V2 Road Name Map",
-                type="rich",
-                image="https://media.discordapp.net/attachments/323521773222232065/919633288627355698/FS_MAP.png"
-            ),
+                type="rich"
+            ).set_image(url="https://media.discordapp.net/attachments/323521773222232065/919633288627355698/FS_MAP.png"),
             discord.Embed(
                 title="Databases",
                 type="rich",
