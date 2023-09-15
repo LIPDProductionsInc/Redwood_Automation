@@ -11,7 +11,7 @@ class MDTEmbedPageSource(menus.ListPageSource):
     async def format_page(self, menu, embed):
         embed.type = 'rich'
         embed.set_author(name="Redwood Police Department Mobile Data Terminal", icon_url="https://cdn.discordapp.com/attachments/1041839113000726558/1142198375291289640/RPD_Seal.png")
-        embed.colour = discord.Color(0x4C128E)
+        embed.colour = discord.Color.blue()
         embed.timestamp=datetime.datetime.now() + timedelta(hours=1)
         owner = discord.utils.get(menu.ctx.guild.members, id=menu.ctx.bot.owner_id)
         return embed.set_footer(text=f"Developed by {owner}")
@@ -118,7 +118,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             discord.Embed(
                 title="Trello Boards",
                 type="rich",
-                description="**[Criminal Code](https://trello.com/b/EGN3OQzQ/firestone-criminal-code)\n[Traffic Violations Guide](https://trello.com/b/z1e04kAy/firestone-traffic-violations)\n[District Court (For Warrants)](https://trello.com/b/KHYhrBju/district-court-of-firestone)"
+                description="**[Criminal Code](https://trello.com/b/EGN3OQzQ/firestone-criminal-code)**\n**[Traffic Violations Guide](https://trello.com/b/z1e04kAy/firestone-traffic-violations)**\n**[District Court (For Warrants)](https://trello.com/b/KHYhrBju/district-court-of-firestone)**"
             ),
             discord.Embed(
                 title="V2 Callout Map",
@@ -131,7 +131,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             discord.Embed(
                 title="Databases",
                 type="rich",
-                description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o/fdot-handicap-permits-board)\n[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr/firestone-firearms-commission)"
+                description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o/fdot-handicap-permits-board)**\n**[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr/firestone-firearms-commission)**"
             )
         ]
         menu = menus.MenuPages(source=MDTEmbedPageSource(embeds, per_page=1))
