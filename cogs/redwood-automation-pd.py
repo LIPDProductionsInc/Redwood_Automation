@@ -134,8 +134,10 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
                 description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o/fdot-handicap-permits-board)**\n**[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr/firestone-firearms-commission)**"
             )
         ]
+        message = await ctx.send("**Loading Mobile Data Terminal...**")
         menu = menus.MenuPages(source=MDTEmbedPageSource(embeds, per_page=1))
         await menu.start(ctx)
+        message.edit(content=f"**Loading Complete {ctx.author.mention}, don't catch a court case**")
         pass
 
     pass
