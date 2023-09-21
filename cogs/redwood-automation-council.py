@@ -64,10 +64,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.describe(session_type="The type of session to start. Either \"in-game\" or \"discord\".", session_number="The number of the Discord session.")
     async def session(self, ctx:commands.Context, session_type:Literal["In-Game", "Discord"], session_number:int = None) -> None:
         if session_type == "In-Game":
-            channel = ctx.bot.get_channel(646541531523710996)
+            channel = ctx.bot.get_channel(1151380671126839386)
             await channel.send(f"<:NewRedwoodSeal:1068175383729537065> | **SESSION**\n\n A City Council Session is starting on the second floor inside our city hall. Follow the signs to the chambers: https://www.roblox.com/games/10109179139/Redwood-City-Council-Chamber\n\n@here")
         elif session_type == "Discord":
-            channel = ctx.bot.get_channel(646541531523710996)
+            channel = ctx.bot.get_channel(1151380671126839386)
             overwrites = {
                 ctx.guild.get_role(1150770058935681162): discord.PermissionOverwrite(send_messages=True),
                 ctx.guild.get_role(1150770058935681160): discord.PermissionOverwrite(send_messages=True),
