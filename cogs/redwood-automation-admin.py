@@ -75,7 +75,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
             )
             await ctx.send(embed=embed)
         else:
-            redwood_guild = ctx.bot.get_guild(646540220539338773)
+            redwood_guild = ctx.bot.get_guild(1150770058847588492)
             rpd_guild = ctx.bot.get_guild(1005182438265335901)
             if redwood_guild.get_member(ctx.author.id).guild_permissions.ban_members and rpd_guild.get_member(ctx.author.id).guild_permissions.ban_members:
                 if save_messages == "True":
@@ -195,7 +195,7 @@ class AdminCog(commands.Cog, name="Admin Cog"):
             )
             await ctx.send(embed=embed)
         else:
-            redwood_guild = ctx.bot.get_guild(646540220539338773)
+            redwood_guild = ctx.bot.get_guild(1150770058847588492)
             rpd_guild = ctx.bot.get_guild(1005182438265335901)
             if redwood_guild.get_member(ctx.author.id).guild_permissions.ban_members and rpd_guild.get_member(ctx.author.id).guild_permissions.ban_members:
                 #channel = ctx.bot.get_channel(os.getenv("LogChannel"))
