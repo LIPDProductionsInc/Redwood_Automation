@@ -137,7 +137,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
         message = await ctx.send("**Loading Mobile Data Terminal...**")
         menu = menus.MenuPages(source=MDTEmbedPageSource(embeds, per_page=1))
         await menu.start(ctx)
-        message.edit(content=f"**Loading Complete {ctx.author.mention}, don't catch a court case**")
+        await message.edit(content=f"**Loading Complete {ctx.author.mention}, don't catch a court case**")
         pass
 
     pass
