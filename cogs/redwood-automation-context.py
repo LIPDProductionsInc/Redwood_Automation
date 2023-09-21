@@ -24,7 +24,7 @@ class VoteOptions(discord.ui.Select):
                 colour=discord.Color.dark_blue()
             )
         embed.set_footer(text=f'Vote started by {interaction.user.display_name}', icon_url=interaction.user.avatar)
-        await self.message.reply("<@&646549329493884929>", embed=embed)
+        await self.message.reply("<@&1150770058914705533>", embed=embed)
 
 class VoteView(discord.ui.View):
     def __init__(self, message: discord.Message) -> None:
