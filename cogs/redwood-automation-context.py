@@ -34,7 +34,7 @@ class VoteView(discord.ui.View):
 class ContextTestCog(commands.Cog, name="Context Test Cog"):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot: commands.Bot = bot
-        self.bot.tree.add_command(app_commands.ContextMenu(name='Start a Vote', callback=self.context_menu_callback, guild_ids=[646540220539338773]))
+        self.bot.tree.add_command(app_commands.ContextMenu(name='Start a Vote', callback=self.context_menu_callback, guild_ids=[1150770058847588492]))
 
     async def context_menu_callback(self, interaction: discord.Interaction, message: discord.Message) -> None:
         if interaction.channel.name.startswith("council-session"):
