@@ -12,12 +12,12 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         self.bot: commands.Bot = bot
 
     @commands.command(name="eas-init", hidden=True)
-    @commands.check_any(commands.is_owner(), commands.has_role(1038941326047191161))
+    @commands.check_any(commands.is_owner(), commands.has_role(1150770058897920156))
     async def eas_init(self, ctx: commands.Context) -> None:
-        if ctx.guild.id == 646540220539338773:
+        if ctx.guild.id == 1150770058847588492:
             channel = ctx.bot.get_channel(1050019636231536690)
         elif ctx.guild.id == 1005182438265335901:
-            channel = ctx.bot.get_channel(1127687709557801091)
+            channel = ctx.bot.get_channel(1026530469111660677)
         embed = discord.Embed(
             title="Redwood City Emergency Alert System",
             colour=discord.Color.dark_blue(),
@@ -30,7 +30,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         pass
 
     @commands.hybrid_command(name="issue", description="Issues an alert or return to normal operations")
-    @commands.check_any(commands.is_owner(), commands.has_role(1038941326047191161))
+    @commands.check_any(commands.is_owner(), commands.has_role(1150770058897920156))
     @app_commands.describe(level="The level of the alert to issue", message="The message to send with the alert (If not normal/holiday)")
     async def issue(self, ctx: commands.Context, level: Literal["Normal Operations", "City Holiday", "City Notice", "Weather Watch", "Weather Warning", "Minor Emergency", "Major Weather Event (City Emergency)", "State of Emergency"], *, message: str = None) -> None:
         channel = ctx.bot.get_channel(1050019636231536690)
@@ -98,7 +98,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             embed.set_footer(text=f"Issued by {ctx.author.display_name} at:")
             embed.timestamp = datetime.datetime.now()
         elif level == "Major Weather Event (City Emergency)":
-            channel2 = ctx.bot.get_channel(646541531523710996)
+            channel2 = ctx.bot.get_channel(1151380671126839386)
             embed = discord.Embed(
                 title="Redwood City Emergency Alert System",
                 colour=discord.Color.red()
@@ -109,12 +109,12 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             embed.timestamp = datetime.datetime.now()
             message2 = await channel2.send("@everyone", embed=embed)
             await message2.publish()
-            embed.set_field_at(0, name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
-            channel3 = ctx.bot.get_channel(1127687709557801091)
+            embed.set_field_at(0, name=":red_square: | Major Weather Event (City Emergency Issued)", value=f"There is currently a major weather event in progress in the City of Redwood. A City Emergency has been declared. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/9XkQagqJGb).", inline=False)
+            channel3 = ctx.bot.get_channel(1026530469111660677)
             message3 = await channel3.send("@everyone", embed=embed)
             await message3.publish()
         elif level == "State of Emergency":
-            channel2 = ctx.bot.get_channel(646541531523710996)
+            channel2 = ctx.bot.get_channel(1151380671126839386)
             embed = discord.Embed(
                 title="Redwood City Emergency Alert System",
                 colour=discord.Color.red()
@@ -125,19 +125,19 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             embed.timestamp = datetime.datetime.now()
             message2 = await channel2.send("@everyone", embed=embed)
             await message2.publish()
-            embed.set_field_at(0, name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2).", inline=False)
-            channel3 = ctx.bot.get_channel(1127687709557801091)
+            embed.set_field_at(0, name=":red_square: | City Emergency", value=f"A City Emergency has been declared for the City of Redwood. Details can be found below:\n\n{message}\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/9XkQagqJGb).", inline=False)
+            channel3 = ctx.bot.get_channel(1026530469111660677)
             message3 = await channel3.send("@everyone", embed=embed)
             await message3.publish()
         else:
             raise AttributeError(f"{level} is not a valid attribute for level.")
         txtmessage = await channel.send(embed=embed)
         if level != "State of Emergency" and level != "Major Weather Event (City Emergency)" and level != "Normal Operations":
-            message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/Kf9T6h2)."
+            message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/9XkQagqJGb)."
             embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
         elif level == "Normal Operations":
             asyncio.sleep(0.01)
-        channel3 = ctx.bot.get_channel(1127687709557801091)
+        channel3 = ctx.bot.get_channel(1026530469111660677)
         message3 = await channel3.send(embed=embed)
         if ctx.interaction is not None:
             await ctx.send("Issued!", ephemeral=True)
@@ -155,10 +155,10 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             description="The current members of the Redwood Executive Emergency Committee are as follows:",
             colour=discord.Color.dark_blue()
         )
-        guild = ctx.bot.get_guild(646540220539338773)
-        embed.add_field(name="Mayor", value=guild.get_role(646549322682466305).members[0].mention if len(guild.get_role(646549322682466305).members) > 0 else "VACANT", inline=True)
-        embed.add_field(name="Deputy Mayor", value=guild.get_role(646551227626160139).members[0].mention if len(guild.get_role(646551227626160139).members) > 0 else "VACANT", inline=True)
-        embed.add_field(name="Committee Advisor", value="\n".join([member.mention for member in guild.members if discord.utils.get(member.roles, id=1038941326047191161) and not discord.utils.get(member.roles, id=646549322682466305) and not discord.utils.get(member.roles, id=646551227626160139)]), inline=False)
+        guild = ctx.bot.get_guild(1150770058847588492)
+        embed.add_field(name="Mayor", value=guild.get_role(1150770058935681162).members[0].mention if len(guild.get_role(1150770058935681162).members) > 0 else "VACANT", inline=True)
+        embed.add_field(name="Deputy Mayor", value=guild.get_role(1150770058935681160).members[0].mention if len(guild.get_role(1150770058935681160).members) > 0 else "VACANT", inline=True)
+        embed.add_field(name="Committee Advisor", value="\n".join([member.mention for member in guild.members if discord.utils.get(member.roles, id=1150770058897920156) and not discord.utils.get(member.roles, id=1150770058935681162) and not discord.utils.get(member.roles, id=1150770058935681160)]), inline=False)
         embed.set_thumbnail(url=ctx.bot.user.avatar)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
         embed.timestamp = datetime.datetime.now()
