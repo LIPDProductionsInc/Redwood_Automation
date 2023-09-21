@@ -14,7 +14,7 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
     @commands.check_any(commands.is_owner(), commands.has_role(1150770058897920157))
     #@commands.has_role(1150770058897920157)
     async def transcript(self, ctx: commands.Context) -> None:
-        channel = ctx.bot.get_channel(1054420793913770025)
+        channel = ctx.bot.get_channel(1150770064929341450)
         if ctx.channel.name.startswith("council-session"):
             await ctx.send("`Saving...`")
             try:
@@ -38,8 +38,8 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
     @commands.has_role(1150770058897920157)
     @app_commands.describe(bulletin_number="The number of the session (1st, 2nd, 3rd, etc.)", bulletin_link="The link to the bulletin")
     async def bulletin(self, ctx: commands.Context, bulletin_number, bulletin_link) -> None:
-        channel = ctx.bot.get_channel(646541531523710996)
-        if ctx.channel.id == 1005534919117774898:
+        channel = ctx.bot.get_channel(1151380671126839386)
+        if ctx.channel.id == 1150770060684705812:
             message = await channel.send(f'## <:NewRedwoodSeal:1068175383729537065> | {bulletin_number} SESSION BULLETIN \n\n{bulletin_link} \n\n@here')
             await ctx.send('Bulletin posted!', ephemeral=True)
             await message.publish()
