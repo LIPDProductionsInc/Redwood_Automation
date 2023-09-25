@@ -53,7 +53,7 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form"):
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_message("Thank you for your complaint! It has been sent for review. It can be seen by the Mayor, Deputy Mayor, RW Chief of Staff, City Attorneys Office, District Attorney, County Executive, and the Founder.", ephemeral=True)
-        channel = interaction.client.get_channel(1034315223856840735)
+        channel = interaction.client.get_channel(1150770061146067072)
         embed = discord.Embed(
             title="New Complaint",
             description=f"**Offender:**\n{self.offender.value}\n\n**Department/Office:**\n{self.department.value}\n\n**Date:**\n{self.date.value}\n\n**Complaint:**\n{self.complaint.value}\n\n**Evidence/Witnesses:**\n{self.additional.value}\n\n**Submitter:**\n{interaction.user.mention}",
@@ -157,8 +157,8 @@ class RecommendationConfirmView(discord.ui.View):
         placeholder="Destination"
     )
     async def select_channels(self, interaction: discord.Interaction, select: discord.ui.Select) -> None:
-        council_channels = [646552474265845780]
-        legal_channels = [873744876079026218]
+        council_channels = [1150770059933913194]
+        legal_channels = [1150770061146067074]
 
         if select.values[0] == "default":
             self.destination_channels = council_channels + legal_channels
@@ -255,15 +255,15 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
 
     @commands.hybrid_command(name="legal-office", description="View the current members of the City Attorney's Office.")
     async def legal_office(self, ctx: commands.Context) -> None:
-        city_attorney = 646549330479546379
-        admin = 763470466269577216
+        city_attorney = 1150770058914705528
+        admin = 1150770058914705536
         moderator = 646554162405834762
         embed = discord.Embed(
             title="Redwood City Attorney's Office",
             description="The current members of the City Attorney's Office are as follows:",
             colour=discord.Color.dark_blue()
         )
-        guild = ctx.bot.get_guild(646540220539338773)
+        guild = ctx.bot.get_guild(1150770058847588492)
         embed.add_field(name="City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=admin)][0], inline=True)
         if len(discord.utils.get(guild.roles, id=city_attorney).members) == 2:
             embed.add_field(name="Assistant City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney) and not discord.utils.get(member.roles, id=admin)][0], inline=False)
@@ -283,7 +283,7 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
     @app_commands.command(name="recommend-changes", description="Recommend changes to a piece of legislation to the Council")
     @app_commands.guild_only()
     @app_commands.guilds(1150770058847588492)
-    @app_commands.checks.has_role(646549330479546379)
+    @app_commands.checks.has_role(1150770058914705528)
     async def recommend_changes(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_modal(RecommendationModal())
 
