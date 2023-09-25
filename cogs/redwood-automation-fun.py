@@ -13,7 +13,7 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
     @commands.hybrid_command(name="flip", description="Flips a coin.")
     @commands.guild_only()
     async def flip(self, ctx: commands.Context) -> None:
-        if ctx.channel.category_id in [646540220539338775, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
+        if ctx.channel.category_id in [1150770059418022009, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
             if random.randint(0, 1) == 0:
                 await ctx.send("Heads")
             else:
@@ -26,7 +26,7 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
     @commands.guild_only()
     @app_commands.describe(sides="The number of sides on the die.")
     async def roll(self, ctx:commands.Context, sides:int=6) -> None:
-        if ctx.channel.category_id in [646540220539338775, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
+        if ctx.channel.category_id in [1150770059418022009, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
             await ctx.send(f"You rolled a {random.randint(1, sides)}")
         else:
             raise commands.UserInputError("This command cannot be used in this channel.")
@@ -36,7 +36,7 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
     @commands.guild_only()
     @app_commands.describe(choices="The choices to choose from.")
     async def choose(self, ctx:commands.Context, *, choices:str) -> None:
-        if ctx.channel.category_id in [646540220539338775, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
+        if ctx.channel.category_id in [1150770059418022009, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
             await ctx.send(f' Chose {random.choice(choices)}')
         else:
             raise commands.UserInputError("This command cannot be used in this channel.")
@@ -46,7 +46,7 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
     @commands.guild_only()
     @app_commands.describe(question="The question to ask.")
     async def eightball(self, ctx:commands.Context, *, question:str) -> None:
-        if ctx.channel.category_id in [646540220539338775, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
+        if ctx.channel.category_id in [1150770059418022009, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
             responses = ["It is certain.",
                          "It is decidedly so.",
                          "Without a doubt.",
@@ -76,7 +76,7 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
     @commands.guild_only()
     @app_commands.describe(choice="Rock, paper, or scissors.")
     async def rps(self, ctx:commands.Context, choice:Literal["rock", "paper", "scissors"]) -> None:
-        if ctx.channel.category_id in [646540220539338775, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
+        if ctx.channel.category_id in [1150770059418022009, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
             choices = ["rock", "paper", "scissors"]
             if choice.lower() not in choices:
                 raise commands.UserInputError("Invalid choice.")
@@ -91,7 +91,7 @@ class RedwoodAutomationFun(commands.Cog, name="Fun Commands"):
     @commands.guild_only()
     @app_commands.describe(choice="Rock, paper, scissors, lizard, or spock.")
     async def rpsls(self, ctx:commands.Context, choice:Literal["rock", "paper", "scissors", "lizard", "spock"]) -> None:
-        if ctx.channel.category_id in [646540220539338775, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
+        if ctx.channel.category_id in [1150770059418022009, 1033514363635642479] or ctx.channel.id == 1032977034361716786:
             choices = ["rock", "paper", "scissors", "lizard", "spock"]
             if choice.lower() not in choices:
                 raise commands.UserInputError("Invalid choice.")
