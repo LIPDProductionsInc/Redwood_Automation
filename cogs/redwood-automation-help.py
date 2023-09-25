@@ -25,10 +25,10 @@ class HelpCog(commands.Cog, name="Help Commands"):
                 embed.add_field(name="City Attorney Commands", value="`send`, `documents`", inline=False)
             if discord.utils.get(ctx.author.roles, id=1150770058897920156):
                 embed.add_field(name="Emergency Executive Committee Commands", value="`eas-init`, `issue`", inline=False)
-                embed.add_field(name="Mayor Commands", value="`appoint`, `seal`", inline=False)
-                embed.add_field(name="Deputy Mayor Commands", value="`appoint`, `seal`", inline=False)
             if discord.utils.get(ctx.author.roles, id=1150770058935681162):
+                embed.add_field(name="Mayor Commands", value="`seal`", inline=False)
             if discord.utils.get(ctx.author.roles, id=1150770058935681160):
+                embed.add_field(name="Deputy Mayor Commands", value="`seal`", inline=False)
             if discord.utils.get(ctx.author.roles, id=1150770058897920159):
                 embed.add_field(name="Press Office Commands", value="`seal`, `tweet`", inline=False)
             if discord.utils.get(ctx.author.roles, id=1150770058897920157):
