@@ -117,6 +117,8 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
                 await ctx.send(f':x: | This command can only be used by the Mayor, Deputy Mayor or City Chairperson.', ephemeral=True)
             elif ctx.command.qualified_name == 'tweet':
                 await ctx.send(f':x: | This command can only be used by the Press Secretary\'s Office.', ephemeral=True)
+            elif ctx.command.qualified_name == 'applications':
+                await ctx.send(f':x: | This command can only be used by the Police Chief.', ephemeral=True)
             else:
                 await ctx.send(f':x: | This command can only be used by {error.missing_roles}', ephemeral=True)
         
