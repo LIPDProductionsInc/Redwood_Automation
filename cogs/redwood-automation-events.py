@@ -12,7 +12,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
         if before.content != after.content:
             if type(before.channel) != discord.DMChannel and type(after.channel) != discord.DMChannel:
                 if before.channel.name.startswith('council-session') and not before.channel.name == 'council-session-test' or 'oath' in before.channel.name:
-                    channel = self.bot.get_channel(1040322534454861904)
+                    channel = self.bot.get_channel(1154236098525012008)
                     link = "https://discordapp.com/channels/{}/{}/{}".format(before.guild.id, before.channel.id, before.id)
                     embed = discord.Embed(
                         colour = discord.Color.blue(),
@@ -35,7 +35,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
     @commands.Cog.listener()
     async def on_message_delete(self, message) -> None:
         if message.channel.name.startswith('council-session') and not message.channel.name == 'council-session-test' or 'oath' in message.channel.name:
-            channel = self.bot.get_channel(1040322534454861904)
+            channel = self.bot.get_channel(1154236098525012008)
             link = "https://discordapp.com/channels/{}/{}/{}".format(message.guild.id, message.channel.id, message.id)
             embed = discord.Embed(
                 colour = discord.Color.red(),
@@ -56,9 +56,9 @@ class EventsCog(commands.Cog, name="Events Cog"):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload) -> None:
-        if payload.channel_id == 1005535705180672081:
+        if payload.channel_id == 1150770060684705816:
             for role in payload.member.roles:
-                if role.id == 941858937836302377:
+                if role.id == 1150770058897920158:
                     guild = self.bot.get_guild(payload.guild_id)
                     message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
                     if message.author.id == 1028806931390943282:
@@ -70,7 +70,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
                         if payload.emoji.name == '✅':
                             role = guild.get_role(762321175900454933)
                             await member.add_roles(role)
-                            channel = self.bot.get_channel(1005535705180672081)
+                            channel = self.bot.get_channel(1150770060684705816)
                             await channel.send(f"Business Representative role has been given to {member.mention}.")
                             await member.send("""**REDWOOD OFFICE OF COMMERCE RELATIONS**\n*CITY OF REDWOOD*\n\nYou have requested the \"Business Representative\" role in the city of Redwood Discord. This role will gain you access to Business announcements and communications channels specifically for Redwood Businesses, in addition to the support of Commerce Relations. 
 
