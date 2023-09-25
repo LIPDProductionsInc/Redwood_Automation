@@ -10,34 +10,34 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
         self.bot: commands.Bot = bot
 
     @commands.hybrid_command(name="elections", description="Announces the start of elections")
-    @commands.has_any_role(646549322682466305, 646551227626160139, 673008336010084378, 646716958145904652)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058965028924)
     @app_commands.describe(type="The type of election to announce", forumlink="The link to the forum post")
     async def elections(self, ctx:commands.Context, type:Literal["Mayor and Deputy Mayor", "City Council", "City Council (Special)"], forumlink:str) -> None:
         if type == "Mayor and Deputy Mayor":
-            if ctx.author.get_role(646716958145904652):
+            if ctx.author.get_role(1150770058965028924):
                 if forumlink.startswith("https://forums.stateoffirestone.com/t/"):
-                    channel = ctx.bot.get_channel(646541531523710996)
-                    await channel.send(f"<:NewRedwoodSeal:1029041166508904519> | **MAYOR/DEPUTY MAYOR ELECTIONS**\n\nElections for Mayor and Deputy Mayor are now open! Check the details in the forum post below!\n{forumlink}\n\n@everyone\n\n- {ctx.author.mention}")
+                    channel = ctx.bot.get_channel(1151380671126839386)
+                    await channel.send(f"<:NewRedwoodSeal:1154226637114708019> | **MAYOR/DEPUTY MAYOR ELECTIONS**\n\nElections for Mayor and Deputy Mayor are now open! Check the details in the forum post below!\n{forumlink}\n\n@everyone\n\n- {ctx.author.mention}")
                     await ctx.send("Elections have been announced!", ephemeral=True)
                 else:
                     raise commands.BadArgument("That is not a valid link!")
             else:
                 raise commands.BadArgument("You do not have permission to announce Mayor and Deputy Mayor elections!")
         elif type == "City Council":
-            if ctx.author.get_role(646549322682466305) or ctx.author.get_role(646551227626160139) or ctx.author.get_role(673008336010084378):
+            if ctx.author.get_role(1150770058935681162) or ctx.author.get_role(1150770058935681160) or ctx.author.get_role(1150770058914705534):
                 if forumlink.startswith("https://forums.stateoffirestone.com/t/"):
-                    channel = ctx.bot.get_channel(646541531523710996)
-                    await channel.send(f"<:NewRedwoodSeal:1029041166508904519> | **CITY COUNCIL ELECTIONS**\n\nElections for Redwood City Council are now open! Check the details in the forum post below, including how many seats are open!\n{forumlink}\n\n@everyone\n\n- {ctx.author.mention}")
+                    channel = ctx.bot.get_channel(1151380671126839386)
+                    await channel.send(f"<:NewRedwoodSeal:1154226637114708019> | **CITY COUNCIL ELECTIONS**\n\nElections for Redwood City Council are now open! Check the details in the forum post below, including how many seats are open!\n{forumlink}\n\n@everyone\n\n- {ctx.author.mention}")
                     await ctx.send("Elections have been announced!", ephemeral=True)
                 else:
                     raise commands.BadArgument("That is not a valid link!")
             else:
                 raise commands.BadArgument("You do not have permission to announce City Council elections!")
         elif type == "City Council (Special)":
-            if ctx.author.get_role(646549322682466305) or ctx.author.get_role(646551227626160139) or ctx.author.get_role(673008336010084378):
+            if ctx.author.get_role(1150770058935681162) or ctx.author.get_role(1150770058935681160) or ctx.author.get_role(1150770058914705534):
                 if forumlink.startswith("https://forums.stateoffirestone.com/t/"):
-                    channel = ctx.bot.get_channel(646541531523710996)
-                    await channel.send(f"<:NewRedwoodSeal:1029041166508904519> | **CITY COUNCIL SPECIAL ELECTIONS**\n\nSpecial Elections for Redwood City Council are now open! Check the details in the forum post below, including how many seats are open!\n{forumlink}\n\n@everyone\n\n- {ctx.author.mention}")
+                    channel = ctx.bot.get_channel(1151380671126839386)
+                    await channel.send(f"<:NewRedwoodSeal:1154226637114708019> | **CITY COUNCIL SPECIAL ELECTIONS**\n\nSpecial Elections for Redwood City Council are now open! Check the details in the forum post below, including how many seats are open!\n{forumlink}\n\n@everyone\n\n- {ctx.author.mention}")
                     await ctx.send("Elections have been announced!", ephemeral=True)
                 else:
                     raise commands.BadArgument("That is not a valid link!")
@@ -47,13 +47,13 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
         pass
 
     @commands.hybrid_command(name="oaths", description="Creates a channel where people can take their oaths for the term")
-    @commands.has_any_role(721013396094582795, 646549322682466305, 646551227626160139, 673008336010084378)
+    @commands.has_any_role(1150770058965028924, 1150770058935681162, 1150770058935681160, 1150770058914705534)
     @app_commands.describe(type="The type of oath channel to create", term_id="The ID of the term (Ie, '2023-3')")
     async def oaths(self, ctx:commands.Context, type:Literal["Mayor's Office", "City Council"], term_id:str) -> None:
         overwrites = {
-            ctx.guild.get_role(851212299745230898): discord.PermissionOverwrite(send_messages=True),
-            ctx.guild.get_role(763471193377603644): discord.PermissionOverwrite(send_messages=True),
-            ctx.guild.get_role(763469321459728384): discord.PermissionOverwrite(view_channel=True),
+            ctx.guild.get_role(1150770058897920154): discord.PermissionOverwrite(send_messages=True),
+            ctx.guild.get_role(1150770058965028924): discord.PermissionOverwrite(send_messages=True),
+            ctx.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True),
             ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False, send_messages=False)
         }
         if type == "Mayor's Office":
@@ -66,10 +66,10 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
 
     @commands.hybrid_command(name="seal", description="Updates the seal of the city")
     @commands.guild_only()
-    @commands.check_any(commands.is_owner(), commands.has_any_role(987139446971432971, 646551227626160139, 763471106618556416))
+    @commands.check_any(commands.is_owner(), commands.has_any_role(1150770058897920159, 1150770058935681160, 1150770058935681160))
     @app_commands.describe(file="The PNG file to use as the seal")
     async def seal(self, ctx:commands.Context, file:discord.Attachment) -> None:
-        if ctx.guild.id == 646540220539338773:
+        if ctx.guild.id == 1150770058847588492:
             if file.filename.endswith(".png"):
                 await ctx.guild.edit(icon=file.fp.read())
                 await ctx.bot.user.edit(avatar=file.fp.read())
