@@ -85,7 +85,7 @@ class CommandErrorHandler(commands.Cog, name="Command Error Handler"):
             
         elif isinstance(error, commands.MissingRole):
             if ctx.command.qualified_name == 'send':
-                if error.missing_role == 646552474265845780:
+                if error.missing_role == 1150770058914705528:
                     await ctx.send(':x: | Only the City Attorney can use this command!', ephemeral=True)
             else:
                 await ctx.send(f'This command is restricted to {error.missing_role} only!')
