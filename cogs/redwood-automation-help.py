@@ -17,21 +17,21 @@ class HelpCog(commands.Cog, name="Help Commands"):
                 description="Here is a list of commands you can use with Redwood Automation.",
                 color=discord.Color.dark_blue()
                 )
-            if discord.utils.get(ctx.author.roles, id=646549329493884929):
+            if discord.utils.get(ctx.author.roles, id=1150770058914705533):
                 embed.add_field(name="Council Commands", value="`propose`, `legal-review`, `charter`, `template`, `documents`", inline=False)
-            if discord.utils.get(ctx.author.roles, id=646549322682466305) or discord.utils.get(ctx.author.roles, id=646551227626160139) or discord.utils.get(ctx.author.roles, id=673008336010084378):
+            if discord.utils.get(ctx.author.roles, id=1150770058914705534) or discord.utils.get(ctx.author.roles, id=1150770058935681160) or discord.utils.get(ctx.author.roles, id=1150770058935681162):
                 embed.add_field(name="Presiding Officer Commands", value="`docket`, `session`, `end-session`, `floor`, `dismiss`, `send`, `documents`, `elections`", inline=False)
-            if discord.utils.get(ctx.author.roles, id=646549330479546379):
+            if discord.utils.get(ctx.author.roles, id=1150770058914705528):
                 embed.add_field(name="City Attorney Commands", value="`send`, `documents`", inline=False)
-            if discord.utils.get(ctx.author.roles, id=1038941326047191161):
+            if discord.utils.get(ctx.author.roles, id=1150770058897920156):
                 embed.add_field(name="Emergency Executive Committee Commands", value="`eas-init`, `issue`", inline=False)
-            if discord.utils.get(ctx.author.roles, id=987139446971432971):
                 embed.add_field(name="Mayor Commands", value="`appoint`, `seal`", inline=False)
-            if discord.utils.get(ctx.author.roles, id=646551227626160139):
                 embed.add_field(name="Deputy Mayor Commands", value="`appoint`, `seal`", inline=False)
-            if discord.utils.get(ctx.author.roles, id=763471106618556416):
+            if discord.utils.get(ctx.author.roles, id=1150770058935681162):
+            if discord.utils.get(ctx.author.roles, id=1150770058935681160):
+            if discord.utils.get(ctx.author.roles, id=1150770058897920159):
                 embed.add_field(name="Press Office Commands", value="`seal`, `tweet`", inline=False)
-            if discord.utils.get(ctx.author.roles, id=763471193524535336):
+            if discord.utils.get(ctx.author.roles, id=1150770058897920157):
                 embed.add_field(name="City Clerk Commands", value="`transcript`, `bulletin`", inline=False)
             embed.add_field(name="Commands", value="`help`, `ping`, `serverinfo`, `userinfo`, `avatar`, `council`, `legal-office`, `complaint`, `feedback`, `polls`", inline=False)
             if ctx.author.guild_permissions.moderate_members:
