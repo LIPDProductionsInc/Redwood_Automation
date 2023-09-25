@@ -18,11 +18,11 @@ class FeedbackModal(discord.ui.Modal, title="Feedback"):
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_message("Thank you for your feedback!", ephemeral=True)
-        if interaction.guild != 646540220539338773:
-            guild = interaction.client.get_guild(646540220539338773)
-            channel = guild.get_channel(1042645528053284874)
+        if interaction.guild != 1150770058847588492:
+            guild = interaction.client.get_guild(1150770058847588492)
+            channel = guild.get_channel(1150770061146067068)
         else:
-            channel = interaction.client.get_channel(1042645528053284874)
+            channel = interaction.client.get_channel(1150770061146067068)
         embed = discord.Embed(
             title="New Feedback", 
             description=self.feedback.value, 
