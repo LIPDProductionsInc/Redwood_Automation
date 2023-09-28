@@ -190,7 +190,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
             colour=discord.Color.dark_blue(),
             description='[Server Invite](https://discord.gg/Kf9T6h2) \n [ROBLOX Group](https://www.roblox.com/groups/4017784/City-of-Redwood)'
         )
-        embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/646552474265845780/1028765111411810305/Capture4.PNG")
+        embed.set_thumbnail(url=str(self.bot.user.avatar))
         embed.set_author(name='Redwood Information')
         embed.add_field(name='Council Boards', value='[City Council](https://trello.com/b/gVPTVd0r)\n[City Records](https://trello.com/b/g06YwcHJ)', inline=False)
         embed.add_field(name='Administration Boards', value='[Office of the Mayor](https://trello.com/b/pK66sdV7) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
@@ -221,7 +221,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
             embed.set_thumbnail(url=str(self.bot.user.avatar))
             await message.edit(embed=embed)
         elif type == 'information-links':
-            message = await ctx.fetch_message(1068923992079081644)
+            message = await ctx.fetch_message(1154243793869090917)
             embed = message.embeds[0]
             embed.set_thumbnail(url=str(self.bot.user.avatar))
             embed.timestamp = datetime.datetime.now()
@@ -261,16 +261,6 @@ Latency: **{round(self.bot.latency * 1000)}**ms
         await self.bot.logout()
         pass
 
-    @commands.hybrid_command(name='test', hidden=True)
-    @commands.is_owner()
-    async def _test(self, ctx:commands.Context, member: discord.Member) -> None:
-        channel = ctx.bot.get_channel(1040251423155298364)
-        guild = ctx.bot.get_guild(646540220539338773)
-        member = guild.get_member(member.id)
-        await channel.set_permissions(member, view_channel=True)
-        await ctx.send('Done', ephemeral=True)
-        pass
-
     @commands.command(name='verify', hidden=True)
     @commands.is_owner()
     async def _verify(self, ctx:commands.Context) -> None:
@@ -290,25 +280,25 @@ Latency: **{round(self.bot.latency * 1000)}**ms
     async def _rolerequest(self, ctx:commands.Context) -> None:
         request_role = """
 The following roles can be requested:
-- <@&762321175900454933>
-- <@&763478824641495040>
-- <@&959865461846204436>
-- <@&853817144243650561>
-- <@&1024429857104478228>
-- <@&1045827799967088840>
+- <@&1150770058897920153>
+- <@&1150770058897920150>
+- <@&1150770058881155123>
+- <@&1150770058881155122>
+- <@&1150770058847588495>
+- <@&1150770058847588494>
         """
         notice = """
 - Your up-to-date callsign or rank **MUST** be a part of your nickname
         """
         businesses = """
-Please include the link to your business permit from FDOCM
+To get the <@&1150770058868568108> role, fill out the `/business-represenantive` command. Please include the link to your business permit from FDOCM
         """
         embed = discord.Embed(
             title="**ROLE REQUEST**",
             colour=discord.Color.blue(),
             description="""
 Most roles are managed through <@426537812993638400> and can be given using `/verify` or `/update`.
-The roles that are requestable are listed below and require you to ping <@&646554162405834762> to get them."""
+The roles that are requestable are listed below and require you to ping <@&1150770058914705535> to get them."""
         )
         embed.add_field(name='**Requestable Roles**', value=request_role, inline=True)
         embed.add_field(name='**Notice to Department Employees:**', value=notice, inline=True)
