@@ -12,7 +12,7 @@ class PressCog(commands.Cog, name="Press Commands"):
     @commands.check_any(commands.is_owner(), commands.has_role(1150770058897920159))
     @app_commands.describe(tweet_url="The URL of the tweet to repost")
     async def tweet(self, ctx:commands.Context, tweet_url: str) -> None:
-        if tweet_url.startswith("https://twitter.com/"):
+        if tweet_url.startswith("https://twitter.com/") or tweet_url.startswith("https://x.com/"):
             channel = self.bot.get_channel(1150770059418022006)
             await channel.send(tweet_url)
             await ctx.send("Tweet sent!", ephemeral=True)
