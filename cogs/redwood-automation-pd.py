@@ -112,6 +112,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
     @commands.hybrid_command(name="mdt", description="Get the MDT")
     @commands.guild_only()
     async def mdt(self, ctx: commands.Context) -> None:
+        message = await ctx.send("**Loading Mobile Data Terminal...**")
         embeds = [
             discord.Embed(
                 title="Trello Boards",
@@ -132,7 +133,6 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
                 description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o/fdot-handicap-permits-board)**\n**[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr/firestone-firearms-commission)**"
             )
         ]
-        message = await ctx.send("**Loading Mobile Data Terminal...**")
         menu = menus.MenuPages(source=MDTEmbedPageSource(embeds, per_page=1))
         await menu.start(ctx)
         await message.edit(content=f"**Loading Complete {ctx.author.mention}, don't catch a court case**")
