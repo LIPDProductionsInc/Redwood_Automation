@@ -117,7 +117,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             discord.Embed(
                 title="Trello Boards",
                 type="rich",
-                description="**[Criminal Code](https://trello.com/b/EGN3OQzQ/firestone-criminal-code)**\n**[Traffic Violations Guide](https://trello.com/b/z1e04kAy/firestone-traffic-violations)**\n**[District Court (For Warrants)](https://trello.com/b/KHYhrBju/district-court-of-firestone)**"
+                description="**[Criminal Code](https://trello.com/b/EGN3OQzQ)**\n**[Traffic Violations Guide](https://trello.com/b/z1e04kAy)**\n**[District Court (For Warrants)](https://trello.com/b/KHYhrBju)**"
             ),
             discord.Embed(
                 title="V2 Callout Map",
@@ -130,7 +130,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             discord.Embed(
                 title="Databases",
                 type="rich",
-                description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o/fdot-handicap-permits-board)**\n**[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr/firestone-firearms-commission)**"
+                description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o)**\n**[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr)**\n**[FDOCM Business Permit Database](https://trello.com/b/r4a8Tw1I)"
             )
         ]
         menu = menus.MenuPages(source=MDTEmbedPageSource(embeds, per_page=1))
