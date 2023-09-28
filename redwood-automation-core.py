@@ -42,13 +42,14 @@ initial_extensions = ['cogs.redwood-automation-admin',
                       'cogs.redwood-automation-ocr',
                       'cogs.redwood-automation-owner',
                       'cogs.redwood-automation-pd',
+                      'cogs.redwood-automation-press',
                       'cogs.redwood-automation-roblox',
                       'cogs.redwood-automation-store',
                       ]
 
 @bot.event
 async def on_ready() -> None:
-    print(f'Successfully logged in as {bot.user}, Running Verison 0.0.2.5'.format(bot))
+    print(f'Successfully logged in as {bot.user}, Running Verison 0.0.3.0'.format(bot))
     activity = discord.Activity(name='the city | !help', type=discord.ActivityType.watching)
     await bot.change_presence(activity=activity)
     await asyncio.sleep(1)
