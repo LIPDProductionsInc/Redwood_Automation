@@ -13,7 +13,7 @@ class RedwoodAutomationOCR(commands.Cog, name="Office of Commerce Relations Comm
     @app_commands.describe(permit_link="The DOCM Trello link for your business.")
     async def business_representative(self, ctx:commands.Context, *, permit_link: str) -> None:
         if permit_link.startswith("https://trello.com/c/"):
-            channel = self.bot.get_channel(1005535705180672081)
+            channel = self.bot.get_channel(1150770060684705816)
             embed = discord.Embed(
                 title="New Business Representative Role Request",
                 type="rich",
@@ -24,7 +24,7 @@ class RedwoodAutomationOCR(commands.Cog, name="Office of Commerce Relations Comm
             embed.set_footer(text=f"Redwood Automation | Developed by: {self.bot.owner}")
             embed.set_thumbnail(url=str(self.bot.user.avatar))
             embed.timestamp = datetime.datetime.now()
-            message = await channel.send("<@&941858937836302377>", embed=embed)
+            message = await channel.send("<@&1150770058935681154>", embed=embed)
             await message.add_reaction("✅")
             await message.add_reaction("❌")
             await ctx.send("Your request has been sent to the Office of Commerce Relations. Your role will be added upon verification.", ephemeral=True)
