@@ -68,7 +68,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
                         id = id[2:-1]
                         member = guild.get_member(int(id))
                         if payload.emoji.name == '✅':
-                            role = guild.get_role(762321175900454933)
+                            role = guild.get_role(1150770058868568108)
                             await member.add_roles(role)
                             channel = self.bot.get_channel(1150770060684705816)
                             await channel.send(f"Business Representative role has been given to {member.mention}.")
