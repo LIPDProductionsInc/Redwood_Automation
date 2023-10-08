@@ -43,9 +43,9 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
     @app_commands.checks.has_role(1005949022248378469)
     @app_commands.guilds(1005182438265335901)
     @app_commands.describe(status="Open or Close applications")
-    async def applications(self, ctx: commands.Context, status: Literal["Open", "Transfer Only" "Close", "Init"]) -> None:
-        channel = ctx.bot.get_channel(1026530495569346590)
-        city_channel = ctx.bot.get_channel(646541531523710996)
+    async def applications(self, interaction: discord.Interaction, status: Literal["Open", "Transfer Only" "Close", "Init"]) -> None:
+        channel = self.bot.get_channel(1026530495569346590)
+        city_channel = self.bot.get_channel(1151380671126839386)
         if status == "Open":
             embed = discord.Embed(
                 title="Redwood Police Department Applications are OPEN!",
@@ -58,7 +58,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             await channel.send(embed=embed)
             message = await city_channel.send(embed=embed)
             await message.publish()
-            await ctx.send("Opened applications. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
+            await interaction.response.send_message("Opened applications. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
         elif status == "Transfer Only":
             embed = discord.Embed(
                 title="Redwood Police Department General Applications",
@@ -80,7 +80,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             await channel.send(embed=embed2)
             message = await city_channel.send(embed=embed2)
             await message.publish()
-            await ctx.send("Transfer Applications opened. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
+            await interaction.response.send_message("Transfer Applications opened. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
         elif status == "Close":
             embed = discord.Embed(
                 title="Redwood Police Department General Applications",
@@ -93,7 +93,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             await channel.send(embed=embed)
             message = await city_channel.send(embed=embed)
             await message.publish()
-            await ctx.send("Closed applications. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
+            await interaction.response.send_message("Closed applications. Remember to delete any embeds in <#1026530495569346590> that say otherwise.", ephemeral=True)
         elif status == "Init":
             embed = discord.Embed(
                 title="The Redwood Police Department",
@@ -104,7 +104,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1041839113000726558/1142198375291289640/RPD_Seal.png")
             embed.set_image(url="https://cdn.discordapp.com/attachments/561690984803598346/1135257342158585978/image.png")
             await channel.send(embed=embed)
-            await ctx.send("Initialized.")
+            await interaction.response.send_message("Initialized.")
         else:
             raise commands.BadArgument("Invalid status.")
         pass
