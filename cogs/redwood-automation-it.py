@@ -22,7 +22,7 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
     )
 
     urgent = discord.ui.TextInput(
-        label="Are you able to do your job/operation without this?",
+        label="Are you able to do your duties without this?",
         style=discord.TextStyle.short,
         placeholder="Yes/No",
         min_length=2,
