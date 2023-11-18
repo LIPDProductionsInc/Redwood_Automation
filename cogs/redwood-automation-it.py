@@ -22,7 +22,7 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
     )
 
     urgent = discord.ui.TextInput(
-        label="Is this issue interfering with your ability to do your job/operation?",
+        label="Are you able to do your job/operation without this?",
         style=discord.TextStyle.short,
         placeholder="Yes/No",
         min_length=2,
@@ -32,6 +32,12 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
         channel = self.bot.get_channel(1154236870381805578)
+        if self.urgent.value.lower() == "yes":
+            self.urgent.value = "No"
+        elif self.urgent.value.lower() == "no":
+            self.urgent.value = "Yes"
+        else:
+            raise commands.BadArgument("Invalid argument for urgent")
         embed = discord.Embed(
             title="City Hall Ticket Submission",
             colour=discord.Colour.dark_blue()
