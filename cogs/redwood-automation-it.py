@@ -33,9 +33,9 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
     async def on_submit(self, interaction: discord.Interaction) -> None:
         channel = interaction.client.get_channel(1154236870381805578)
         if self.urgent.value.lower() == "yes":
-            self.urgent.value = "No"
+            urgentv = "No"
         elif self.urgent.value.lower() == "no":
-            self.urgent.value = "Yes"
+            urgentv = "Yes"
         else:
             raise commands.BadArgument("Invalid argument for urgent")
         embed = discord.Embed(
@@ -44,7 +44,7 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
         )
         embed.add_field(name="Type", value=self.type.value, inline=True)
         embed.add_field(name="Issue", value=self.issue.value, inline=True)
-        embed.add_field(name="Urgent", value=self.urgent.value, inline=True)
+        embed.add_field(name="Urgent", value=urgentv, inline=True)
         embed.add_field(name="Submitted By", value=interaction.user.mention, inline=True)
         embed.set_footer(text=f"Redwood Automation | Developed by: {self.bot.owner}")
         embed.timestamp = datetime.datetime.now()
