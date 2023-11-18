@@ -12,7 +12,7 @@ class MDTEmbedPageSource(menus.ListPageSource):
         embed.type = 'rich'
         embed.set_author(name="Redwood Police Department Mobile Data Terminal", icon_url="https://cdn.discordapp.com/attachments/1041839113000726558/1142198375291289640/RPD_Seal.png")
         embed.colour = discord.Color.blue()
-        embed.timestamp=datetime.datetime.now() + timedelta(hours=1)
+        embed.timestamp=datetime.datetime.now()
         owner = discord.utils.get(menu.ctx.guild.members, id=menu.ctx.bot.owner_id)
         return embed.set_footer(text=f"Developed by {owner}")
     pass
