@@ -31,7 +31,7 @@ class RedwoodAutomationTicketModal(discord.ui.Modal, title="City Hall Ticket Sub
     )
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
-        channel = self.bot.get_channel(1154236870381805578)
+        channel = interaction.client.get_channel(1154236870381805578)
         if self.urgent.value.lower() == "yes":
             self.urgent.value = "No"
         elif self.urgent.value.lower() == "no":
