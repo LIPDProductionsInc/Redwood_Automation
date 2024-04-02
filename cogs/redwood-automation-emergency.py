@@ -132,19 +132,19 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         else:
             raise AttributeError(f"{level} is not a valid attribute for level.")
         txtmessage = await channel.send(embed=embed)
-        if level != "State of Emergency" and level != "Major Weather Event (City Emergency)" and level != "Normal Operations":
+        if level != "City Holiday" and level != "Normal Operations":
             message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/9XkQagqJGb)."
             embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
         elif level == "Normal Operations":
             asyncio.sleep(0.01)
         channel3 = ctx.bot.get_channel(1026530469111660677)
         message3 = await channel3.send(embed=embed)
+        await txtmessage.publish()
+        await message3.publish()
         if ctx.interaction is not None:
             await ctx.send("Issued!", ephemeral=True)
         else:
             await ctx.send("Issued!")
-        await txtmessage.publish()
-        await message3.publish()
         pass
 
     @commands.hybrid_command(name="emergency-committee", description="View the current members of the Emergency Committee.", alaises=["reec"])
