@@ -143,8 +143,10 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         await message3.publish()
         if ctx.interaction is not None:
             await ctx.send("Issued!", ephemeral=True)
+            print(f"Issued a {level} alert from {ctx.author.display_name} at {datetime.datetime.now()}")
         else:
             await ctx.send("Issued!")
+            print(f"Issued a {level} alert from {ctx.author.display_name} at {datetime.datetime.now()}")
         pass
 
     @commands.hybrid_command(name="emergency-committee", description="View the current members of the Emergency Committee.", alaises=["reec"])
