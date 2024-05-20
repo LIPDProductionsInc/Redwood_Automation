@@ -63,6 +63,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
                     message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
                     if message.author.id == 1028806931390943282:
                         channel = self.bot.get_channel(1150770060684705816)
+                        member = guild.get_member(int(id))
                         for member_roles in member.roles:
                             if member_roles.id == 1150770058868568108:
                                 await message.remove_reaction(payload.emoji, payload.member)
@@ -72,7 +73,6 @@ class EventsCog(commands.Cog, name="Events Cog"):
                                 field = embed.fields[0]
                                 id = field.value
                                 id = id[2:-1]
-                                member = guild.get_member(int(id))
                                 if payload.emoji.name == '✅':
                                     role = guild.get_role(1150770058868568108)
                                     await member.add_roles(role)
