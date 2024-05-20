@@ -58,21 +58,26 @@ class EventsCog(commands.Cog, name="Events Cog"):
     async def on_raw_reaction_add(self, payload) -> None:
         if payload.channel_id == 1150770060684705816:
             for role in payload.member.roles:
-                if role.id == 1150770058897920158:
+                if role.id == 1150770058935681154:
                     guild = self.bot.get_guild(payload.guild_id)
                     message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
                     if message.author.id == 1028806931390943282:
-                        embed = message.embeds[0]
-                        field = embed.fields[0]
-                        id = field.value
-                        id = id[2:-1]
-                        member = guild.get_member(int(id))
-                        if payload.emoji.name == '✅':
-                            role = guild.get_role(1150770058868568108)
-                            await member.add_roles(role)
-                            channel = self.bot.get_channel(1150770060684705816)
-                            await channel.send(f"Business Representative role has been given to {member.mention}.")
-                            await member.send("""**REDWOOD OFFICE OF COMMERCE RELATIONS**\n*CITY OF REDWOOD*\n\nYou have requested the \"Business Representative\" role in the city of Redwood Discord. This role will gain you access to Business announcements and communications channels specifically for Redwood Businesses, in addition to the support of Commerce Relations. 
+                        channel = self.bot.get_channel(1150770060684705816)
+                        for member_roles in member.roles:
+                            if member_roles.id == 1150770058868568108:
+                                await message.remove_reaction(payload.emoji, payload.member)
+                                await channel.send(f"{payload.member.mention}: {member.mention} already has the Business Representative role.")
+                            else:
+                                embed = message.embeds[0]
+                                field = embed.fields[0]
+                                id = field.value
+                                id = id[2:-1]
+                                member = guild.get_member(int(id))
+                                if payload.emoji.name == '✅':
+                                    role = guild.get_role(1150770058868568108)
+                                    await member.add_roles(role)
+                                    await channel.send(f"Business Representative role has been given to {member.mention}.")
+                                    await member.send("""**REDWOOD OFFICE OF COMMERCE RELATIONS**\n*CITY OF REDWOOD*\n\nYou have requested the \"Business Representative\" role in the city of Redwood Discord. This role will gain you access to Business announcements and communications channels specifically for Redwood Businesses, in addition to the support of Commerce Relations. 
 
 To better track economic activity, we encourage ALL businesses to register with the City Of Redwood, which gains the Business additional perks such as being able to post in the Business Advertisements channel. You can find more information in the Business Announcements channel as well as view the attached resources: 
 
@@ -80,9 +85,20 @@ https://docs.google.com/forms/d/1DI9AvTgvlr8pgijRtM7fwvWYNt3eopFcK_2rVUvVX8s/edi
 https://docs.google.com/document/d/1Fd8uEPCGp7Zhs8N54tgd_Mfb2I4Zy2amIBWefHlEQf8/edit?usp=sharing
 
 If you have any questions or concerns feel free to reach out to an OCR Representative!\n\nThank you""")
-                            pass
-                        if payload.emoji.name == '❌':
-                            await member.send("Your request has been denied.")
+                                    log = self.bot.get_channel(1150770063411003424)
+                                    logembed = discord.Embed(
+                                        colour = discord.Color.blue(),
+                                        description = f'**{member.mention} **was given the** `{role.name}` **role**'
+                                        )
+                                    logembed.set_author(name=f'{member}', icon_url=member.display_avatar)
+                                    logembed.set_footer(text=f'ID: {member.id}')
+                                    logembed.timestamp = datetime.datetime.now()
+                                    await log.send(embed=logembed)
+                                    pass
+                                elif payload.emoji.name == '❌':
+                                    await member.send("Your request has been denied.")
+                                    pass
+                                pass
                             pass
                         pass
                     pass
