@@ -73,7 +73,6 @@ class EventsCog(commands.Cog, name="Events Cog"):
                             await message.remove_reaction(payload.emoji, payload.member)
                             await channel.send(f"{payload.member.mention}: {member.mention} already has the Business Representative role.")
                         else:
-                            await channel.send("Success")
                             if payload.emoji.name == '✅':
                                 role = guild.get_role(1150770058868568108)
                                 await member.add_roles(role)
