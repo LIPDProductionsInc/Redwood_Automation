@@ -18,7 +18,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             description="Here is a list of the current city council members:",
             color=discord.Color.dark_blue()
             )
-        guild = ctx.bot.get_guild(1150770058847588492)
+        guild = ctx.bot.get_guild(1150770058847588492) # Redwood City Discord Server
         embed.add_field(name="Mayor", value=guild.get_role(1150770058935681162).members[0].mention if len(ctx.guild.get_role(1150770058935681162).members) > 0 else "VACANT", inline=False)
         embed.add_field(name="Deputy Mayor", value=guild.get_role(1150770058935681160).members[0].mention if len(ctx.guild.get_role(1150770058935681160).members) > 0 else "VACANT", inline=True)
         embed.add_field(name="Council Chairperson", value=guild.get_role(1150770058914705534).members[0].mention if len(ctx.guild.get_role(1150770058914705534).members) > 0 else "VACANT", inline=False)
@@ -30,8 +30,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.")
     @app_commands.guild_only()
-    @app_commands.guilds(1150770058847588492)
-    @app_commands.checks.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534)
+    @app_commands.guilds(1150770058847588492) # Redwood City Discord Server
+    @app_commands.checks.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(first="True or False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.", debate = "Is the floor open or closed for debate?")
     async def docket(self, interaction:discord.Interaction, first:Literal["True", "False"], docket_item:str, docket_link:str, debate:Literal["Open", "Closed"]) -> None:
         if interaction.channel.name.startswith("council-session"):
@@ -60,21 +60,20 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="session", description="Starts a city council session, either in-game or on Discord.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(session_type="The type of session to start. Either \"in-game\" or \"discord\".", session_number="The number of the Discord session.")
     async def session(self, ctx:commands.Context, session_type:Literal["In-Game", "Discord"], session_number:int = None) -> None:
+        channel = ctx.bot.get_channel(1151380671126839386) # City Announcements
         if session_type == "In-Game":
-            channel = ctx.bot.get_channel(1151380671126839386)
             await channel.send(f"<:NewRedwoodSeal:1068175383729537065> | **SESSION**\n\n A City Council Session is starting on the second floor inside our city hall. Follow the signs to the chambers: https://www.roblox.com/games/10109179139/Redwood-City-Council-Chamber\n\n@here")
         elif session_type == "Discord":
-            channel = ctx.bot.get_channel(1151380671126839386)
             overwrites = {
-                ctx.guild.get_role(1150770058935681162): discord.PermissionOverwrite(send_messages=True),
-                ctx.guild.get_role(1150770058935681160): discord.PermissionOverwrite(send_messages=True),
-                ctx.guild.get_role(1150770058914705534): discord.PermissionOverwrite(send_messages=True),
-                ctx.guild.get_role(1150770058914705533): discord.PermissionOverwrite(send_messages=True),
-                ctx.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True, send_messages=False),
-                ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False)
+                ctx.guild.get_role(1150770058935681162): discord.PermissionOverwrite(send_messages=True), # Mayor
+                ctx.guild.get_role(1150770058935681160): discord.PermissionOverwrite(send_messages=True), # Deputy Mayor
+                ctx.guild.get_role(1150770058914705534): discord.PermissionOverwrite(send_messages=True), # Council Chairperson
+                ctx.guild.get_role(1150770058914705533): discord.PermissionOverwrite(send_messages=True, add_reactions=True), # City Council
+                ctx.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True, send_messages=False), # Redwood Citizens
+                ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False, add_reactions=False) # @everyone
             }
             if session_number is None:
                 session_number = "new"
@@ -87,12 +86,12 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="end-session", description="Ends a city council session, either in-game or on Discord.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(session_type="The type of session to end. Either \"in-game\" or \"discord\".")
     async def end_session(self, ctx:commands.Context, session_type:Literal["In-Game", "Discord"]) -> None:
         if session_type == "Discord":
             if ctx.channel.name.startswith("council-session"):
-                channel = ctx.bot.get_channel(1150770060684705812)
+                channel = ctx.bot.get_channel(1150770060684705812) # City Clerk Channel
                 await ctx.send("The session is hereby adjourned. \n\n (<@&1150770058914705533>)")
                 overwrites = {
                     ctx.guild.get_role(1150770058897920157): discord.PermissionOverwrite(send_messages=True) # Muted
@@ -108,7 +107,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                     await ctx.message.delete()
                 raise commands.UserInputError("This command can only be used in a council session channel.")
         elif session_type == "In-Game":
-            channel = ctx.bot.get_channel(1151380671126839386)
+            channel = ctx.bot.get_channel(1151380671126839386) # City Announcements
             await channel.send("The session has been adjourned.")
             pass
         else:
@@ -117,16 +116,16 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="floor", description="Gives a non-council member the floor to speak.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(member="The non-council member to give the floor to.")
     async def floor(self, ctx:commands.Context, member:discord.Member) -> None:
         if ctx.channel.name.startswith("council-session"):
-            if discord.utils.get(member.roles, id=1150770058935681162) or discord.utils.get(member.roles, id=1150770058935681160) or discord.utils.get(member.roles, id=1150770058914705534) or discord.utils.get(member.roles, id=1150770058914705533):
+            if discord.utils.get(member.roles, id=1150770058935681162) or discord.utils.get(member.roles, id=1150770058935681160) or discord.utils.get(member.roles, id=1150770058914705534) or discord.utils.get(member.roles, id=1150770058914705533): # If the member is the Mayor, Deputy Mayor, Council Chairperson, or a City Council Member
                 raise commands.BadArgument("This person can already speak in the session.")
             else:
                 overwrite = discord.PermissionOverwrite(send_messages=True, embed_links=True)
                 await ctx.channel.set_permissions(member, overwrite=overwrite)
-                channel = ctx.bot.get_channel(1154236098525012008)
+                channel = ctx.bot.get_channel(1154236098525012008) # PO Logs
                 embed = discord.Embed(
                     title="Floor Given",
                     colour=discord.Color.dark_blue()
@@ -147,15 +146,15 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="dismiss", description="Dismisses a non-council member from the floor.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(member="The non-council member to dismiss from the floor.")
     async def dismiss(self, ctx:commands.Context, member:discord.Member) -> None:
         if ctx.channel.name.startswith("council-session"):
-            if discord.utils.get(member.roles, id=1150770058935681162) or discord.utils.get(member.roles, id=1150770058935681160) or discord.utils.get(member.roles, id=1150770058914705534) or discord.utils.get(member.roles, id=1150770058914705533):
+            if discord.utils.get(member.roles, id=1150770058935681162) or discord.utils.get(member.roles, id=1150770058935681160) or discord.utils.get(member.roles, id=1150770058914705534) or discord.utils.get(member.roles, id=1150770058914705533): # If the member is the Mayor, Deputy Mayor, Council Chairperson, or a City Council Member
                 raise commands.BadArgument("This person cannot be dismissed like this in the session.")
             else:
                 await ctx.channel.set_permissions(member, overwrite=None)
-                channel = ctx.bot.get_channel(1154236098525012008)
+                channel = ctx.bot.get_channel(1154236098525012008) # PO Logs
                 embed = discord.Embed(
                     title="Dismissed From Floor",
                     colour=discord.Color.dark_blue()
@@ -176,10 +175,10 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="propose", description="Proposes a bill to the rest of city council.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705533)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705533) # Mayor, Deputy Mayor, Council Chairperson, City Council
     @app_commands.describe(bill_name="The name of the bill bring proposed.", bill_link="The link to the bill being proposed.")
     async def propose(self, ctx:commands.Context, *, bill_name:str, bill_link:str) -> None:
-        if ctx.channel.id == 1150770059933913195:
+        if ctx.channel.id == 1150770059933913195: # Legislation Proposal Channel
             if ctx.interaction == None:
                 await ctx.message.delete()
             await ctx.send(f"**{ctx.author.mention}** has proposed a bill and is looking for co-sponsors. \n\n**Bill Name:** \"{bill_name}\" \n\n**Bill Link:** {bill_link} \n\nIf you would like to co-sponsor this bill, please respond with \"Support\" or \"Sponsor\" @here.")
@@ -189,14 +188,14 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     
     @commands.hybrid_command(name="legal-review", description="Send a proposal to the City Attorney's Office for review.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705533)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705533) # Mayor, Deputy Mayor, Council Chairperson, City Council
     @app_commands.describe(trello_link="The link to the Trello card for the proposal.")
     async def legal_review(self, ctx:commands.Context, trello_link:str) -> None:
         if ctx.interaction == None:
             await ctx.message.delete()
-        if ctx.channel.id == 1150770059933913195:
+        if ctx.channel.id == 1150770059933913195: # Legislation Proposal Channel
             if trello_link.startswith("https://trello.com/c/"):
-                channel = ctx.bot.get_channel(1150770061146067074)
+                channel = ctx.bot.get_channel(1150770061146067074) # City Attorney's Channel
                 await channel.send(f"{trello_link}\n\n<@&1150770058914705528>\n\nSent by: {ctx.author.mention}")
                 await ctx.send("The proposal has been sent to the City Attorney's Office for review.", ephemeral=True)
             else:
@@ -208,29 +207,29 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="send", description="Send a proposal to either the mayor for signature or the persiding officer for notification.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705528)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705528) # Mayor, Deputy Mayor, Council Chairperson, City Clerk
     @app_commands.describe(trello_link="The link to the Trello card for the proposal.", location="The location to send the proposal to.")
     async def send(self, ctx:commands.Context, location: Literal["Mayor", "Docket"], trello_link:str) -> None:
         if location == "Mayor":
             if ctx.interaction == None:
                 await ctx.message.delete()
-            channel = self.bot.get_channel(1150770061146067065)
+            channel = self.bot.get_channel(1150770061146067065) # Mayor's Office
             if ctx.channel.name.startswith("council-session"):
                 if trello_link.startswith("https://trello.com/c/"):
                     if len(ctx.guild.get_role(1150770058935681161).members) > 0:
                         ping = "<@&1150770058935681161>"
                     else:
-                        ping = "<@&1150770058935681162>"
+                        ping = "<@&1150770058935681162>" # Ping the Mayor
                     await channel.send(f"{trello_link} \n\n{ping}")
                     await ctx.send("The bill has been sent to the mayor's office for signature.")
                 else:
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
-            elif ctx.channel.id == 1150770059933913196:
+            elif ctx.channel.id == 1150770059933913196: # If in the PO Channel
                 if trello_link.startswith("https://trello.com/c/"):
                     if len(ctx.guild.get_role(1150770058935681161).members) > 0:
                         ping = "<@&1150770058935681161>"
                     else:
-                        ping = "<@&1150770058935681162>"
+                        ping = "<@&1150770058935681162>" # Ping the Mayor
                     await channel.send(f"{trello_link} \n\n{ping}")
                     await ctx.send("Proposal sent to the mayor's office for signature.", ephemeral=True)
                 else:
@@ -239,11 +238,11 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 raise commands.UserInputError("This command can only be used in <#1150770059933913196> or a council session channel.")
                 pass
         elif location == "Docket":
-            if discord.utils.get(ctx.author.roles, id=1150770058914705528):
-                if ctx.channel.id == 1150770061146067074:
+            if discord.utils.get(ctx.author.roles, id=1150770058914705528): # If the user is a City Attorney
+                if ctx.channel.id == 1150770061146067074: # City Attorney's Channel
                     if ctx.interaction == None:
                         await ctx.message.delete()
-                    channel = ctx.bot.get_channel(1150770059933913196)
+                    channel = ctx.bot.get_channel(1150770059933913196) # Presiding Officer Channel
                     if trello_link.startswith("https://trello.com/c/"):
                         await channel.send(f"{trello_link} \n\n<@&1150770058914705534> Approved and added to the docket.")
                         await ctx.send("Presiding officer notified.", ephemeral=True)
@@ -260,7 +259,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="vote", description="Has the City Council start a vote")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(type="The type of vote to start.")
     async def vote(self, ctx:commands.Context, type:Literal["Amendment", "Bill", "Motion", "Nomination", "Ratification", "Resolution"]) -> None:
         if ctx.channel.name.startswith("council-session"):
@@ -293,7 +292,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.hybrid_command(name="charter", description="Sends a link to the City Charter.")
     @commands.guild_only()
     async def charter(self, ctx:commands.Context) -> None:
-        if discord.utils.get(ctx.author.roles, id=1150770058935681162) or discord.utils.get(ctx.author.roles, id=1150770058935681160) or discord.utils.get(ctx.author.roles, id=1150770058914705534) or discord.utils.get(ctx.author.roles, id=1150770058914705533):
+        if discord.utils.get(ctx.author.roles, id=1150770058935681162) or discord.utils.get(ctx.author.roles, id=1150770058935681160) or discord.utils.get(ctx.author.roles, id=1150770058914705534) or discord.utils.get(ctx.author.roles, id=1150770058914705533): # Mayor, Deputy Mayor, Council Chairperson, City Council
             await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n<https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>", ephemeral=True)
         else:
             await ctx.send("Current City Charter: \n<https://drive.google.com/file/d/1Q6QzU6fZM6vZ8W8m9X9F1pOJl0v1hWkK/view?usp=sharing>")
@@ -302,7 +301,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
 
     @commands.hybrid_command(name="template", description="Sends a link to the Trello card proposal template.")
     @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705533)
+    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534, 1150770058914705533) # Mayor, Deputy Mayor, Council Chairperson, City Council
     async def template(self, ctx:commands.Context) -> None:
         await ctx.send("Here is the link to the Bill Templates: \n <https://trello.com/c/tuOk4RtM>")
         pass
