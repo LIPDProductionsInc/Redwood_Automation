@@ -216,8 +216,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             channel = self.bot.get_channel(1150770061146067065) # Mayor's Office
             if ctx.channel.name.startswith("council-session"):
                 if trello_link.startswith("https://trello.com/c/"):
-                    if len(ctx.guild.get_role(1150770058935681161).members) > 0:
-                        ping = "<@&1150770058935681161>"
+                    if len(ctx.guild.get_role(1249538789651517511).members) > 0: # If there's an Acting Mayor
+                        ping = "<@&1249538789651517511>" # Ping the Acting Mayor
                     else:
                         ping = "<@&1150770058935681162>" # Ping the Mayor
                     await channel.send(f"{trello_link} \n\n{ping}")
@@ -226,8 +226,8 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                     raise commands.BadArgument("The link provided needs to be a Trello card.")
             elif ctx.channel.id == 1150770059933913196: # If in the PO Channel
                 if trello_link.startswith("https://trello.com/c/"):
-                    if len(ctx.guild.get_role(1150770058935681161).members) > 0:
-                        ping = "<@&1150770058935681161>"
+                    if len(ctx.guild.get_role(1249538789651517511).members) > 0: # And there's an Acting Mayor
+                        ping = "<@&1249538789651517511>" # Ping the Acting Mayor
                     else:
                         ping = "<@&1150770058935681162>" # Ping the Mayor
                     await channel.send(f"{trello_link} \n\n{ping}")
