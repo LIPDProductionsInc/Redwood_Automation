@@ -33,7 +33,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
     @commands.check_any(commands.is_owner(), commands.has_role(1150770058897920156))
     @app_commands.describe(level="The level of the alert to issue", message="The message to send with the alert (If not normal/holiday)")
     async def issue(self, ctx: commands.Context, level: Literal["Normal Operations", "City Holiday", "City Notice", "Weather Watch", "Weather Warning", "Minor Emergency", "Major Weather Event (City Emergency)", "State of Emergency"], *, message: str = None) -> None:
-        channel = ctx.bot.get_channel(1050019636231536690)
+        channel = await ctx.guild.fetch_channel(1154303198551613460)
         if level == "Normal Operations":
             embed = discord.Embed(
                 title="Redwood City Emergency Alert System",
@@ -132,19 +132,21 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
         else:
             raise AttributeError(f"{level} is not a valid attribute for level.")
         txtmessage = await channel.send(embed=embed)
-        if level != "State of Emergency" and level != "Major Weather Event (City Emergency)" and level != "Normal Operations":
+        if level != "City Holiday" and level != "Normal Operations":
             message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/9XkQagqJGb)."
             embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
         elif level == "Normal Operations":
             asyncio.sleep(0.01)
         channel3 = ctx.bot.get_channel(1026530469111660677)
         message3 = await channel3.send(embed=embed)
-        if ctx.interaction is not None:
-            await ctx.send("Issued!", ephemeral=True)
-        else:
-            await ctx.send("Issued!")
         await txtmessage.publish()
         await message3.publish()
+        if ctx.interaction is not None:
+            await ctx.send("Issued!", ephemeral=True)
+            print(f"Issued a {level} alert from {ctx.author.display_name} at {datetime.datetime.now()}")
+        else:
+            await ctx.send("Issued!")
+            print(f"Issued a {level} alert from {ctx.author.display_name} at {datetime.datetime.now()}")
         pass
 
     @commands.hybrid_command(name="emergency-committee", description="View the current members of the Emergency Committee.", alaises=["reec"])
