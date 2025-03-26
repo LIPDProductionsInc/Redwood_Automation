@@ -95,7 +95,11 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                 channel = ctx.bot.get_channel(1150770060684705812)
                 await ctx.send("The session is hereby adjourned. \n\n (<@&1150770058914705533>)")
                 overwrites = {
-                    ctx.guild.get_role(1150770058897920157): discord.PermissionOverwrite(send_messages=True)
+                    ctx.guild.get_role(1150770058897920157): discord.PermissionOverwrite(send_messages=True) # Muted
+                    #ctx.guild.get_role(1150770058935681157): discord.PermissionOverwrite(send_messages=False, send_messages_in_threads=False, create_public_threads=False, create_private_threads=False) # Muted
+                    #ctx.guild.get_role(1150770058897920157): discord.PermissionOverwrite(send_messages=True) # City Clerk
+                    #ctx.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True, send_messages=False) # Redwood Citizens
+                    #ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False, add_reactions=False, send_messages=False) # @everyone
                 }
                 await ctx.channel.edit(category=ctx.guild.get_channel(761730715024097311), reason="Session Ended", sync_permissions=True, position=0)
                 await channel.send(f"<@&1150770058897920157>\n\nHi, the session in {ctx.channel.mention} has been adjourned and is awaiting transcribing!")
