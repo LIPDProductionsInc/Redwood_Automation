@@ -105,6 +105,36 @@ If you have any questions or concerns feel free to reach out to an OCR Represent
             pass
         pass
 
+    @commands.Cog.listener()
+    async def on_member_update(self, before: discord.Member, after: discord.Member) -> None:
+        if before.guild.id == 1150770058935681154: #Redwood Discord
+            # Check if the user was timed out
+            if before.timed_out != after.timed_out and after.timed_out is not None:
+                channel = self.bot.get_channel(1150770063411003424) # Log Channel
+                embed = discord.Embed(
+                    colour = discord.Color.red(),
+                    description = f'**{after.mention}** was timed out'
+                    )
+                # Fetch the audit log to find out who issued the timeout
+                async for entry in after.guild.audit_logs(limit=5, action=discord.AuditLogAction.member_update):
+                    if entry.target.id == after.id and entry.after.timed_out_until:
+                        moderator = entry.user
+                        duration = (entry.after.timed_out_until - datetime.datetime.now()).total_seconds()
+                        reason = entry.reason if entry.reason else "No reason provided"
+                        # Add the fields
+                        embed.add_field(name='Moderator:', value=f'{moderator.mention}', inline=False)
+                        embed.add_field(name='Duration:', value=f'{duration} seconds', inline=False)
+                        embed.add_field(name='Reason:', value=reason, inline=False)
+                    break # Exit loop once found
+                embed.set_author(name=f'{after}', icon_url=after.display_avatar)
+                embed.set_footer(text=f'ID: {after.id}')
+                embed.timestamp = datetime.datetime.now()
+                embed.set_thumbnail(url=after.display_avatar)
+                await channel.send(embed=embed)
+                pass
+            pass
+        pass
+
     pass
 
 async def setup(bot: commands.Bot) -> None:
