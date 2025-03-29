@@ -12,7 +12,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
         if before.content != after.content:
             if type(before.channel) != discord.DMChannel and type(after.channel) != discord.DMChannel:
                 if before.channel.name.startswith('council-session') and not before.channel.name == 'council-session-test' or 'oath' in before.channel.name:
-                    channel = self.bot.get_channel(1154236098525012008)
+                    channel = self.bot.get_channel(1154236098525012008) # PO Logs
                     link = "https://discordapp.com/channels/{}/{}/{}".format(before.guild.id, before.channel.id, before.id)
                     embed = discord.Embed(
                         colour = discord.Color.blue(),
@@ -35,7 +35,7 @@ class EventsCog(commands.Cog, name="Events Cog"):
     @commands.Cog.listener()
     async def on_message_delete(self, message) -> None:
         if message.channel.name.startswith('council-session') and not message.channel.name == 'council-session-test' or 'oath' in message.channel.name:
-            channel = self.bot.get_channel(1154236098525012008)
+            channel = self.bot.get_channel(1154236098525012008) # PO Logs
             link = "https://discordapp.com/channels/{}/{}/{}".format(message.guild.id, message.channel.id, message.id)
             embed = discord.Embed(
                 colour = discord.Color.red(),
@@ -56,25 +56,25 @@ class EventsCog(commands.Cog, name="Events Cog"):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload) -> None:
-        if payload.channel_id == 1150770060684705816:
+        if payload.channel_id == 1150770060684705816: # OCR Director's Channel
             for role in payload.member.roles:
                 if role.id == 1150770058935681154:
                     guild = self.bot.get_guild(payload.guild_id)
                     message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
-                    if message.author.id == 1028806931390943282:
-                        channel = self.bot.get_channel(1150770060684705816)
+                    if message.author.id == 1028806931390943282: # The Bot
+                        channel = self.bot.get_channel(1150770060684705816) # OCR Director's Channel
                         embed = message.embeds[0]
                         field = embed.fields[0]
                         id = field.value
                         id = id[2:-1]
                         member = guild.get_member(int(id))
-                        member_role = discord.utils.get(guild.roles, id=1150770058868568108)
+                        member_role = discord.utils.get(guild.roles, id=1150770058868568108) # Business Representative
                         if member_role in member.roles:
                             await message.remove_reaction(payload.emoji, payload.member)
                             await channel.send(f"{payload.member.mention}: {member.mention} already has the Business Representative role.")
                         else:
                             if payload.emoji.name == '✅':
-                                role = guild.get_role(1150770058868568108)
+                                role = guild.get_role(1150770058868568108) # Business Representative
                                 await member.add_roles(role)
                                 await channel.send(f"Business Representative role has been given to {member.mention}.")
                                 await member.send("""**REDWOOD OFFICE OF COMMERCE RELATIONS**\n*CITY OF REDWOOD*\n\nYou have requested the \"Business Representative\" role in the city of Redwood Discord. This role will gain you access to Business announcements and communications channels specifically for Redwood Businesses, in addition to the support of Commerce Relations. 
@@ -85,7 +85,7 @@ https://docs.google.com/forms/d/1DI9AvTgvlr8pgijRtM7fwvWYNt3eopFcK_2rVUvVX8s/edi
 https://docs.google.com/document/d/1Fd8uEPCGp7Zhs8N54tgd_Mfb2I4Zy2amIBWefHlEQf8/edit?usp=sharing
 
 If you have any questions or concerns feel free to reach out to an OCR Representative!\n\nThank you""")
-                                log = self.bot.get_channel(1150770063411003424)
+                                log = self.bot.get_channel(1150770063411003424) # Log Channel
                                 logembed = discord.Embed(
                                     colour = discord.Color.blue(),
                                     description = f'**{member.mention} **was given the** `{role.name}` **role**'
