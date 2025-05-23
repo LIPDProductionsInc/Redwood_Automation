@@ -133,6 +133,8 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
                 description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o)**\n**[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr)**\n**[FDOCM Business Permit Database](https://trello.com/b/r4a8Tw1I)**\n**[FAA Licenses](https://trello.com/b/1yOqOBhL)**\n**[Land Management](https://trello.com/b/v2fxXXhn)"
             )
         ]
+        for embed in embeds:
+            embed.set_footer(text="To suggest items to be added, please contact NCISfan5")
         menu = menus.MenuPages(source=MDTEmbedPageSource(embeds, per_page=1))
         await menu.start(ctx)
         await message.edit(content=f"**Loading Complete {ctx.author.mention}, don't catch a court case**")
