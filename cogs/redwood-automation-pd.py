@@ -129,16 +129,19 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             ).set_image(url="https://media.discordapp.net/attachments/323521773222232065/919633288627355698/FS_MAP.png"),
             discord.Embed(
                 title="RPD Trespass Zones (1st Floor)",
+                description="Green = Public, Red = Restricted",
                 type="rich"
-            ).set_image(url="https://i.imgur.com/Taek1Sz.png").set_footer(text="Green = Public, Red = Restricted"),
+            ).set_image(url="https://i.imgur.com/Taek1Sz.png"),
             discord.Embed(
                 title="RPD Trespass Zones (2nd Floor)",
+                description="Green = Public, Red = Restricted",
                 type="rich"
-            ).set_image(url="https://i.imgur.com/Jgee9lc.png").set_footer(text="Green = Public, Red = Restricted"),
+            ).set_image(url="https://i.imgur.com/Jgee9lc.png"),
             discord.Embed(
                 title="RPD Trespass Zones (Parking Lot)",
+                description="Green = Public, Red = Restricted",
                 type="rich"
-            ).set_image(url="https://i.imgur.com/uIg4UN8.png").set_footer(text="Green = Public, Red = Restricted"),
+            ).set_image(url="https://i.imgur.com/uIg4UN8.png"),
             discord.Embed(
                 title="Databases",
                 type="rich",
