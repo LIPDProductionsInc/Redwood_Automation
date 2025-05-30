@@ -128,6 +128,18 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
                 type="rich"
             ).set_image(url="https://media.discordapp.net/attachments/323521773222232065/919633288627355698/FS_MAP.png"),
             discord.Embed(
+                title="RPD Trespass Zones (1st Floor)",
+                type="rich"
+            ).set_image(url="https://i.imgur.com/Taek1Sz.png").set_footer(text="Green = Public, Red = Restricted"),
+            discord.Embed(
+                title="RPD Trespass Zones (2nd Floor)",
+                type="rich"
+            ).set_image(url="https://i.imgur.com/Jgee9lc.png").set_footer(text="Green = Public, Red = Restricted"),
+            discord.Embed(
+                title="RPD Trespass Zones (Parking Lot)",
+                type="rich"
+            ).set_image(url="https://i.imgur.com/uIg4UN8.png").set_footer(text="Green = Public, Red = Restricted"),
+            discord.Embed(
                 title="Databases",
                 type="rich",
                 description="**[FDOT Handicap Database](https://trello.com/b/vR54Te0o)**\n**[Firestone Firearms Commission](https://trello.com/b/YbN4xaAr)**\n**[FDOCM Business Permit Database](https://trello.com/b/r4a8Tw1I)**\n**[FAA Licenses](https://trello.com/b/1yOqOBhL)**\n**[Land Management](https://trello.com/b/v2fxXXhn)"
