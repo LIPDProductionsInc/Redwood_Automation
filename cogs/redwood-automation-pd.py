@@ -40,8 +40,8 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
         self.bot = bot
     
     @app_commands.command(name="applications", description="Opens and closes applications for the Redwood Police Department.")
-    @app_commands.checks.has_role(1005949022248378469)
-    @app_commands.guilds(1005182438265335901)
+    @app_commands.checks.has_role(1005949022248378469) # RPD Chief of Police
+    @app_commands.guilds(1005182438265335901) # Redwood Police Department server
     @app_commands.describe(status="Open or Close applications")
     async def applications(self, interaction: discord.Interaction, status: Literal["Open", "Transfer Only" "Close", "Init"]) -> None:
         channel = self.bot.get_channel(1026530495569346590)
