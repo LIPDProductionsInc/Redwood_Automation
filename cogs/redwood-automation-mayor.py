@@ -47,7 +47,7 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
         pass
 
     @commands.hybrid_command(name="oaths", description="Begins the oath taking process for a new term")
-    @commands.has_any_role(1150770058935681163, 1150770058935681162, 1150770058935681160, 1150770058914705534, 1154217793030471721) # County Executive, Mayor, Deputy Mayor, Council Chairperson
+    @commands.has_any_role(1150770058935681163, 1150770058935681162, 1150770058935681160, 1150770058914705534) # County Executive, Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(term_id="The ID of the term (Ie, '2023-3')")
     async def oaths(self, ctx:commands.Context, term_id:str) -> None:
         if ctx.guild.id != 1150770058847588492: # City of Redwood
