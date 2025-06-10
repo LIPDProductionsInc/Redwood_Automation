@@ -46,22 +46,17 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
             pass
         pass
 
-    @commands.hybrid_command(name="oaths", description="Creates a channel where people can take their oaths for the term")
-    @commands.has_any_role(1150770058965028924, 1150770058935681162, 1150770058935681160, 1150770058914705534)
-    @app_commands.describe(type="The type of oath channel to create", term_id="The ID of the term (Ie, '2023-3')")
-    async def oaths(self, ctx:commands.Context, type:Literal["Mayor's Office", "City Council"], term_id:str) -> None:
-        overwrites = {
-            ctx.guild.get_role(1150770058897920154): discord.PermissionOverwrite(send_messages=True),
-            ctx.guild.get_role(1150770058965028924): discord.PermissionOverwrite(send_messages=True),
-            ctx.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True),
-            ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False, send_messages=False)
-        }
-        if type == "Mayor's Office":
-            type = "mayors-office"
-        elif type == "City Council":
-            type = "city-council"
-        await ctx.guild.create_text_channel(f"{type}-oaths-{term_id}", overwrites=overwrites)
-        await ctx.send("Oaths channel created!", ephemeral=True)
+    @commands.hybrid_command(name="oaths", description="Begins the oath taking process for a new term")
+    @commands.has_any_role(1150770058935681163, 1150770058935681162, 1150770058935681160, 1150770058914705534, 1154217793030471721) # County Executive, Mayor, Deputy Mayor, Council Chairperson
+    @app_commands.describe(term_id="The ID of the term (Ie, '2023-3')")
+    async def oaths(self, ctx:commands.Context, term_id:str) -> None:
+        if ctx.guild.id != 1150770058847588492: # City of Redwood
+            raise commands.UserInputError("This command can only be used in the City of Redwood!")
+        channel = ctx.guild.get_channel(1382031974058823720) # Oaths channel
+        if channel is None:
+            raise commands.UserInputError("The oaths channel could not be found!")
+        await channel.send(f"------------------\n\n<:NewRedwoodSeal:1154226637114708019> | **OATHS FOR TERM {term_id}**\n\nThe oaths for the {term_id} term can be found below. Please recite the oath to the person who is administering the oath. Do not edit your message after sending it to peserve the record of fact.")
+        await ctx.send(f"Oaths for term {term_id} have been started", ephemeral=True)
         pass
 
     @commands.hybrid_command(name="seal", description="Updates the seal of the city")
