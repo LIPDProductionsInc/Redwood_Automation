@@ -193,7 +193,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         embed.set_thumbnail(url=str(self.bot.user.avatar))
         embed.set_author(name='Redwood Information')
         embed.add_field(name='Council Boards', value='[City Council](https://trello.com/b/gVPTVd0r)\n[City Records](https://trello.com/b/g06YwcHJ)', inline=False)
-        embed.add_field(name='Administration Boards', value='[Office of the Mayor](https://trello.com/b/pK66sdV7) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
+        embed.add_field(name='Administration Boards', value='[Office of the Mayor](https://trello.com/b/F59t3HaG/) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
         embed.add_field(name='Other Links', value='[City Charter](https://trello.com/c/Pm1y1ZzD) \n[Floor Rules](https://trello.com/c/XpLJXTTI) \n[Twitter](http://twitter.com/CityofRedwood) \n[RPD Handbook](https://docs.google.com/document/d/18K-IHoT6MStN6b_kb7RSBGEpxMuSYgepN21Fw4TFtR0/edit) \n[RPD Public Database](https://docs.google.com/spreadsheets/d/1y5Cgqdn9faUx_nLvaO7RT6V93ehXzMTv68Q00OAOcoo/edit)', inline=False)
         embed.set_footer(text='Information last updated on:')
         embed.timestamp = datetime.datetime.now()
@@ -223,6 +223,7 @@ class OwnerCog(commands.Cog, name="Owner Commands"):
         elif type == 'information-links':
             message = await ctx.fetch_message(1154243793869090917)
             embed = message.embeds[0]
+            embed.set_field_at(1, name='Administration Boards', value='[Office of the Mayor](https://trello.com/b/F59t3HaG/) \n[Office of Commerce Relations](https://trello.com/b/ePQVqR70)', inline=False)
             embed.set_thumbnail(url=str(self.bot.user.avatar))
             embed.timestamp = datetime.datetime.now()
             await message.edit(embed=embed)
