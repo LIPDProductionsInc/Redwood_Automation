@@ -56,7 +56,7 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
         if channel is None:
             raise commands.UserInputError("The oaths channel could not be found!")
         await channel.send(f"------------------\n\n<:NewRedwoodSeal:1154226637114708019> | **OATHS FOR TERM {term_id}**\n\nThe oaths for the {term_id} term can be found below. Please recite the oath to the person who is administering the oath. Do not edit your message after sending it to peserve the record of fact.")
-        await ctx.send(f"Oaths for term {term_id} have been started", ephemeral=True)
+        await ctx.send(f"Oaths for term {term_id} have been started. Oaths can be found in Article 8 of the [City Charter](https://drive.google.com/file/d/1NyT5dix0r9-fkKsK0p6LKgctQds9a7La/view).", ephemeral=True)
         pass
 
     @commands.hybrid_command(name="seal", description="Updates the seal of the city")
