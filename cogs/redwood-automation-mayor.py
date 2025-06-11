@@ -47,15 +47,23 @@ class MayorCog(commands.Cog, name="Mayor Commands"):
         pass
 
     @commands.hybrid_command(name="oaths", description="Begins the oath taking process for a new term")
-    @commands.has_any_role(1150770058935681163, 1150770058935681162, 1150770058935681160, 1150770058914705534) # County Executive, Mayor, Deputy Mayor, Council Chairperson
+    @commands.has_any_role(1150770058935681163, 1150770058935681162, 1150770058935681160, 1150770058914705534, 1154217793030471721) # County Executive, Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(term_id="The ID of the term (Ie, '2023-3')")
     async def oaths(self, ctx:commands.Context, term_id:str) -> None:
         if ctx.guild.id != 1150770058847588492: # City of Redwood
             raise commands.UserInputError("This command can only be used in the City of Redwood!")
         channel = ctx.guild.get_channel(1382031974058823720) # Oaths channel
+        async for message in channel.history(limit=100): # Check if there's a pinned message from the bot for the previous term
+            if message.author == ctx.bot.user and message.pinned:
+                if term_id in message.content: # Check if the message has the same term ID as the one provided by the user
+                    raise commands.UserInputError(f"Oaths for term {term_id} have already been started!")
+                else: # Otherwise, unpin the previous message
+                    await message.unpin()
+                break
         if channel is None:
             raise commands.UserInputError("The oaths channel could not be found!")
-        await channel.send(f"------------------\n\n<:NewRedwoodSeal:1154226637114708019> | **OATHS FOR TERM {term_id}**\n\nThe oaths for the {term_id} term can be found below. Please recite the oath to the person who is administering the oath. Do not edit your message after sending it to peserve the record of fact.")
+        newmessage = await channel.send(f"------------------\n\n<:NewRedwoodSeal:1154226637114708019> | **OATHS FOR TERM {term_id}**\n\nThe oaths for the {term_id} term can be found below. Please recite the oath to the person who is administering the oath. Do not edit your message after sending it to peserve the record of fact.")
+        await newmessage.pin()
         await ctx.send(f"Oaths for term {term_id} have been started. Oaths can be found in Article 8 of the [City Charter](https://drive.google.com/file/d/1NyT5dix0r9-fkKsK0p6LKgctQds9a7La/view).", ephemeral=True)
         pass
 
