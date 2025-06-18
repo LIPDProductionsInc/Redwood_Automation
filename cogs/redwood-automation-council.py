@@ -65,7 +65,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     async def session(self, ctx:commands.Context, session_type:Literal["In-Game", "Discord"], session_number:int = None) -> None:
         channel = ctx.bot.get_channel(1151380671126839386) # City Announcements
         if session_type == "In-Game":
-            await channel.send(f"<:NewRedwoodSeal:1068175383729537065> | **SESSION**\n\n A City Council Session is starting on the second floor inside our city hall. Follow the signs to the chambers: https://www.roblox.com/games/10109179139/Redwood-City-Council-Chamber\n\n@here")
+            await channel.send(f"<:NewRedwoodSeal:1068175383729537065> | **SESSION**\n\n A City Council Session is starting in V2. Come on down to the City Hall located at the corner of 98th Ave and 100th Ave, down the street from the gas station.\n\nMake sure to park in the green area. Do not park in the red.\n\n@here",file=discord.File("media/redwood-session-parking.jpg"))
         elif session_type == "Discord":
             overwrites = {
                 ctx.guild.get_role(1150770058935681162): discord.PermissionOverwrite(send_messages=True), # Mayor
