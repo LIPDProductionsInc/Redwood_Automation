@@ -128,6 +128,10 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
                 type="rich"
             ).set_image(url="https://media.discordapp.net/attachments/323521773222232065/919633288627355698/FS_MAP.png"),
             discord.Embed(
+                title="V2 Sewer Map",
+                type="rich"
+            ).set_image(url="https://media.discordapp.net/attachments/628034271570821120/1359054305319190649/image.png"),
+            discord.Embed(
                 title="RPD Trespass Zones (1st Floor)",
                 description="Green = Public, Red = Restricted",
                 type="rich"
