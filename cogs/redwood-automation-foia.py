@@ -67,8 +67,8 @@ class RedwoodAutomationFOIA(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    def is_owner(interaction: discord.Interaction) -> bool:
-        return interaction.user.id == interaction.bot.owner_id
+    def is_owner(self, interaction: discord.Interaction) -> bool:
+        return interaction.user.id == self.bot.owner_id
 
     @app_commands.command(name="init-foia", description="Initialize the FOIA ticket system.")
     @app_commands.check(is_owner)
