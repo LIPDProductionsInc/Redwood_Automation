@@ -14,6 +14,7 @@ class CloseTicketButton(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         if interaction.user.guild_permissions.manage_channels:
             await interaction.response.send_message("Closing ticket...", ephemeral=True)
+            await asyncio.sleep(2)  # Give time for the transcript to be sent
             await interaction.channel.delete()
         else:
             await interaction.response.send_message("You do not have permission to close this ticket.", ephemeral=True)
