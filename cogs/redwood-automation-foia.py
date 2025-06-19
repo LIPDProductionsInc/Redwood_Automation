@@ -82,7 +82,7 @@ class FOIAButton(discord.ui.View):
         )
         ticket_embed.set_footer(text="The City Attorney's Office will respond to your request as soon as possible.")
         await channel.send(embed=ticket_embed, view=close_view)
-        await interaction.response.edit_message(content=f"Ticket created: {channel.mention}")
+        await interaction.followup.edit_message(content=f"Ticket created: {channel.mention}")
         pass
 
     pass
