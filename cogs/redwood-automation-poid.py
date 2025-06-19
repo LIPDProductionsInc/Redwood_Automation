@@ -20,7 +20,7 @@ class POIDContextMenuCog(commands.Cog, name="POID Context Menu"):
         # Get when the message was sent and convert to epoch time for Discord's relative time display
         message_time = int(message.created_at.timestamp())
         embed.add_field(name="Message Sent At", value=f"<t:{message_time}:F> (<t:{message_time}:R>)", inline=True)
-        embed.thumbnail(url=message.author.display_avatar.url)
+        embed.set_thumbnail(url=message.author.display_avatar.url)
         embed.set_author(name="Redwood Automation", icon_url=self.bot.user.display_avatar.url)
         embed.set_footer(text=f"Requested by {interaction.user.display_name} | ID: {interaction.user.id} | At:", icon_url=interaction.user.display_avatar.url)
         embed.timestamp = datetime.datetime.utcnow()
