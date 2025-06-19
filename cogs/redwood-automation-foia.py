@@ -12,7 +12,7 @@ class CloseTicketButton(discord.ui.Button):
         super().__init__(label="Close Ticket", style=discord.ButtonStyle.danger, custom_id="close_ticket")
 
     async def callback(self, interaction: discord.Interaction):
-        if interaction.user.guild_permissions.manage_channels:
+        if interaction.user.has_role(1150770058914705528):  # City Attorney role
             await interaction.response.send_message("Closing ticket...", ephemeral=True)
             await asyncio.sleep(2)  # Give time for the transcript to be sent
             await interaction.channel.delete()
