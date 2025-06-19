@@ -1,4 +1,7 @@
 import discord
+import asyncio
+import chat_exporter
+import io
 import json
 import typing
 
@@ -13,6 +16,19 @@ class CloseTicketButton(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         if interaction.user.has_role(1150770058914705528):  # City Attorney role
+            channel = discord.utils.get(interaction.guild.channels, id=["FOIA Transcripts Channel Here"])
+            await interaction.response.send_message("Saving transcript...", ephemeral=True)
+            try:
+                message_count = 0
+                async for _ in interaction.channel.history(limit=None):
+                    message_count += 1
+                transcript = await chat_exporter.export(interaction.channel, tz_info='EST', fancy_times=True, limit=message_count)
+                transcript_file = discord.File(io.BytesIO(transcript.encode()), filename=f"{interaction.channel.name}.html")
+                await channel.send(f"{interaction.channel.name}", file=transcript_file)
+            except Exception as e:
+                await interaction.followup.send(f"Error saving transcript: {e}", ephemeral=True)
+                print(f"Ignoring exception in CloseTicketButton callback: {e}")
+                return
             await interaction.response.send_message("Closing ticket...", ephemeral=True)
             await asyncio.sleep(2)  # Give time for the transcript to be sent
             await interaction.channel.delete()
