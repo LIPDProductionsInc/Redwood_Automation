@@ -102,6 +102,18 @@ class RedwoodAutomationFOIA(commands.Cog):
         await interaction.response.send_message("FOIA ticket system initialized.", ephemeral=True)
         pass
 
+    @app_commands.command(name="reset-ticket", description="Reset the tickeet counter")
+    @app_commands.check(is_owner)
+    @app_commands.guilds(1150770058847588492)  # Redwood City Discord Server
+    async def reset_ticket(self, interaction: discord.Interaction) -> None:
+        with open("/home/pi/Documents/Redwood_Automation/db/foia-tickets.json", "r") as f:
+            data = json.load(f)
+        data["last_ticket_number"] = 0
+        with open("/home/pi/Documents/Redwood_Automation/db/foia-tickets.json", "w") as f:
+            json.dump(data, f)
+        await interaction.response.send_message("Ticket counter reset to 0.", ephemeral=True)
+        pass
+
     pass
 
 async def setup(bot: commands.Bot) -> None:
