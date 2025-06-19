@@ -25,13 +25,13 @@ class CloseTicketButton(discord.ui.Button):
                 transcript = await chat_exporter.export(interaction.channel, tz_info='EST', fancy_times=True, limit=message_count)
                 transcript_file = discord.File(io.BytesIO(transcript.encode()), filename=f"{interaction.channel.name}.html")
                 await channel.send(f"{interaction.channel.name}", file=transcript_file)
+                await interaction.response.send_message("Closing ticket...", ephemeral=True)
+                await asyncio.sleep(2)  # Give time for the transcript to be sent
+                await interaction.channel.delete()
             except Exception as e:
                 await interaction.followup.send(f"Error saving transcript: {e}", ephemeral=True)
                 print(f"Ignoring exception in CloseTicketButton callback: {e}")
                 return
-            await interaction.response.send_message("Closing ticket...", ephemeral=True)
-            await asyncio.sleep(2)  # Give time for the transcript to be sent
-            await interaction.channel.delete()
         else:
             await interaction.response.send_message("You do not have permission to close this ticket.", ephemeral=True)
         pass
