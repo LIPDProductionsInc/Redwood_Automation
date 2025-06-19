@@ -63,6 +63,7 @@ class FOIAButton(discord.ui.View):
     @discord.ui.button(label="Open FOIA Ticket", style=discord.ButtonStyle.primary, custom_id="foia_ticket")
     async def open_ticket(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message("Opening ticket...", ephemeral=True)
+        ticket_created_message = await interaction.original_response()
         foiacategory = discord.utils.get(interaction.guild.categories, id=1384722375714537543)
         city_attorney = discord.utils.get(interaction.guild.roles, id=1150770058914705528)
         ticket_number = self.get_next_ticket_number()
@@ -82,7 +83,7 @@ class FOIAButton(discord.ui.View):
         )
         ticket_embed.set_footer(text="The City Attorney's Office will respond to your request as soon as possible.")
         await channel.send(embed=ticket_embed, view=close_view)
-        await interaction.followup.edit_message(content=f"Ticket created: {channel.mention}")
+        await interaction.followup.edit_message(message_id=ticket_created_message.id, content=f"Ticket created: {channel.mention}")
         pass
 
     pass
