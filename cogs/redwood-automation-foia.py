@@ -31,7 +31,7 @@ class CloseTicketButton(discord.ui.Button):
                 print("Transcript created")
                 await channel.send(f"{interaction.channel.name}", file=transcript_file)
                 print("Transcript sent to archive channel")
-                await interaction.followup.send_message("Closing ticket...", ephemeral=True)
+                await interaction.followup.send("Closing ticket...", ephemeral=True)
                 await asyncio.sleep(2)  # Give time for the transcript to be sent
                 await interaction.channel.delete()
                 print("Ticket channel deleted")
