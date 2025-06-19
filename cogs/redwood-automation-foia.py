@@ -67,8 +67,11 @@ class RedwoodAutomationFOIA(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
+    def is_owner(interaction: discord.Interaction) -> bool:
+        return interaction.user.id == interaction.bot.owner_id
+
     @app_commands.command(name="init-foia", description="Initialize the FOIA ticket system.")
-    @app_commands.checks.has_role("1154217793030471721")  # IT Department role
+    @app_commands.check(is_owner)
     @app_commands.guilds(1150770058847588492)  # Redwood City Discord Server
     async def init_foia(self, interaction: discord.Interaction) -> None:
         """Initialize the FOIA ticket system by creating the necessary category and button."""
