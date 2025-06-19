@@ -26,7 +26,7 @@ class FOIAButton(discord.ui.View):
         super().__init__()
 
     def get_next_ticket_number(self) -> int:
-        with open("db/ticket_numbers.json", "r") as f:
+        with open("db/foia-tickets.json", "r") as f:
             data = json.load(f)
         data["last_ticket_number"] += 1
         next_number = data["last_ticket_number"]
