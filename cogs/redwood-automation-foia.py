@@ -15,19 +15,26 @@ class CloseTicketButton(discord.ui.Button):
         super().__init__(label="Close Ticket", style=discord.ButtonStyle.danger, custom_id="close_ticket")
 
     async def callback(self, interaction: discord.Interaction):
+        print("Close Ticket requested")
         if interaction.user.get_role(1150770058914705528):  # City Attorney Role
+            print("User has City Attorney role, proceeding to close ticket")
             channel = discord.utils.get(interaction.guild.channels, id=1385276524630118631)  # FOIA Tickets Archive Channel
+            print("Archive channel exists, proceeding to save transcript")
             await interaction.response.send_message("Saving transcript...", ephemeral=True)
             try:
                 message_count = 0
                 async for _ in interaction.channel.history(limit=None):
                     message_count += 1
+                print("Messages counted")
                 transcript = await chat_exporter.export(interaction.channel, tz_info='EST', fancy_times=True, limit=message_count)
                 transcript_file = discord.File(io.BytesIO(transcript.encode()), filename=f"{interaction.channel.name}.html")
+                print("Transcript created")
                 await channel.send(f"{interaction.channel.name}", file=transcript_file)
+                print("Transcript sent to archive channel")
                 await interaction.response.send_message("Closing ticket...", ephemeral=True)
                 await asyncio.sleep(2)  # Give time for the transcript to be sent
                 await interaction.channel.delete()
+                print("Ticket channel deleted")
             except Exception as e:
                 await interaction.followup.send(f"Error saving transcript: {e}", ephemeral=True)
                 print(f"Ignoring exception in CloseTicketButton callback: {e}")
