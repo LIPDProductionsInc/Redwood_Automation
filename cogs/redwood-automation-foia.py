@@ -31,7 +31,7 @@ class FOIAButton(discord.ui.View):
         data["last_ticket_number"] += 1
         next_number = data["last_ticket_number"]
 
-        with open("db/ticket_numbers.json", "w") as f:
+        with open("/home/pi/Documents/Redwood_Automation/db/foia-tickets.json", "w") as f:
             json.dump(data, f)
 
         return next_number
