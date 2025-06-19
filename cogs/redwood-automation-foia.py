@@ -15,7 +15,7 @@ class CloseTicketButton(discord.ui.Button):
         super().__init__(label="Close Ticket", style=discord.ButtonStyle.danger, custom_id="close_ticket")
 
     async def callback(self, interaction: discord.Interaction):
-        if interaction.user.has_role(1150770058914705528):  # City Attorney role
+        if interaction.user.get_role(1150770058914705528):  # City Attorney Role
             channel = discord.utils.get(interaction.guild.channels, id=1385276524630118631)  # FOIA Tickets Archive Channel
             await interaction.response.send_message("Saving transcript...", ephemeral=True)
             try:
