@@ -6,7 +6,6 @@ import json
 import typing
 
 from discord import app_commands
-from discord.ui import View
 from discord.ext import commands
 from typing import Literal
 
@@ -45,6 +44,21 @@ class CloseTicketButton(discord.ui.Button):
 
     pass
 
+class CloseView(discord.ui.View):
+    def __init__(self) -> None:
+        super().__init__(timeout=None)
+        self.add_item(CloseTicketButton())
+
+    async def interaction_check(self, interaction):
+        if interaction.user.get_role(1154217793030471721): # City Attorney Role
+            return True # Allow interaction
+        else:
+            await interaction.response.send_message("You do not have permission to close this ticket.", ephemeral=True)
+            return False
+        pass
+
+    pass
+
 class FOIAButton(discord.ui.View):
     def __init__(self) -> None:
         super().__init__()
@@ -74,7 +88,7 @@ class FOIAButton(discord.ui.View):
             city_attorney: discord.PermissionOverwrite(read_messages=True, send_messages=True)
         }
         channel = await interaction.guild.create_text_channel(name=ticket_name, category=foiacategory, overwrites=overwrites)
-        close_view = View()
+        close_view = CloseView()
         close_view.add_item(CloseTicketButton())
         ticket_embed = discord.Embed(
             title=f"FOIA Ticket #{ticket_number:03}",
