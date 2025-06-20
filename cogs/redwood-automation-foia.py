@@ -89,7 +89,6 @@ class FOIAButton(discord.ui.View):
         }
         channel = await interaction.guild.create_text_channel(name=ticket_name, category=foiacategory, overwrites=overwrites)
         close_view = CloseView()
-        close_view.add_item(CloseTicketButton())
         ticket_embed = discord.Embed(
             title=f"FOIA Ticket #{ticket_number:03}",
             description="This is a ticket for FOIA requests. Please provide what you are requesting below.",
