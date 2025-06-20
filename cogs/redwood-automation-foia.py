@@ -15,8 +15,8 @@ class CloseTicketButton(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         print("Close Ticket requested")
-        if interaction.user.get_role(1154217793030471721):  # City Attorney Role
             print("User has City Attorney role, proceeding to close ticket")
+        if interaction.user.get_role(1150770058914705528):  # City Attorney Role
             channel = discord.utils.get(interaction.guild.channels, id=1385276524630118631)  # FOIA Tickets Archive Channel
             print("Archive channel exists, proceeding to save transcript")
             await interaction.response.send_message("Saving transcript...", ephemeral=True)
@@ -50,7 +50,7 @@ class CloseView(discord.ui.View):
         self.add_item(CloseTicketButton())
 
     async def interaction_check(self, interaction):
-        if interaction.user.get_role(1154217793030471721): # City Attorney Role
+        if interaction.user.get_role(1150770058914705528): # City Attorney Role
             return True # Allow interaction
         else:
             await interaction.response.send_message("You do not have permission to close this ticket.", ephemeral=True)
