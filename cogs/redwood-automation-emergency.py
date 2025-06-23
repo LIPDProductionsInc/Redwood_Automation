@@ -136,7 +136,7 @@ class EASCog(commands.Cog, name="Emergency Alert System"):
             message += "\n\nFor more information, please visit the [Redwood City Discord](https://discord.gg/9XkQagqJGb)."
             embed.set_field_at(0, name=f"{embed.fields[0].name}", value=message, inline=False)
         elif level == "Normal Operations":
-            asyncio.sleep(0.01)
+            await asyncio.sleep(0.01)
         channel3 = ctx.bot.get_channel(1026530469111660677)
         message3 = await channel3.send(embed=embed)
         await txtmessage.publish()
