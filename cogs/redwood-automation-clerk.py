@@ -40,7 +40,7 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
     async def bulletin(self, ctx: commands.Context, bulletin_number, bulletin_link) -> None:
         channel = ctx.bot.get_channel(1151380671126839386)
         if ctx.channel.id == 1150770060684705812:
-            message = await channel.send(f'## <:NewRedwoodSeal:1068175383729537065> | {bulletin_number} SESSION BULLETIN \n\n{bulletin_link} \n\n@here')
+            message = await channel.send(f'## <:NewRedwoodSeal:1154226637114708019> | {bulletin_number} SESSION BULLETIN \n\n{bulletin_link} \n\n@here')
             await ctx.send('Bulletin posted!', ephemeral=True)
             await message.publish()
         else:
