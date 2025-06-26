@@ -83,9 +83,9 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             raise commands.BadArgument
         pass
 
-    @commands.hybrid_command(name="end-session", description="Ends a city council session, either in-game or on Discord.")
-    @commands.guild_only()
-    @commands.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
+    @app_commands.command(name="end-session", description="Ends a city council session, either in-game or on Discord.")
+    @app_commands.guilds(1150770058847588492) # Redwood City Discord Server
+    @app_commands.checks.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(session_type="The type of session to end. Either \"in-game\" or \"discord\".")
     async def end_session(self, ctx:commands.Context, session_type:Literal["In-Game", "Discord"]) -> None:
         if session_type == "Discord":
@@ -106,8 +106,6 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                     print(f"Error ending session: {e}")
                     await ctx.send(f"An error occurred while trying to end the session. {e}", ephemeral=True)
             else:
-                if ctx.interaction == None:
-                    await ctx.message.delete()
                 raise commands.UserInputError("This command can only be used in a council session channel.")
         elif session_type == "In-Game":
             channel = ctx.bot.get_channel(1151380671126839386) # City Announcements
