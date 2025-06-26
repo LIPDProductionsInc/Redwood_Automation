@@ -29,7 +29,6 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         pass
 
     @app_commands.command(name="docket", description="Has the bot announce the next item on the city council docket.")
-    @app_commands.guild_only()
     @app_commands.guilds(1150770058847588492) # Redwood City Discord Server
     @app_commands.checks.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(first="True or False: This is the first item on the docket for the session.", docket_item = "The name of the item on the docket.", docket_link = "The Trello link to the item on the docket.", debate = "Is the floor open or closed for debate?")
