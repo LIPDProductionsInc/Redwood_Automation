@@ -98,8 +98,13 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                     ctx.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True, send_messages=False), # Redwood Citizens
                     ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False, add_reactions=False, send_messages=False) # @everyone
                 }
-                await channel.send(f"<@&1150770058897920157>\n\nHi, the session in {ctx.channel.mention} has been adjourned and is awaiting transcribing!")
-                await ctx.channel.edit(category=ctx.guild.get_channel(1150770063411003425), reason="Session Ended", overwrites=overwrites, position=0)
+                try:
+                    ctx.guild.get_channel(1150770063411003425)
+                    await ctx.channel.edit(category=ctx.guild.get_channel(1150770063411003425), reason="Session Ended", overwrites=overwrites, position=0)
+                    await channel.send(f"<@&1150770058897920157>\n\nHi, the session in {ctx.channel.mention} has been adjourned and is awaiting transcribing!")
+                except Exception as e:
+                    print(f"Error ending session: {e}")
+                    await ctx.send(f"An error occurred while trying to end the session. {e}", ephemeral=True)
             else:
                 if ctx.interaction == None:
                     await ctx.message.delete()
