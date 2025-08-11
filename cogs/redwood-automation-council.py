@@ -23,6 +23,9 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
         embed.add_field(name="Deputy Mayor", value=guild.get_role(1150770058935681160).members[0].mention if len(ctx.guild.get_role(1150770058935681160).members) > 0 else "VACANT", inline=True)
         embed.add_field(name="Council Chairperson", value=guild.get_role(1150770058914705534).members[0].mention if len(ctx.guild.get_role(1150770058914705534).members) > 0 else "VACANT", inline=False)
         embed.add_field(name="City Council Members", value="\n".join([member.mention for member in guild.members if discord.utils.get(member.roles, id=1150770058914705533) and not discord.utils.get(member.roles, id=1150770058914705534)]), inline=True)
+        # Get the total number of council members
+        council_members = len([member for member in guild.members if discord.utils.get(member.roles, id=1150770058914705533)])
+        embed.add_field(name="Total Council Members", value=str(council_members), inline=False)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
         embed.timestamp = datetime.datetime.now()
         await ctx.send(embed=embed)
