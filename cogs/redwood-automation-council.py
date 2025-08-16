@@ -19,7 +19,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
             color=discord.Color.dark_blue()
             )
         guild = ctx.bot.get_guild(1150770058847588492) # Redwood City Discord Server
-        embed.add_field(name="Mayor", value=guild.get_role(1150770058935681162).members[0].mention if len(ctx.guild.get_role(1150770058935681162).members) > 0 else "VACANT", inline=False)
+        embed.add_field(name="Mayor", value=guild.get_role(1150770058935681162).members[0].mention if len(ctx.guild.get_role(1150770058935681162).members) > 0 else "VACANT", inline=True)
         embed.add_field(name="Deputy Mayor", value=guild.get_role(1150770058935681160).members[0].mention if len(ctx.guild.get_role(1150770058935681160).members) > 0 else "VACANT", inline=True)
         embed.add_field(name="Council Chairperson", value=guild.get_role(1150770058914705534).members[0].mention if len(ctx.guild.get_role(1150770058914705534).members) > 0 else "VACANT", inline=False)
         embed.add_field(name="City Council Members", value="\n".join([member.mention for member in guild.members if discord.utils.get(member.roles, id=1150770058914705533) and not discord.utils.get(member.roles, id=1150770058914705534)]), inline=True)
