@@ -93,7 +93,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     async def end_session(self, interaction:discord.Interaction, session_type:Literal["In-Game", "Discord"]) -> None:
         if session_type == "Discord":
             if interaction.channel.name.startswith("council-session"):
-                channel = interaction.bot.get_channel(1150770060684705812) # City Clerk Channel
+                channel = interaction.guild.get_channel(1150770060684705812) # City Clerk Channel
                 await interaction.send("The session is hereby adjourned. \n\n (<@&1150770058914705533>)")
                 overwrites = {
                     interaction.guild.get_role(1150770058935681157): discord.PermissionOverwrite(send_messages=False, send_messages_in_threads=False, create_public_threads=False, create_private_threads=False), # Muted
