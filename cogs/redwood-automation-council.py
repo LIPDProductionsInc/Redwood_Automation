@@ -90,28 +90,28 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @app_commands.guilds(1150770058847588492) # Redwood City Discord Server
     @app_commands.checks.has_any_role(1150770058935681162, 1150770058935681160, 1150770058914705534) # Mayor, Deputy Mayor, Council Chairperson
     @app_commands.describe(session_type="The type of session to end. Either \"in-game\" or \"discord\".")
-    async def end_session(self, ctx:commands.Context, session_type:Literal["In-Game", "Discord"]) -> None:
+    async def end_session(self, interaction:discord.Interaction, session_type:Literal["In-Game", "Discord"]) -> None:
         if session_type == "Discord":
-            if ctx.channel.name.startswith("council-session"):
-                channel = ctx.bot.get_channel(1150770060684705812) # City Clerk Channel
-                await ctx.send("The session is hereby adjourned. \n\n (<@&1150770058914705533>)")
+            if interaction.channel.name.startswith("council-session"):
+                channel = interaction.bot.get_channel(1150770060684705812) # City Clerk Channel
+                await interaction.send("The session is hereby adjourned. \n\n (<@&1150770058914705533>)")
                 overwrites = {
-                    ctx.guild.get_role(1150770058935681157): discord.PermissionOverwrite(send_messages=False, send_messages_in_threads=False, create_public_threads=False, create_private_threads=False), # Muted
-                    ctx.guild.get_role(1150770058897920157): discord.PermissionOverwrite(send_messages=True), # City Clerk
-                    ctx.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True, send_messages=False), # Redwood Citizens
-                    ctx.guild.default_role: discord.PermissionOverwrite(view_channel=False, add_reactions=False, send_messages=False) # @everyone
+                    interaction.guild.get_role(1150770058935681157): discord.PermissionOverwrite(send_messages=False, send_messages_in_threads=False, create_public_threads=False, create_private_threads=False), # Muted
+                    interaction.guild.get_role(1150770058897920157): discord.PermissionOverwrite(send_messages=True), # City Clerk
+                    interaction.guild.get_role(1150770058847588500): discord.PermissionOverwrite(view_channel=True, send_messages=False), # Redwood Citizens
+                    interaction.guild.default_role: discord.PermissionOverwrite(view_channel=False, add_reactions=False, send_messages=False) # @everyone
                 }
                 try:
-                    ctx.guild.get_channel(1150770063411003425)
-                    await ctx.channel.edit(category=ctx.guild.get_channel(1150770063411003425), reason="Session Ended", overwrites=overwrites, position=0)
-                    await channel.send(f"<@&1150770058897920157>\n\nHi, the session in {ctx.channel.mention} has been adjourned and is awaiting transcribing!")
+                    interaction.guild.get_channel(1150770063411003425)
+                    await interaction.channel.edit(category=interaction.guild.get_channel(1150770063411003425), reason="Session Ended", overwrites=overwrites, position=0)
+                    await channel.send(f"<@&1150770058897920157>\n\nHi, the session in {interaction.channel.mention} has been adjourned and is awaiting transcribing!")
                 except Exception as e:
                     print(f"Error ending session: {e}")
-                    await ctx.send(f"An error occurred while trying to end the session. {e}", ephemeral=True)
+                    await interaction.send(f"An error occurred while trying to end the session. {e}", ephemeral=True)
             else:
                 raise commands.UserInputError("This command can only be used in a council session channel.")
         elif session_type == "In-Game":
-            channel = ctx.bot.get_channel(1151380671126839386) # City Announcements
+            channel = interaction.bot.get_channel(1151380671126839386) # City Announcements
             await channel.send("The session has been adjourned.")
             pass
         else:
