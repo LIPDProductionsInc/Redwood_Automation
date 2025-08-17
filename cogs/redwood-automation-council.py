@@ -102,7 +102,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                     interaction.guild.default_role: discord.PermissionOverwrite(view_channel=False, add_reactions=False, send_messages=False) # @everyone
                 }
                 try:
-                    interaction.guild.get_channel(1150770063411003425)
+                    interaction.guild.get_channel(1150770063411003425) # Archive Category
                     await interaction.channel.edit(category=interaction.guild.get_channel(1150770063411003425), reason="Session Ended", overwrites=overwrites, position=0)
                     await channel.send(f"<@&1150770058897920157>\n\nHi, the session in {interaction.channel.mention} has been adjourned and is awaiting transcribing!")
                 except Exception as e:
