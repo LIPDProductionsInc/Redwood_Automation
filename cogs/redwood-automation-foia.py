@@ -85,14 +85,13 @@ class FOIAButton(discord.ui.View):
             city_attorney: discord.PermissionOverwrite(read_messages=True, send_messages=True)
         }
         channel = await interaction.guild.create_text_channel(name=ticket_name, category=foiacategory, overwrites=overwrites)
-        close_view = CloseView()
         ticket_embed = discord.Embed(
             title=f"FOIA Ticket #{ticket_number:03}",
             description="This is a ticket for FOIA requests. Please provide what you are requesting below.",
             color=discord.Color.blue()
         )
         ticket_embed.set_footer(text="The City Attorney's Office will respond to your request as soon as possible.")
-        await channel.send(embed=ticket_embed, view=close_view)
+        await channel.send(embed=ticket_embed, view=CloseView)
         await interaction.followup.edit_message(message_id=ticket_created_message.id, content=f"Ticket created: {channel.mention}")
         pass
 
