@@ -107,7 +107,7 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
                     await channel.send(f"<@&1150770058897920157>\n\nHi, the session in {interaction.channel.mention} has been adjourned and is awaiting transcribing!")
                 except Exception as e:
                     print(f"Error ending session: {e}")
-                    await interaction.send(f"An error occurred while trying to end the session. {e}", ephemeral=True)
+                    await interaction.response.send_message(f"An error occurred while trying to end the session. {e}", ephemeral=True)
             else:
                 raise commands.UserInputError("This command can only be used in a council session channel.")
         elif session_type == "In-Game":
