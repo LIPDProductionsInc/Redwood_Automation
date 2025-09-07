@@ -282,8 +282,8 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
 
     @app_commands.command(name="recommend-changes", description="Recommend changes to a piece of legislation to the Council")
     @app_commands.guild_only()
-    @app_commands.guilds(1150770058847588492)
-    @app_commands.checks.has_role(1150770058914705528)
+    @app_commands.guilds(1150770058847588492) # Redwood City Government guild ID
+    @app_commands.checks.has_role(1150770058914705528) # City Attorney's Office role ID
     async def recommend_changes(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_modal(RecommendationModal())
 
