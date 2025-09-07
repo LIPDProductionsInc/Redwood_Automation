@@ -263,7 +263,7 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
             colour=discord.Color.dark_blue()
         )
         guild = ctx.bot.get_guild(1150770058847588492) # Redwood City Government guild ID
-        embed.add_field(name="City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney)]), inline=True
+        embed.add_field(name="City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney)], inline=True)
         if len(discord.utils.get(guild.roles, id=city_attorney_office).members) <= 2:
             embed.add_field(name="Assistant City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney_office)]), inline=False
         else:
