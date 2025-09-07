@@ -255,15 +255,15 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
 
     @commands.hybrid_command(name="legal-office", description="View the current members of the City Attorney's Office.")
     async def legal_office(self, ctx: commands.Context) -> None:
-        city_attorney = 1150770058914705528
-        admin = 1150770058914705536
-        moderator = 646554162405834762
+        city_attorney = 1150770058914705528 # City Attorney role ID
+        admin = 1150770058914705536 # Admin role ID
+        moderator = 646554162405834762 # Moderator role ID
         embed = discord.Embed(
             title="Redwood City Attorney's Office",
             description="The current members of the City Attorney's Office are as follows:",
             colour=discord.Color.dark_blue()
         )
-        guild = ctx.bot.get_guild(1150770058847588492)
+        guild = ctx.bot.get_guild(1150770058847588492) # Redwood City Government guild ID
         embed.add_field(name="City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney) and discord.utils.get(member.roles, id=admin)][0], inline=True)
         if len(discord.utils.get(guild.roles, id=city_attorney).members) == 2:
             embed.add_field(name="Assistant City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney) and not discord.utils.get(member.roles, id=admin)][0], inline=False)
