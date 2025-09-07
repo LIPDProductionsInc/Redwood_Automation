@@ -265,9 +265,9 @@ class LegalOfficeCog(commands.Cog, name="City Attorney Commands"):
         guild = ctx.bot.get_guild(1150770058847588492) # Redwood City Government guild ID
         embed.add_field(name="City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney)][0], inline=True)
         if len(discord.utils.get(guild.roles, id=city_attorney_office).members) <= 2:
-            embed.add_field(name="Assistant City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney_office) and not discord.utils.get(member.roles, id=city_attorney)], inline=True)
+            embed.add_field(name="Assistant City Attorney", value=[member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney_office) and not discord.utils.get(member.roles, id=city_attorney)], inline=False)
         else:
-            embed.add_field(name="Assistant City Attorneys", value="\n".join([member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney_office) and not discord.utils.get(member.roles, id=city_attorney)]), inline=True)
+            embed.add_field(name="Assistant City Attorneys", value="\n".join([member.mention for member in guild.members if discord.utils.get(member.roles, id=city_attorney_office) and not discord.utils.get(member.roles, id=city_attorney)]), inline=False)
         embed.set_thumbnail(url=ctx.bot.user.avatar)
         embed.set_footer(text=f"Redwood Automation | Developed by {self.bot.owner} | Information Accurate As Of:", icon_url=str(self.bot.user.avatar))
         embed.timestamp = datetime.datetime.now()
