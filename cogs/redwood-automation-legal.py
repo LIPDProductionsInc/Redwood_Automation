@@ -52,7 +52,6 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form"):
     )
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
-        await interaction.response.send_message("Thank you for your complaint! It has been sent for review. It can be seen by the Mayor, Deputy Mayor, RW Chief of Staff, City Attorneys Office, District Attorney, County Executive, and the Founder.", ephemeral=True)
         channel = interaction.client.get_channel(1150770061146067072)
         embed = discord.Embed(
             title="New Complaint",
@@ -63,6 +62,7 @@ class ComplaintModal(discord.ui.Modal, title="Complaint Form"):
         embed.set_thumbnail(url=interaction.guild.me.avatar)
         embed.timestamp = datetime.datetime.now()
         await channel.send(embed=embed)
+        await interaction.response.send_message("Thank you for your complaint! It has been sent for review. It can be seen by the Mayor, Deputy Mayor, RW Chief of Staff, City Attorneys Office, District Attorney, County Executive, and the Founder.", ephemeral=True)
         pass
 
     async def on_error(self, interaction: discord.Interaction, error) -> None:
