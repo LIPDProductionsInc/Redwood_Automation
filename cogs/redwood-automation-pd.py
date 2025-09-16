@@ -163,7 +163,7 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
     @app_commands.checks.has_role(1005949169816576050) # RPD Public Relations Officer
     @app_commands.guilds(1005182438265335901) # Redwood Police Department server
     @app_commands.describe(event="The type of event you are hosting (More coming soon)", announce="The type of announcement you want to make", assemble_time="Time for officers to assemble (in epoch)", start_time="Time for event to start (in epoch)")
-    async def host(self, interaction: discord.Interaction, event: Literal["Mass Shift"], announce: Literal["Public", "Private"], assemble_time: typing.Optional[int], start_time: typing.Optional[int]) -> None:
+    async def host(self, interaction: discord.Interaction, event: Literal["Mass Shift"], announce: Literal["Public", "Private"], *, assemble_time: typing.Optional[int], start_time: typing.Optional[int]) -> None:
         rpd_events_channel = self.bot.get_channel(1036363530716319745)
         if event == "Mass Shift":
             if announce == "Public":
