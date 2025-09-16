@@ -1,5 +1,7 @@
 import discord
 import datetime
+import sys
+import traceback
 import typing
 
 from discord.ext import commands, menus
