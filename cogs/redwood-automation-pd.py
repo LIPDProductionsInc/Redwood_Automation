@@ -157,6 +157,33 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
         await message.edit(content=f"**Loading Complete {ctx.author.mention}, don't catch a court case**")
         pass
 
+    @app_commands.command(name="host", description="Host an event")
+    @app_commands.checks.has_role(1005949169816576050) # RPD Public Relations Officer
+    @app_commands.guilds(1005182438265335901) # Redwood Police Department server
+    @app_commands.describe(event="The type of event you are hosting (More coming soon)", announce="The type of announcement you want to make", assemble_time="Time for officers to assemble (in epoch)", start_time="Time for event to start (in epoch)")
+    async def host(self, interaction: discord.Interaction, event: Literal["Mass Shift"], announce: Literal["Public", "Private"], assemble_time: typing.Optional[int], start_time: typing.Optional[int]) -> None:
+        rpd_events_channel = self.bot.get_channel(1036363530716319745)
+        if event == "Mass Shift":
+            if announce == "Public":
+                await interaction.response.send_message(":x: TypeError: Invalid argument 'Public' for parameter 'announce' in event 'Mass Shift'. Did you mean 'Private'?", ephemeral=True)
+            elif announce == "Private":
+                message = f"""
+# <:RPD_Seal:1004836388660858893> | **MASS SHIFT**
+
+Mass Shift starting at approximately <t:{start_time}:t> (<t:{start_time}:R>).
+
+Assemble at <t:{assemble_time}:t> (<t:{assemble_time}:R>) in the briefing room downstairs.
+
+https://www.roblox.com/games/579211007/Stapleton-County-Firestone <@&1005948844791574568>
+
+-# Hosted by {interaction.user.mention}"""
+                await rpd_events_channel.send(message)
+                print(f'Announced a mass shift for RPD hosted by {interaction.user.display_name}')
+                await interaction.response.send_message("Announcement sent.", ephemeral=True)
+            else:
+                raise commands.BadArgument("Invalid announce type. (How did you even get here?)")
+        pass
+
     pass
 
 async def setup(bot) -> None:
