@@ -169,6 +169,9 @@ class RedwoodAutomationPD(commands.Cog, name="Police Commands"):
             if announce == "Public":
                 await interaction.response.send_message(":x: TypeError: Invalid argument 'Public' for parameter 'announce' in event 'Mass Shift'. Did you mean 'Private'?", ephemeral=True)
             elif announce == "Private":
+                if not assemble_time or not start_time:
+                    await interaction.response.send_message(":x: BadArgument: You must provide both an assemble time and a start time for a mass shift.", ephemeral=True)
+                    raise commands.BadArgument("You must provide both an assemble time and a start time for a mass shift.")
                 message = f"""
 # <:RPD_Seal:1004836388660858893> | **MASS SHIFT**
 
