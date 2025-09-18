@@ -236,7 +236,7 @@ https://www.roblox.com/games/579211007/Stapleton-County-Firestone <@&10059488447
             modal = CustomEventModals()
             await interaction.response.send_modal(modal)
             await modal.wait()
-            await interaction.followup.send_message(f"{modal.event_name}, {modal.event_details}, {modal.event_link}")
+            await interaction.followup.send(f"{modal.event_name}, {modal.event_details}, {modal.event_link}")
         pass
 
     pass
