@@ -12,36 +12,40 @@ from typing import Literal
 class CustomEventModals(discord.ui.Modal, title="Custom Event Form"):
     def __init__(self) -> None:
         super().__init__()
+
+        self.event_name = discord.ui.TextInput(
+            label="Event Name",
+            style=discord.TextStyle.short,
+            placeholder="Enter the name of your event",
+            required=True
+        )
+        self.add_item(self.event_name)
+
+        self.event_details = discord.ui.TextInput(
+            label="Event Details",
+            style=discord.TextStyle.long,
+            placeholder="Place the details EXACTLY as it should appear",
+            required=True
+        )
+        self.add_item(self.event_details)
+
+        self.event_link = discord.ui.TextInput(
+            label="Event Link",
+            style=discord.TextStyle.short,
+            placeholder="Enter the link to your event (Discord Event, for example)",
+            required=False
+        )
+        self.add_item(self.event_link)
+
         self.event_name = None
         self.event_details = None
         self.event_link = None
 
-    event_name = discord.ui.TextInput(
-        label="Event Name",
-        style=discord.TextStyle.short,
-        placeholder="Enter the name of your event",
-        required=True
-    )
-
-    event_details = discord.ui.TextInput(
-        label="Event Details",
-        style=discord.TextStyle.long,
-        placeholder="Place the details EXACTLY as it should appear",
-        required=True
-    )
-
-    event_link = discord.ui.TextInput(
-        label="Event Link",
-        style=discord.TextStyle.short,
-        placeholder="Enter the link to your event (Discord Event, for example)",
-        required=False
-    )
-
     async def on_submit(self, interaction: discord.Interaction) -> None:
         print("Storing event details...")
-        self.event_name = str(self.event_name)
-        self.event_details = str(self.event_details)
-        self.event_link = str(self.event_link)
+        self.event_name = self.event_name.value
+        self.event_details = self.event_details.value
+        self.event_link = self.event_link.value
         print("Event details stored.")
         pass
 
