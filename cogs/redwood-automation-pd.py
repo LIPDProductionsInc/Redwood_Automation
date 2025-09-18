@@ -47,6 +47,7 @@ class CustomEventModals(discord.ui.Modal, title="Custom Event Form"):
         self.event_details = self.event_details_input.value
         self.event_link = self.event_link_input.value
         print("Event details stored.")
+        await interaction.response.defer(ephemeral=True)
         pass
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
