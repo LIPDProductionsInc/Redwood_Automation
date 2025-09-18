@@ -241,7 +241,60 @@ https://www.roblox.com/games/579211007/Stapleton-County-Firestone <@&10059488447
             modal = CustomEventModals()
             await interaction.response.send_modal(modal)
             await modal.wait()
-            await interaction.followup.send(f"{modal.event_name}, {modal.event_details}, {modal.event_link}")
+            if announce == "Public":
+                rpd_announcements_channel = self.bot.get_channel(1026530469111660677) # RPD Announcements Channel
+                rw_city_announcements_channel = self.bot.get_channel(1151380671126839386) # Redwood City Announcements Channel
+                if modal.event_link:
+                    message = f"""
+# <:RPD_Seal:1004836388660858893> | **{modal.event_name}**
+
+{modal.event_details}
+
+{modal.event_link}
+
+-# Hosted by {interaction.user.mention}"""
+                else:
+                    message = f"""
+# <:RPD_Seal:1004836388660858893> | **{modal.event_name}**
+
+{modal.event_details}
+
+https://www.roblox.com/games/579211007/Stapleton-County-Firestone
+
+-# Hosted by {interaction.user.mention}"""
+                await rpd_events_channel.send(f"{message}\n\n<@&1005948844791574568>")
+                msg = await rpd_announcements_channel.send(message)
+                await msg.publish()
+                msg2 = await rw_city_announcements_channel.send(message)
+                await msg2.publish()
+                print(f'Announced a public {modal.event_name.lower()} event for RPD hosted by {interaction.user.display_name}')
+                await interaction.followup.send("Announcement sent.", ephemeral=True)
+            elif announce == "Private":
+                if modal.event_link:
+                    message = f"""
+# <:RPD_Seal:1004836388660858893> | **{modal.event_name}**
+
+{modal.event_details}
+
+{modal.event_link} <@&1005948844791574568>
+
+-# Hosted by {interaction.user.mention}"""
+                else:
+                    message = f"""
+# <:RPD_Seal:1004836388660858893> | **{modal.event_name}**
+
+{modal.event_details}
+
+https://www.roblox.com/games/579211007/Stapleton-County-Firestone <@&1005948844791574568>
+
+-# Hosted by {interaction.user.mention}"""
+                await rpd_events_channel.send(message)
+                print(f'Announced a private {modal.event_name.lower()} event for RPD hosted by {interaction.user.display_name}')
+                await interaction.followup.send("Announcement sent.", ephemeral=True)
+            else:
+                raise commands.BadArgument("Invalid announce type. (How did you even get here?)")
+        else:
+            raise commands.BadArgument("Invalid event type. (How did you even get here?)")
         pass
 
     pass
