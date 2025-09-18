@@ -9,6 +9,51 @@ from discord import app_commands
 from datetime import timedelta
 from typing import Literal
 
+class CustomEventModals(discord.ui.Modal, title="Custom Event Form"):
+    def __init__(self) -> None:
+        super().__init__()
+        self.event_name = None
+        self.event_details = None
+        self.event_link = None
+
+    event_name = discord.ui.TextInput(
+        label="Event Name",
+        style=discord.TextStyle.short,
+        placeholder="Enter the name of your event",
+        required=True
+    )
+
+    event_details = discord.ui.TextInput(
+        label="Event Details",
+        style=discord.TextStyle.long,
+        placeholder="Place the details EXACTLY as it should appear",
+        required=True
+    )
+
+    event_link = discord.ui.TextInput(
+        label="Event Link",
+        style=discord.TextStyle.short,
+        placeholder="Enter the link to your event (Discord Event, for example)",
+        required=False
+    )
+
+    async def on_submit(self, interaction: discord.Interaction) -> None:
+        print("Storing event details...")
+        self.event_name = self.event_name.value
+        self.event_details = self.event_details.value
+        self.event_link = self.event_link.value
+        print("Event details stored.")
+        pass
+
+    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
+        await interaction.response.send_message(f'An error occurred: {error}', ephemeral=True)
+        print('Ignoring exception in CustomEventModals:', file=sys.stderr)
+        traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+        pass
+
+    pass
+        
+
 class MDTEmbedPageSource(menus.ListPageSource):
     async def format_page(self, menu, embed):
         embed.type = 'rich'
@@ -187,6 +232,11 @@ https://www.roblox.com/games/579211007/Stapleton-County-Firestone <@&10059488447
                 await interaction.response.send_message("Announcement sent.", ephemeral=True)
             else:
                 raise commands.BadArgument("Invalid announce type. (How did you even get here?)")
+        elif event == "Custom":
+            modal = CustomEventModals()
+            await interaction.response.send_modal(modal)
+            await modal.wait()
+            await interaction.response.send_message(f"{modal.event_name}, {modal.event_details}, {modal.event_link}")
         pass
 
     pass
