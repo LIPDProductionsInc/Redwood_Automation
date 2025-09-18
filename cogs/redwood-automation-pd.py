@@ -39,9 +39,9 @@ class CustomEventModals(discord.ui.Modal, title="Custom Event Form"):
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
         print("Storing event details...")
-        self.event_name = self.event_name.value
-        self.event_details = self.event_details.value
-        self.event_link = self.event_link.value
+        self.event_name = self.event_name
+        self.event_details = self.event_details
+        self.event_link = self.event_link
         print("Event details stored.")
         pass
 
