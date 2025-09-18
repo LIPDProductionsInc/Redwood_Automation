@@ -13,29 +13,29 @@ class CustomEventModals(discord.ui.Modal, title="Custom Event Form"):
     def __init__(self) -> None:
         super().__init__()
 
-        self.event_name = discord.ui.TextInput(
+        self.event_name_input = discord.ui.TextInput(
             label="Event Name",
             style=discord.TextStyle.short,
             placeholder="Enter the name of your event",
             required=True
         )
-        self.add_item(self.event_name)
+        self.add_item(self.event_name_input)
 
-        self.event_details = discord.ui.TextInput(
+        self.event_details_input = discord.ui.TextInput(
             label="Event Details",
             style=discord.TextStyle.long,
             placeholder="Place the details EXACTLY as it should appear",
             required=True
         )
-        self.add_item(self.event_details)
+        self.add_item(self.event_details_input)
 
-        self.event_link = discord.ui.TextInput(
+        self.event_link_input = discord.ui.TextInput(
             label="Event Link",
             style=discord.TextStyle.short,
             placeholder="Enter the link to your event (Discord Event, for example)",
             required=False
         )
-        self.add_item(self.event_link)
+        self.add_item(self.event_link_input)
 
         self.event_name = None
         self.event_details = None
@@ -43,9 +43,9 @@ class CustomEventModals(discord.ui.Modal, title="Custom Event Form"):
 
     async def on_submit(self, interaction: discord.Interaction) -> None:
         print("Storing event details...")
-        self.event_name = self.event_name.value
-        self.event_details = self.event_details.value
-        self.event_link = self.event_link.value
+        self.event_name = self.event_name_input.value
+        self.event_details = self.event_details_input.value
+        self.event_link = self.event_link_input.value
         print("Event details stored.")
         pass
 
