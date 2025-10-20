@@ -323,7 +323,7 @@ The roles that are requestable are listed below and require you to ping <@&11507
         embed = discord.Embed(
             title='Accessible Trello Boards',
             type='rich',
-            description=f'{trello_client.list_boards()}'
+            description=f'{trello_client.list_boards().name}'
         )
         embed.set_footer(text=f"Developed by {self.bot.owner}")
         embed.set_thumbnail(url=str(self.bot.user.avatar))
