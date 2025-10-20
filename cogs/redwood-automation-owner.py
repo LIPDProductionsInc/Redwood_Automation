@@ -8,15 +8,21 @@ import psutil
 import roblox
 import sys
 import traceback
+import trello
 
 from discord import app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 from roblox import Client
+from trello import TrelloClient
 from typing import Literal
 
 load_dotenv()
 client = Client(os.getenv("RobloxToken"))
+trello_client = TrelloClient(
+    api_key=os.getenv("TrelloAPIKey"),
+    api_secret=os.getenv("TrelloAPISecret")
+)
 
 class OwnerCog(commands.Cog, name="Owner Commands"):
 
@@ -307,6 +313,19 @@ The roles that are requestable are listed below and require you to ping <@&11507
         embed.add_field(name='**Notice to Department Employees:**', value=notice, inline=True)
         embed.add_field(name='**Notice to Business Owners:**', value=businesses, inline=True)
         embed.set_footer(text=f"Developed by {self.bot.owner}", icon_url=ctx.author.avatar)
+        embed.set_thumbnail(url=str(self.bot.user.avatar))
+        await ctx.send(embed=embed)
+        pass
+
+    @commands.command(name='boards', hidden=True)
+    @commands.is_owner()
+    async def _boards(self, ctx:commands.Context) -> None:
+        embed = discord.Embed(
+            title='Accessible Trello Boards',
+            type='rich',
+            description=f'{trello_client.list_boards()}'
+        )
+        embed.set_footer(text=f"Developed by {self.bot.owner}")
         embed.set_thumbnail(url=str(self.bot.user.avatar))
         await ctx.send(embed=embed)
         pass
