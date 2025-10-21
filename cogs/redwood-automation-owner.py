@@ -21,7 +21,8 @@ load_dotenv()
 client = Client(os.getenv("RobloxToken"))
 trello_client = TrelloClient(
     api_key=os.getenv("TrelloAPIKey"),
-    api_secret=os.getenv("TrelloAPISecret")
+    api_secret=os.getenv("TrelloAPISecret"),
+    token=os.getenv("TrelloToken")
 )
 
 class OwnerCog(commands.Cog, name="Owner Commands"):
