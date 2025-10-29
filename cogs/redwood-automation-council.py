@@ -305,9 +305,9 @@ class CouncilCog(commands.Cog, name="Council Commands Cog"):
     @commands.guild_only()
     async def charter(self, ctx:commands.Context) -> None:
         if discord.utils.get(ctx.author.roles, id=1150770058935681162) or discord.utils.get(ctx.author.roles, id=1150770058935681160) or discord.utils.get(ctx.author.roles, id=1150770058914705534) or discord.utils.get(ctx.author.roles, id=1150770058914705533): # Mayor, Deputy Mayor, Council Chairperson, City Council
-            await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n<https://docs.google.com/document/d/198OcRUF1Nbd9G1QrxvLXPgtxwofkImTXTa47xh-0pww/edit?usp=sharing>", ephemeral=True)
+            await ctx.send("Here is the link to the Charter: (Where you can also make a copy for revisions/request edit access. Make sure to provide reasoning.) \n<https://docs.google.com/document/d/1Or8zmjojgLhp_E4JgybehFBhzsIy0eh1NbfzciPAWsc/edit?usp=sharing>", ephemeral=True)
         else:
-            await ctx.send("Current City Charter: \n<https://drive.google.com/file/d/1Q6QzU6fZM6vZ8W8m9X9F1pOJl0v1hWkK/view?usp=sharing>")
+            await ctx.send("Current City Charter: \n<https://drive.google.com/file/d/1NyT5dix0r9-fkKsK0p6LKgctQds9a7La/view?usp=sharing>")
             pass
         pass
 
