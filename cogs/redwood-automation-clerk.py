@@ -44,6 +44,7 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
         if type == "investigation":
             category = interaction.guild.get_channel(1150770061146067074) #Legal Office Channel
             if interaction.channel.name.endswith("-investigation") or interaction.channel.name.endswith("-interview"):
+                await interaction.response.send_message(f"Archiving...")
                 try:
                     message_count = 0
                     async for _ in interaction.channel.history(limit=None):
@@ -58,6 +59,7 @@ class ClerkCog(commands.Cog, name="Clerk Commands"):
                 raise app_commands.TypeError("Did not expect this condition.")
         elif type == "oath":
             if "oath" in interaction.channel.name:
+                await interaction.response.send_message(f"Archiving...")
                 try:
                     message_count = 0
                     async for _ in interaction.channel.history(limit=None):
